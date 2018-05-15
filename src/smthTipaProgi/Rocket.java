@@ -4,26 +4,45 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Rocket extends JLabel {
-	public Rocket() {
-		super(new ImageIcon("res/rocket (2).png"));
+	public static final int STEP = 2;
 
+	public Rocket(int x, int y) {
+		super(new ImageIcon("res/rocket (2).png"));
 		setSize(100, 140);
-		setLocation(0, 523);
+		setLocation(x, y);
 	}
 
 	public void left() {
-		int x = this.getX();
-		int y = this.getY();
-
-		this.setLocation(x - 10, y);
+		if (this.getX() + 20 > 0) {
+			move(this, -STEP);
+		}
 
 	}
 
 	public void right() {
-		int x = this.getX();
+		if (this.getX() + this.getWidth() < 1280) {
+			move(this, STEP);
+		}
+	}
+
+	private void move(Rocket rocket, int step) {
 		int y = this.getY();
 
-		this.setLocation(x + 10, y);
+		new Thread() {
+			public void run() {
+				for (int i = 0; i < 10; i++) {
+					int x = rocket.getX();
+					rocket.setLocation(x + step, y);
+					pause(5);
+				}
+			}
+		}.start();
+	}
 
+	private void pause(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+		}
 	}
 }
