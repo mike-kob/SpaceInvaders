@@ -5,6 +5,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -22,18 +25,31 @@ public class Game {
 	public static Integer BACK_LAYER = 1;
 	public static Integer ROCKET_LAYER = 2;
 	public static Integer ALIEN_LAYER = 3;
+	public static Integer BOMB_LAYER = 4;
+	
 	
 
 	private static int ALIEN_ROWS = 5;
 	private static int ALIEN_COLUMNS = 7;
 
 	static Alien[][] aliens = new Alien[ALIEN_ROWS][ALIEN_COLUMNS];
+	public static Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				drawEverything();
 				frame.addKeyListener(keyL);
+				
+			
+				
+		
+				
+				
+				
+				
+				
+				
 			}
 		});
 	}
@@ -47,7 +63,7 @@ public class Game {
 		JLabel l = new JLabel(new ImageIcon("res/background.png"));
 		l.setLocation(0, 0);
 		l.setSize(1280, 720);
-		lp.add(l, BACK_LAYER);
+		lp.add(l, Game.BACK_LAYER);
 
 		lp.add(fighter, Game.ROCKET_LAYER);
 
@@ -80,7 +96,21 @@ public class Game {
 			} else if (key == KeyEvent.VK_RIGHT) {
 				fighter.right();
 			}
+			else if (key== KeyEvent.VK_ENTER) {
+				Bomb bomb = new Bomb(fighter.getX());
+				System.out.println(fighter.getX());
+				lp.add(bomb,Game.BOMB_LAYER);
+				bombs.add(bomb);
+				
+			}
 		}
 
 	};
+	
+	public static void updateAll(Set<? extends Updatable> elements) {
+		System.out.println("huh");
+		for (Updatable temp : elements) {
+			temp.update();
+		}
+	}
 }
