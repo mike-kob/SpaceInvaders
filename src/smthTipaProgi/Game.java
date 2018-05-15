@@ -1,6 +1,5 @@
 package smthTipaProgi;
 
-import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -21,13 +20,11 @@ public class Game {
 	static JLayeredPane lp = frame.getLayeredPane();;
 	static Rocket fighter;
 	static JPanel grid;
-	
+
 	public static Integer BACK_LAYER = 1;
 	public static Integer ROCKET_LAYER = 2;
 	public static Integer ALIEN_LAYER = 3;
 	public static Integer BOMB_LAYER = 4;
-	
-	
 
 	private static int ALIEN_ROWS = 5;
 	private static int ALIEN_COLUMNS = 7;
@@ -41,16 +38,17 @@ public class Game {
 				drawEverything();
 				frame.addKeyListener(keyL);
 				
-			
-				
+				/*boolean flag = true;
+				while(flag) {
+					updateAll(bombs);
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+					}
+					
+				}*/}
+
 		
-				
-				
-				
-				
-				
-				
-			}
 		});
 	}
 
@@ -65,27 +63,20 @@ public class Game {
 		l.setVisible(true);
 		l.setSize(1280, 980);
 		lp.add(l, BACK_LAYER);
-		
 
-
-		
 		fighter = new Rocket(0, 770);
 		lp.add(fighter, Game.ROCKET_LAYER);
 
 		grid = new JPanel(null);
 		/*
-		for (int i = 0; i < ALIEN_ROWS; i++) {
-			for (int j = 0; j < ALIEN_COLUMNS; j++) {
-				Alien cur = new Alien();
-				cur.setLocation(i*30, j*30);
-				aliens[i][j] = cur;
-				grid.add(cur);
-			}
-		}*/
-		
+		 * for (int i = 0; i < ALIEN_ROWS; i++) { for (int j = 0; j < ALIEN_COLUMNS;
+		 * j++) { Alien cur = new Alien(); cur.setLocation(i*30, j*30); aliens[i][j] =
+		 * cur; grid.add(cur); } }
+		 */
+
 		grid.setOpaque(true);
-		grid.setSize(700,450);
-		grid.setLocation((frame.getWidth()-grid.getWidth())/2, 50);
+		grid.setSize(700, 450);
+		grid.setLocation((frame.getWidth() - grid.getWidth()) / 2, 50);
 		grid.setVisible(true);
 		lp.add(grid, Game.ALIEN_LAYER);
 	}
@@ -97,24 +88,20 @@ public class Game {
 
 			if (key == KeyEvent.VK_LEFT) {
 				fighter.left();
-				
+
 			} else if (key == KeyEvent.VK_RIGHT) {
 				fighter.right();
-			}
-			else if (key== KeyEvent.VK_ENTER) {
-				
-						Bomb bomb = new Bomb(fighter.getX());
-						System.out.println(fighter.getX());
-						lp.add(bomb,Game.BOMB_LAYER);
-						bombs.add(bomb);
+			} else if (key == KeyEvent.VK_ENTER) {
 
-					
-				
+				Bomb bomb = new Bomb(fighter.getX());
+				lp.add(bomb, Game.BOMB_LAYER);
+				bombs.add(bomb);
+
 			}
 		}
 
 	};
-	
+
 	public static void updateAll(Set<? extends Updatable> elements) {
 		System.out.println("huh");
 		for (Updatable temp : elements) {

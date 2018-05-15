@@ -14,7 +14,6 @@ public class Bomb extends JLabel implements Updatable {
 		super(new ImageIcon("res/bomb (2).png"));
 		setLocation( x+20, 480);
 		setSize(50, 50);
-		System.out.println("ooops");
 	}
 	 
 	@Override
