@@ -26,31 +26,43 @@ public class Game {
 	public static Integer ALIEN_LAYER = 3;
 	public static Integer BOMB_LAYER = 4;
 
-	private static int ALIEN_ROWS = 5;
-	private static int ALIEN_COLUMNS = 7;
-
-	static Alien[][] aliens = new Alien[ALIEN_ROWS][ALIEN_COLUMNS];
-	public static Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
+	static final Alien[][] aliens = new Alien[Constants.ALIEN_ROWS][Constants.ALIEN_COLUMNS];
+	public static final Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				drawEverything();
+
 				frame.addKeyListener(keyL);
 				
-				/*boolean flag = true;
-				while(flag) {
-					updateAll(bombs);
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-					}
-					
-				}*/}
+				addBombs();
 
-		
+				
+
+			}
+
+			
 		});
 	}
+	
+	private static void addBombs() {
+		
+		new Thread() {
+			public void run() {
+				boolean flag = true;
+				while (flag) {
+					updateAll(bombs);
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+		}.start();
+		
+	}
+
 
 	private static void drawEverything() {
 		frame.setSize(1280, 980);
@@ -62,12 +74,14 @@ public class Game {
 		l.setLocation(0, 0);
 		l.setVisible(true);
 		l.setSize(1280, 980);
-		lp.add(l, BACK_LAYER);
+
+		lp.add(l, Constants.BACK_LAYER);
 
 		fighter = new Rocket(0, 770);
-		lp.add(fighter, Game.ROCKET_LAYER);
+		lp.add(fighter, Constants.ROCKET_LAYER);
 
 		grid = new JPanel(null);
+
 		/*
 		 * for (int i = 0; i < ALIEN_ROWS; i++) { for (int j = 0; j < ALIEN_COLUMNS;
 		 * j++) { Alien cur = new Alien(); cur.setLocation(i*30, j*30); aliens[i][j] =
@@ -76,9 +90,18 @@ public class Game {
 
 		grid.setOpaque(true);
 		grid.setSize(700, 450);
+
+		JLabel d = new JLabel(new ImageIcon("res/defence.png"));
+		d.setLocation(50, 570);
+		d.setSize(250, 200);
+		lp.add(d, Constants.DEFENCE_LAYER);
+
+		grid.setOpaque(true);
+		grid.setSize(700, 300);
+
 		grid.setLocation((frame.getWidth() - grid.getWidth()) / 2, 50);
 		grid.setVisible(true);
-		lp.add(grid, Game.ALIEN_LAYER);
+		lp.add(grid, Constants.ALIEN_LAYER);
 	}
 
 	static KeyListener keyL = new KeyAdapter() {
@@ -91,19 +114,26 @@ public class Game {
 
 			} else if (key == KeyEvent.VK_RIGHT) {
 				fighter.right();
+
 			} else if (key == KeyEvent.VK_ENTER) {
 
 				Bomb bomb = new Bomb(fighter.getX());
 				lp.add(bomb, Game.BOMB_LAYER);
 				bombs.add(bomb);
 
+			} else if (key == KeyEvent.VK_SPACE) {
+				Bomb bomb = new Bomb(fighter.getX());
+				lp.add(bomb, Constants.BOMB_LAYER);
+				bombs.add(bomb);
+
 			}
 		}
+		
 
 	};
 
 	public static void updateAll(Set<? extends Updatable> elements) {
-		System.out.println("huh");
+
 		for (Updatable temp : elements) {
 			temp.update();
 		}
