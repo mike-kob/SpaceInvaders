@@ -21,8 +21,8 @@ public class Game {
 	static Rocket fighter;
 	static JPanel grid;
 
-	static Alien[][] aliens = new Alien[Constants.ALIEN_ROWS][Constants.ALIEN_COLUMNS];
-	public static Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
+	static final Alien[][] aliens = new Alien[Constants.ALIEN_ROWS][Constants.ALIEN_COLUMNS];
+	public static final Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
