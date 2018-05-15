@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
 public class Game {
 	static JFrame frame = new JFrame();
 	static JLayeredPane lp = frame.getLayeredPane();;
-	static Rocket fighter = new Rocket();
+	static Rocket fighter;
 	static JPanel grid;
 	
 	public static Integer BACK_LAYER = 1;
@@ -55,16 +55,21 @@ public class Game {
 	}
 
 	private static void drawEverything() {
-		frame.setSize(1280, 720);
+		frame.setSize(1280, 980);
 		frame.setVisible(true);
 		frame.setLayout(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JLabel l = new JLabel(new ImageIcon("res/background.png"));
 		l.setLocation(0, 0);
-		l.setSize(1280, 720);
-		lp.add(l, Game.BACK_LAYER);
+		l.setVisible(true);
+		l.setSize(1280, 980);
+		lp.add(l, BACK_LAYER);
+		
 
+
+		
+		fighter = new Rocket(0, 770);
 		lp.add(fighter, Game.ROCKET_LAYER);
 
 		grid = new JPanel(new GridLayout(ALIEN_ROWS, ALIEN_COLUMNS));
@@ -97,10 +102,13 @@ public class Game {
 				fighter.right();
 			}
 			else if (key== KeyEvent.VK_ENTER) {
-				Bomb bomb = new Bomb(fighter.getX());
-				System.out.println(fighter.getX());
-				lp.add(bomb,Game.BOMB_LAYER);
-				bombs.add(bomb);
+				
+						Bomb bomb = new Bomb(fighter.getX());
+						System.out.println(fighter.getX());
+						lp.add(bomb,Game.BOMB_LAYER);
+						bombs.add(bomb);
+
+					
 				
 			}
 		}
