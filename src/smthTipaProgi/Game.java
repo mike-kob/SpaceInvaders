@@ -22,7 +22,7 @@ public class Game {
 	public static Integer BACK_LAYER = 1;
 	public static Integer ROCKET_LAYER = 2;
 	public static Integer ALIEN_LAYER = 3;
-	
+	public static Integer DEFENCE_LAYER = 4;
 
 	private static int ALIEN_ROWS = 5;
 	private static int ALIEN_COLUMNS = 7;
@@ -64,8 +64,14 @@ public class Game {
 			}
 		}*/
 		
+		JLabel d = new JLabel(new ImageIcon("res/defence.png"));
+		d.setLocation(50, 570);
+		d.setSize(250,200);
+		lp.add(d, DEFENCE_LAYER);
+		
+		
 		grid.setOpaque(true);
-		grid.setSize(700,450);
+		grid.setSize(700,300);
 		grid.setLocation((frame.getWidth()-grid.getWidth())/2, 50);
 		grid.setVisible(true);
 		lp.add(grid, Game.ALIEN_LAYER);
