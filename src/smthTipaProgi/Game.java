@@ -53,22 +53,22 @@ public class Game {
 		fighter = new Rocket(0, 770);
 		lp.add(fighter, Game.ROCKET_LAYER);
 
-		grid = new JPanel(new GridLayout(ALIEN_ROWS, ALIEN_COLUMNS));
-		
+		grid = new JPanel(null);
+		/*
 		for (int i = 0; i < ALIEN_ROWS; i++) {
 			for (int j = 0; j < ALIEN_COLUMNS; j++) {
 				Alien cur = new Alien();
+				cur.setLocation(i*30, j*30);
 				aliens[i][j] = cur;
 				grid.add(cur);
 			}
-		}
+		}*/
+		
 		grid.setOpaque(true);
-		grid.setLocation(10, 10);
-		grid.setSize(400,200);
+		grid.setSize(700,450);
+		grid.setLocation((frame.getWidth()-grid.getWidth())/2, 50);
 		grid.setVisible(true);
 		lp.add(grid, Game.ALIEN_LAYER);
-		grid.remove(aliens[2][2]);
-		grid.remove(aliens[2][1]);
 	}
 
 	static KeyListener keyL = new KeyAdapter() {
