@@ -1,5 +1,6 @@
 package smthTipaProgi;
 
+import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Set;
@@ -18,7 +19,7 @@ public class Game {
 	static Rocket fighter;
 	static JPanel grid;
 
-	static final Alien[][] aliens = new Alien[Constants.ALIEN_ROWS][Constants.ALIEN_COLUMNS];
+	static final Set<Alien> aliens = Collections.newSetFromMap(new ConcurrentHashMap<Alien, Boolean>());
 	public static final Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
@@ -39,6 +40,7 @@ public class Game {
 				boolean flag = true;
 				while (flag) {
 					updateAll(bombs);
+					updateAll(aliens);
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
@@ -64,17 +66,18 @@ public class Game {
 		fighter = new Rocket(0, 770);
 		lp.add(fighter, Constants.ROCKET_LAYER);
 		grid = new JPanel(null);
-
 		for (int i = 0; i < Constants.ALIEN_ROWS; i++) {
-			for (int j = 0; j < Constants.ALIEN_COLUMNS; j++) {
+			for (int j = 0; j < 1/*Constants.ALIEN_COLUMNS*/; j++) {
 				Alien cur = new Alien();
+				cur.setOpaque(true);
 				cur.setLocation(i * 150, j * 40);
-				aliens[i][j] = cur;
+				aliens.add(cur);
 				grid.add(cur);
+				
 			}
 		}
-
-		grid.setOpaque(true);
+		
+		grid.setBackground(new Color(255,255,255,1));
 		grid.setSize(700, 450);
 
 		JLabel d = new JLabel(new ImageIcon("res/defence.png"));
@@ -92,7 +95,7 @@ public class Game {
 
 	public static void moveGrid() {
 		new Thread() {
-			private int direction = 50;
+			private int direction = Constants.ALIEN_SPEED;
 
 			public void run() {
 				int x = grid.getX();
