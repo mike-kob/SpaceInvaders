@@ -79,6 +79,7 @@ public class Game {
 		fighter = new Rocket(0, 770);
 		lp.add(fighter, Constants.ROCKET_LAYER);
 		grid = new JPanel(null);
+		
 		for (int i = 0; i < Constants.ALIEN_ROWS; i++) {
 			for (int j = 0; j < Constants.ALIEN_COLUMNS; j++) {
 				Alien cur = new Alien(j * (64+Constants.INTERVAL_X), i * 64, i);
