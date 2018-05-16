@@ -27,7 +27,7 @@ public class Game {
 				drawEverything();
 				frame.addKeyListener(new GameListener());
 				addBombs();
-				addAlience();
+				addAliens();
 				moveGrid();
 			}
 		});
@@ -49,7 +49,7 @@ public class Game {
 	}
 	
 	
-	private static void addAlience() {
+	private static void addAliens() {
 		new Thread() {
 			public void run() {
 				boolean flag = true;

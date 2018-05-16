@@ -34,6 +34,7 @@ public class Bomb extends JLabel implements Updatable {
 			Game.lp.repaint();
 		} else {
 			this.setLocation(x, y - STEP);
+			Game.lp.repaint();
 		}
 	}
 

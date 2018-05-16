@@ -18,7 +18,9 @@ public class GameListener implements KeyListener, Runnable {
         switch(ke.getKeyCode()) {
             case KeyEvent.VK_LEFT: isLeftPressed = true; break;
             case KeyEvent.VK_RIGHT: isRightPressed = true; break;
-            case KeyEvent.VK_SPACE: isSpacePressed = true; break;
+            case KeyEvent.VK_SPACE: 
+            	isSpacePressed = true;
+            	break;
         }
     }
 
@@ -40,10 +42,11 @@ public class GameListener implements KeyListener, Runnable {
             		Game.fighter.right();
             	}
             	if(isSpacePressed) {
+            		if(Game.bombs.size()==0) {
             		Bomb bomb = new Bomb(Game.fighter.getX());
     				Game.lp.add(bomb, Constants.BOMB_LAYER);
     				Game.bombs.add(bomb);
-            	}
+            	}}
                 Thread.sleep(20);
             } catch(Exception exc) {
                 exc.printStackTrace();
