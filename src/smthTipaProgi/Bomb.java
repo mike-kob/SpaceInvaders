@@ -13,9 +13,11 @@ public class Bomb extends JLabel implements Updatable {
 	private static final long serialVersionUID = 1L;
 
 	public Bomb(int x) {
+		
 		super(new ImageIcon("res/bomb (2).png"));
-		setLocation(x+20, 720);
-		setSize(50, 50);
+		ImageIcon im = new ImageIcon("res/bomb (2).png");
+		setLocation(x+20, Constants.ROCKET_LEVEL);
+		setSize(im.getIconWidth(), im.getIconHeight());
 	}
 	 
 	@Override
