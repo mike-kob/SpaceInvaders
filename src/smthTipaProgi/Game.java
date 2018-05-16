@@ -33,21 +33,14 @@ public class Game {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				drawEverything();
-
 				frame.addKeyListener(keyL);
-				
 				addBombs();
-
-				
-
 			}
-
-			
 		});
 	}
-	
+
 	private static void addBombs() {
-		
+
 		new Thread() {
 			public void run() {
 				boolean flag = true;
@@ -60,9 +53,8 @@ public class Game {
 				}
 			}
 		}.start();
-		
-	}
 
+	}
 
 	private static void drawEverything() {
 		frame.setSize(1280, 980);
@@ -76,17 +68,18 @@ public class Game {
 		l.setSize(1280, 980);
 
 		lp.add(l, Constants.BACK_LAYER);
-
 		fighter = new Rocket(0, 770);
 		lp.add(fighter, Constants.ROCKET_LAYER);
-
 		grid = new JPanel(null);
 
-		/*
-		 * for (int i = 0; i < ALIEN_ROWS; i++) { for (int j = 0; j < ALIEN_COLUMNS;
-		 * j++) { Alien cur = new Alien(); cur.setLocation(i*30, j*30); aliens[i][j] =
-		 * cur; grid.add(cur); } }
-		 */
+		for (int i = 0; i < Constants.ALIEN_ROWS; i++) {
+			for (int j = 0; j < Constants.ALIEN_COLUMNS; j++) {
+				Alien cur = new Alien();
+				cur.setLocation(i * 150, j * 40);
+				aliens[i][j] = cur;
+				grid.add(cur);
+			}
+		}
 
 		grid.setOpaque(true);
 		grid.setSize(700, 450);
@@ -128,7 +121,6 @@ public class Game {
 
 			}
 		}
-		
 
 	};
 

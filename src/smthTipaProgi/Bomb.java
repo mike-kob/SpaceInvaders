@@ -20,10 +20,16 @@ public class Bomb extends JLabel implements Updatable {
 	 
 	@Override
 	public void update() {
+	
 		int x = this.getX();
 		int y = this.getY();
+		if(x<0 || y<0) {
+		Game.lp.remove(this);
+		Game.bombs.remove(this);
+		Game.lp.repaint();
+		}else {
 		this.setLocation(x,y-STEP);
-	
+		}
 	}
 
 }
