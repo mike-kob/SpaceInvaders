@@ -18,7 +18,9 @@ public class GameListener implements KeyListener, Runnable {
         switch(ke.getKeyCode()) {
             case KeyEvent.VK_LEFT: isLeftPressed = true; break;
             case KeyEvent.VK_RIGHT: isRightPressed = true; break;
-            case KeyEvent.VK_SPACE: isSpacePressed = true; break;
+            case KeyEvent.VK_SPACE: 
+            	isSpacePressed = true;
+            	break;
         }
     }
 

@@ -48,10 +48,10 @@ public class Alien extends JLabel implements Updatable {
 	}
 
 	public boolean isHit(Bomb bomb) {
-		int x = this.getX();
-		int y = this.getY();
+		int x = Game.grid.getX() + this.getX();
+		int y = Game.grid.getY() + this.getY();
 
-		if (bomb.getX() > x && bomb.getX() + bomb.getWidth() < x + this.getWidth()) {
+		if (x - 20 < bomb.getX()  && bomb.getX() + bomb.getWidth() < x + this.getWidth() + 20) {
 			return y + this.getHeight() >= bomb.getY();
 		}
 		return false;
