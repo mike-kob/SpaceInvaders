@@ -1,10 +1,10 @@
 package smthTipaProgi;
 
-import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,7 +28,7 @@ public class Game {
 				frame.addKeyListener(new GameListener());
 				BombFactory();
 				addAliens();
-				moveGrid();
+				gridFactory();
 			}
 		});
 	}
@@ -54,7 +54,7 @@ public class Game {
 			public void run() {
 				boolean flag = true;
 				while (flag) {
-				//	updateAll(aliens);
+					updateAll(AlienContainer.getAliens());
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
@@ -78,63 +78,20 @@ public class Game {
 		lp.add(l, Constants.BACK_LAYER);
 		fighter = new Rocket(0, 770);
 		lp.add(fighter, Constants.ROCKET_LAYER);
-		grid = new JPanel(null);
-		
-		for (int i = 0; i < Constants.ALIEN_ROWS; i++) {
-			for (int j = 0; j < Constants.ALIEN_COLUMNS; j++) {
-				Alien cur = new Alien(j * (64+Constants.INTERVAL_X), i * 64, i);
-				cur.setOpaque(true);
-				aliens.add(cur);
-				grid.add(cur);
-				
-			}
-		}
-		
-		grid.setBackground(new Color(255,255,255, 1));
-		grid.setSize(1000, 1000);
 
-		JLabel d = new JLabel(new ImageIcon("res/defence.png"));
-		d.setLocation(50, 570);
-		d.setSize(250, 200);
-		lp.add(d, Constants.DEFENCE_LAYER);
-
-		grid.setOpaque(true);
-		grid.setSize(700, 350);
-
-		grid.setLocation((frame.getWidth() - grid.getWidth()) / 2, 50);
-		grid.setVisible(true);
-		lp.add(grid, Constants.ALIEN_LAYER);
+		lp.add(AlienContainer.getPanel(), Constants.ALIEN_LAYER);
 	}
 
-	public static void moveGrid() {
+	public static void gridFactory() {
 		new Thread() {
-			
-			private int direction = Constants.ALIEN_SPEED;
-
 			public void run() {
-				int x = grid.getX();
-				int y = grid.getY();
-				
-				while (y + grid.getHeight() < frame.getHeight()) {
-					x = grid.getX();
-					y = grid.getY();
-					try {
-						if (x + grid.getWidth() > frame.getWidth() || x < 0) {
-							direction *= -1;
-							y += 50;
-							grid.setLocation(x, y);
-							Thread.sleep(1000);
-						}
-						grid.setLocation(x + direction, y);
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-
-					}
+				while (true) {
+					AlienContainer.update();
 				}
 			}
 		}.start();
 	}
-
+	
 	public static void updateAll(Set<? extends Updatable> elements) {
 		for (Updatable temp : elements) {
 			temp.update();

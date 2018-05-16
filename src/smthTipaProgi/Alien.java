@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Alien extends JLabel  {
+public class Alien extends JLabel implements Updatable {
 	/**
 	 * 
 	 */
@@ -33,27 +33,23 @@ public class Alien extends JLabel  {
 		setLocation(x, y);
 	}
 
-	/*@Override
+	@Override
 	public void update() {
-		for (Bomb bomb : Game.bombs) {
+		for (Bomb bomb : BombContainer.getter()) {
 			if (isHit(bomb)) {
-				Game.aliens.remove(this);
-				Game.bombs.remove(bomb);
-				Game.grid.remove(this);
-				Game.lp.remove(bomb);
-				Game.lp.repaint();
-				System.out.println("bla");
+				BombContainer.remove(bomb);
+				AlienContainer.remove(this);
 			}
 		}
 	}
 
 	public boolean isHit(Bomb bomb) {
-		int x = Game.grid.getX() + this.getX();
-		int y = Game.grid.getY() + this.getY();
+		int x = AlienContainer.getGridX() + this.getX();
+		int y = AlienContainer.getGridY() + this.getY();
 
 		if (x - 20 < bomb.getX()  && bomb.getX() + bomb.getWidth() < x + this.getWidth() + 20) {
 			return y + this.getHeight() >= bomb.getY();
 		}
 		return false;
-	}*/
+	}
 }
