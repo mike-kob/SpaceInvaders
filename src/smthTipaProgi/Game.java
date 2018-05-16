@@ -27,6 +27,7 @@ public class Game {
 				drawEverything();
 				frame.addKeyListener(new GameListener());
 				addBombs();
+				moveGrid();
 			}
 		});
 	}
@@ -89,8 +90,35 @@ public class Game {
 		lp.add(grid, Constants.ALIEN_LAYER);
 	}
 
-	public static void updateAll(Set<? extends Updatable> elements) {
+	public static void moveGrid() {
+		new Thread() {
+			private int direction = 50;
 
+			public void run() {
+				int x = grid.getX();
+				int y = grid.getY();
+				while (y + grid.getHeight() < frame.getHeight()) {
+					x = grid.getX();
+					y = grid.getY();
+					try {
+						if (x + grid.getWidth() > frame.getWidth() || x < 0) {
+							direction *= -1;
+							y += 50;
+							grid.setLocation(x, y);
+							Thread.sleep(1000);
+						}
+
+						grid.setLocation(x + direction, y);
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+
+					}
+				}
+			}
+		}.start();
+	}
+
+	public static void updateAll(Set<? extends Updatable> elements) {
 		for (Updatable temp : elements) {
 			temp.update();
 		}
