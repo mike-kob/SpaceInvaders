@@ -39,7 +39,6 @@ public class Game {
 				boolean flag = true;
 				while (flag) {
 					updateAll(bombs);
-					updateAll(aliens);
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
@@ -55,7 +54,6 @@ public class Game {
 			public void run() {
 				boolean flag = true;
 				while (flag) {
-				
 					updateAll(aliens);
 					try {
 						Thread.sleep(10);
@@ -82,8 +80,8 @@ public class Game {
 		lp.add(fighter, Constants.ROCKET_LAYER);
 		grid = new JPanel(null);
 		for (int i = 0; i < Constants.ALIEN_ROWS; i++) {
-			for (int j = 0; j < 1/*Constants.ALIEN_COLUMNS*/; j++) {
-				Alien cur = new Alien(i * 150, j * 40, 1);
+			for (int j = 0; j < Constants.ALIEN_COLUMNS; j++) {
+				Alien cur = new Alien(j * (64+Constants.INTERVAL_X), i * 64, i);
 				cur.setOpaque(true);
 				aliens.add(cur);
 				grid.add(cur);
@@ -91,8 +89,8 @@ public class Game {
 			}
 		}
 		
-		grid.setBackground(new Color(255,255,255,1));
-		grid.setSize(700, 450);
+		grid.setBackground(new Color(255,255,255, 1));
+		grid.setSize(1000, 1000);
 
 		JLabel d = new JLabel(new ImageIcon("res/defence.png"));
 		d.setLocation(50, 570);
@@ -100,7 +98,7 @@ public class Game {
 		lp.add(d, Constants.DEFENCE_LAYER);
 
 		grid.setOpaque(true);
-		grid.setSize(700, 300);
+		grid.setSize(700, 350);
 
 		grid.setLocation((frame.getWidth() - grid.getWidth()) / 2, 50);
 		grid.setVisible(true);
