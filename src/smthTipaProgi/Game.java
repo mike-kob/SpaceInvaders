@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,7 +32,6 @@ public class Game {
 	}
 
 	private static void addBombs() {
-
 		new Thread() {
 			public void run() {
 				boolean flag = true;
@@ -46,7 +44,6 @@ public class Game {
 				}
 			}
 		}.start();
-
 	}
 
 	private static void drawEverything() {
@@ -92,7 +89,7 @@ public class Game {
 
 	public static void moveGrid() {
 		new Thread() {
-			private int direction = 50;
+			private int direction = 30;
 
 			public void run() {
 				int x = grid.getX();
