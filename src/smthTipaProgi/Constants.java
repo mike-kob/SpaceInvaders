@@ -12,7 +12,7 @@ public class Constants {
 	public static final int INTERVAL_X = 35;
 	public static final int INTERVAL_Y = 25;
 	
-	public static final int ALIEN_SPEED = 0;
+	public static final int ALIEN_SPEED = 50;
 	
 
 	public static final int ALIEN_ROWS = 5;
