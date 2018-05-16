@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Alien extends JLabel implements Updatable {
+public class Alien extends JLabel  {
 	/**
 	 * 
 	 */
@@ -33,7 +33,7 @@ public class Alien extends JLabel implements Updatable {
 		setLocation(x, y);
 	}
 
-	@Override
+	/*@Override
 	public void update() {
 		for (Bomb bomb : Game.bombs) {
 			if (isHit(bomb)) {
@@ -55,5 +55,5 @@ public class Alien extends JLabel implements Updatable {
 			return y + this.getHeight() >= bomb.getY();
 		}
 		return false;
-	}
+	}*/
 }

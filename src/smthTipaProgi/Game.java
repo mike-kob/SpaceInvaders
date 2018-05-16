@@ -19,26 +19,26 @@ public class Game {
 	static JPanel grid;
 
 	static final Set<Alien> aliens = Collections.newSetFromMap(new ConcurrentHashMap<Alien, Boolean>());
-	public static final Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
+	//public static final Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				drawEverything();
 				frame.addKeyListener(new GameListener());
-				addBombs();
+				BombFactory();
 				addAliens();
 				moveGrid();
 			}
 		});
 	}
 
-	private static void addBombs() {
+	private static void BombFactory() {
 		new Thread() {
 			public void run() {
 				boolean flag = true;
 				while (flag) {
-					updateAll(bombs);
+					BombContainer.update();
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
@@ -54,7 +54,7 @@ public class Game {
 			public void run() {
 				boolean flag = true;
 				while (flag) {
-					updateAll(aliens);
+				//	updateAll(aliens);
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {

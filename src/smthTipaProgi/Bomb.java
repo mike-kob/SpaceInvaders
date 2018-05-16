@@ -5,12 +5,8 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Bomb extends JLabel implements Updatable {
-	public static final int STEP = 2;
-
-	/**
-	 * 
-	 */
+public class Bomb extends JLabel{
+	
 	private static final long serialVersionUID = 1L;
 
 	public Bomb(int x) {
@@ -23,19 +19,6 @@ public class Bomb extends JLabel implements Updatable {
 		setSize(im.getIconWidth(), im.getIconHeight());
 	}
 
-	@Override
-	public void update() {
 
-		int x = this.getX();
-		int y = this.getY();
-		if (x < 0 || y < 0) {
-			Game.lp.remove(this);
-			Game.bombs.remove(this);
-			Game.lp.repaint();
-		} else {
-			this.setLocation(x, y - STEP);
-			Game.lp.repaint();
-		}
-	}
 
 }
