@@ -21,11 +21,6 @@ public class Game {
 	static Rocket fighter;
 	static JPanel grid;
 
-	public static Integer BACK_LAYER = 1;
-	public static Integer ROCKET_LAYER = 2;
-	public static Integer ALIEN_LAYER = 3;
-	public static Integer BOMB_LAYER = 4;
-
 	static final Alien[][] aliens = new Alien[Constants.ALIEN_ROWS][Constants.ALIEN_COLUMNS];
 	public static final Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
 
@@ -33,7 +28,7 @@ public class Game {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				drawEverything();
-				frame.addKeyListener(keyL);
+				frame.addKeyListener(new GameListener());
 				addBombs();
 			}
 		});
@@ -96,33 +91,6 @@ public class Game {
 		grid.setVisible(true);
 		lp.add(grid, Constants.ALIEN_LAYER);
 	}
-
-	static KeyListener keyL = new KeyAdapter() {
-		@Override
-		public void keyPressed(KeyEvent e) {
-			int key = e.getKeyCode();
-
-			if (key == KeyEvent.VK_LEFT) {
-				fighter.left();
-
-			} else if (key == KeyEvent.VK_RIGHT) {
-				fighter.right();
-
-			} else if (key == KeyEvent.VK_ENTER) {
-
-				Bomb bomb = new Bomb(fighter.getX());
-				lp.add(bomb, Game.BOMB_LAYER);
-				bombs.add(bomb);
-
-			} else if (key == KeyEvent.VK_SPACE) {
-				Bomb bomb = new Bomb(fighter.getX());
-				lp.add(bomb, Constants.BOMB_LAYER);
-				bombs.add(bomb);
-
-			}
-		}
-
-	};
 
 	public static void updateAll(Set<? extends Updatable> elements) {
 
