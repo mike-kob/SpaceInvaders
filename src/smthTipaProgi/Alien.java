@@ -6,12 +6,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Alien extends JLabel implements Updatable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public Alien(int x, int y, int rang) {
 		super();
-	
+
 		switch (rang) {
 		case 0:
 			this.setIcon(new ImageIcon("res/ufo/rowhigh.png"));
@@ -25,7 +25,7 @@ public class Alien extends JLabel implements Updatable {
 		default:
 			this.setIcon(new ImageIcon("res/ufo/rowlow.png"));
 		}
-		this.setBackground(new Color(0,0,0,1));
+		this.setBackground(new Color(0, 0, 0, 1));
 		this.setOpaque(false);
 		setSize(64, 44);
 		setVisible(true);
@@ -46,8 +46,10 @@ public class Alien extends JLabel implements Updatable {
 		int x = AlienContainer.getGridX() + this.getX();
 		int y = AlienContainer.getGridY() + this.getY();
 
-		if (x - 20 < bomb.getX()  && bomb.getX() + bomb.getWidth() < x + this.getWidth() + 20) {
-			return y + this.getHeight() >= bomb.getY();
+		if (x - 20 < bomb.getX() && bomb.getX() + bomb.getWidth() < x + this.getWidth() + 20) {
+			if (y + this.getHeight() >= bomb.getY() && (y < bomb.getY())) {
+				return true;
+			}
 		}
 		return false;
 	}
