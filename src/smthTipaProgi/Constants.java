@@ -13,7 +13,7 @@ public class Constants {
 	public static final int HEIGHT_OF_LABEL = 10;
 	public static final int WEIGHT_OF_LABEL = 240;
 	public static final int BOMB_SPEED= 5;
-	
+	public static final int DYN_SPEED= 2;
 	public static final int INTERVAL_X = 35;
 	public static final int INTERVAL_Y = 25;
 	

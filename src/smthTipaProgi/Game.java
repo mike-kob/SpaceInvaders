@@ -103,11 +103,12 @@ public class Game {
 		new Thread() {
 			public void run() {
 				while (true) {
-					BombContainer.addEnemyBomb();
 					try {
-						Thread.sleep(5000);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 					}
+					BombContainer.addEnemyBomb();
+					
 				}
 			}
 		}.start();

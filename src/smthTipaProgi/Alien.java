@@ -34,7 +34,7 @@ public class Alien extends JLabel implements Updatable {
 
 	@Override
 	public void update() {
-		for (Bomb bomb : BombContainer.getter()) {
+		for (Bomb bomb : BombContainer.getBombs()) {
 			if (isHit(bomb)) {
 				BombContainer.remove(bomb);
 				AlienContainer.remove(this);

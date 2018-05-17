@@ -23,8 +23,12 @@ public class BombContainer {
 		}
 		
 	}
-	public static Set<Bomb> getter() {
+	public static Set<Bomb> getBombs() {
 		return bombs;
+	}
+	
+	public static Set<Dynamite> getEnemyBombs() {
+		return enemyBombs;
 	}
 	
 	public static void addEnemyBomb() {
@@ -35,7 +39,6 @@ public class BombContainer {
 			column = rand.nextInt(Constants.ALIEN_COLUMNS);
 			
 		}
-		System.out.println("bla" + column);
 		Dynamite dyn = new Dynamite(AlienContainer.getLastInColumn(column));
 		enemyBombs.add(dyn);
 		Game.lp.add(dyn, Constants.DYNAMITE_LAYER);
@@ -70,7 +73,7 @@ public class BombContainer {
 			if (x > Game.frame.getWidth() || y > Game.frame.getHeight()) {
 				removeDyn(dyn);
 			} else {
-				dyn.setLocation(x, y + Constants.BOMB_SPEED);
+				dyn.setLocation(x, y + Constants.DYN_SPEED);
 			}
 		}
 	}

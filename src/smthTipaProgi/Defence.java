@@ -25,9 +25,17 @@ public class Defence extends JLabel implements Updatable {
 	
 	
 	public void update() {
-		for (Bomb bomb : BombContainer.getter()) {
+		for (Bomb bomb : BombContainer.getBombs()) {
 			if (isHit(bomb)) {
 				BombContainer.remove(bomb);
+				life++;
+				hb.remove(life);
+			}
+		}
+		
+		for (Dynamite dyn : BombContainer.getEnemyBombs()) {
+			if (isHit(dyn)) {
+				BombContainer.removeDyn(dyn);
 				life++;
 				hb.remove(life);
 			}
@@ -43,4 +51,14 @@ public class Defence extends JLabel implements Updatable {
 		}
 		return false;
 	}
+	
+	public boolean isHit(Dynamite dyn) {
+		int	x = this.getX();
+		int	y = this.getY();
+		
+			if (x-20<=dyn.getX()&&x+this.getWidth()>=dyn.getX()) {
+				return y<=dyn.getY();
+			}
+			return false;
+		}
 }
