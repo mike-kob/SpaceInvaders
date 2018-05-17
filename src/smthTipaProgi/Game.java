@@ -34,35 +34,6 @@ public class Game {
 		});
 	}
 
-	private static void bombFactory() {
-		new Thread() {
-			public void run() {
-				while (true) {
-					BombContainer.update();
-					try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {
-					}
-				}
-			}
-		}.start();
-	}
-	
-	
-	private static void alienFactory() {
-		new Thread() {
-			public void run() {
-				while (true) {
-					AlienContainer.updateAliens();
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-					}
-				}
-			}
-		}.start();
-	}
-
 	private static void drawEverything() {
 		frame.setSize(1280, 980);
 		frame.setVisible(true);
@@ -81,9 +52,35 @@ public class Game {
 
 		lp.add(AlienContainer.getPanel(), Constants.ALIEN_LAYER);
 		DefenceContainer.add();
-	
-		
 	} 
+	
+	private static void bombFactory() {
+		new Thread() {
+			public void run() {
+				while (true) {
+					BombContainer.update();
+					try {
+						Thread.sleep(5);
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+		}.start();
+	}	
+	
+	private static void alienFactory() {
+		new Thread() {
+			public void run() {
+				while (true) {
+					AlienContainer.updateAliens();
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+		}.start();
+	}
 	
 	public static void enemyBombFactory(){
 		new Thread() {
