@@ -47,7 +47,7 @@ public class Alien extends JLabel implements Updatable {
 		int y = AlienContainer.getGridY() + this.getY();
 
 		if (x - 20 < bomb.getX()  && bomb.getX() + bomb.getWidth() < x + this.getWidth() + 20) {
-			return y + this.getHeight() >= bomb.getY();//хз >= или == лучше
+			return y + this.getHeight() >= bomb.getY();
 		}
 		return false;
 	}

@@ -86,6 +86,7 @@ public class Game {
 
 		lp.add(AlienContainer.getPanel(), Constants.ALIEN_LAYER);
 		//пока через сраку прописано (потом переделаю)
+		
 		df1 = new Defence(40,500);
 		lp.add(df1,Constants.DEFENCE_LAYER);
 		defence.add(df1);
