@@ -125,7 +125,6 @@ public class AlienContainer {
 		for (int column = 0; column < Constants.ALIEN_COLUMNS; column++) {
 			for (int row = 0; row < Constants.ALIEN_ROWS; row++) {
 				if (matrix[row][column] != null) {
-
 					return matrix[row][column].getX() + grid.getX();
 				}
 			}
@@ -137,7 +136,6 @@ public class AlienContainer {
 		for (int column = Constants.ALIEN_COLUMNS - 1; column >= 0; column--) {
 			for (int row = 0; row < Constants.ALIEN_ROWS; row++) {
 				if (matrix[row][column] != null) {
-					System.out.println(row + " " + column);
 					return matrix[row][column].getX() + grid.getX() + matrix[row][column].getWidth();
 				}
 			}

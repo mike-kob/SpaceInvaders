@@ -19,7 +19,7 @@ public class Game {
 	static JPanel grid;
 	static Defence df1,df2,df3;
 
-	static final Set<Alien> aliens = Collections.newSetFromMap(new ConcurrentHashMap<Alien, Boolean>());
+	
 	public static final Set<Defence> defence = Collections.newSetFromMap(new ConcurrentHashMap<Defence, Boolean>());
 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
@@ -30,10 +30,7 @@ public class Game {
 				BombFactory();
 				addAliens();
 				gridFactory();
-				defenceFactory();
-				
-				
-				
+				defenceFactory();				
 			}
 		});
 	}
