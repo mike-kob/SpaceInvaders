@@ -46,8 +46,7 @@ public class AlienContainer {
 		Game.lp.add(d, Constants.DEFENCE_LAYER);
 
 		grid.setOpaque(true);
-		grid.setSize(700, 350);
-
+		grid.setSize(700, 350);;
 		grid.setLocation((frame.getWidth() - grid.getWidth()) / 2, 50);
 		grid.setVisible(true);
 		return grid;
@@ -66,6 +65,20 @@ public class AlienContainer {
 		grid.remove(alien);
 		grid.repaint();
 		Game.lp.repaint();
+		removeFromMatrix(alien);
+		
+	}
+
+	private static void removeFromMatrix(Alien alien) {
+		for (int column = 0; column < Constants.ALIEN_COLUMNS; column++) {
+			for (int row = 0; row < Constants.ALIEN_ROWS; row++) {
+				if (matrix[row][column] == alien) {
+					matrix[row][column] = null;
+					return;
+				}
+			}
+		}
+
 	}
 
 	public static void update() {
@@ -78,13 +91,17 @@ public class AlienContainer {
 			x = grid.getX();
 			y = grid.getY();
 			try {
-				if (x + grid.getWidth() > frame.getWidth() || x < 0) {
+				if (getRightBorder() > frame.getWidth() || getLeftBorder() < 0) {
 					direction *= -1;
 					y += 50;
 					grid.setLocation(x, y);
+					grid.repaint();
+					Game.lp.repaint();
 					Thread.sleep(1000);
 				}
 				grid.setLocation(x + direction, y);
+				grid.repaint();
+				Game.lp.repaint();
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 
@@ -100,4 +117,29 @@ public class AlienContainer {
 		}
 		return null;
 	}
+
+	public static int getLeftBorder() {
+		for (int column = 0; column < Constants.ALIEN_COLUMNS; column++) {
+			for (int row = 0; row < Constants.ALIEN_ROWS; row++) {
+				if (matrix[row][column] != null) {
+
+					return matrix[row][column].getX() + grid.getX();
+				}
+			}
+		}
+		return -1;
+	}
+
+	public static int getRightBorder() {
+		for (int column = Constants.ALIEN_COLUMNS - 1; column >= 0; column--) {
+			for (int row = 0; row < Constants.ALIEN_ROWS; row++) {
+				if (matrix[row][column] != null) {
+					System.out.println(row + " " + column);
+					return matrix[row][column].getX() + grid.getX() + matrix[row][column].getWidth();
+				}
+			}
+		}
+		return -1;
+	}
+
 }
