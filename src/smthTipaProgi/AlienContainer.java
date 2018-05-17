@@ -41,11 +41,6 @@ public class AlienContainer {
 		grid.setSize(1000, 1000);
 		
 
-		JLabel d = new JLabel(new ImageIcon("res/defence.png"));
-		d.setLocation(50, 570);
-		d.setSize(250, 200);
-		Game.lp.add(d, Constants.DEFENCE_LAYER);
-
 		grid.setOpaque(true);
 		grid.setSize(700, 350);;
 
