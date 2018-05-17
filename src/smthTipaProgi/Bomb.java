@@ -15,7 +15,7 @@ public class Bomb extends JLabel{
 		this.setIcon(im);
 		this.setBackground(new Color(255, 255, 255, 30));
 		this.setOpaque(false);
- 		setLocation(x + 20, Constants.ROCKET_LEVEL);
+ 		setLocation(x + 20, Constants.BOMB_STARTING_LEVEL);
 		setSize(im.getIconWidth(), im.getIconHeight());
 		
 	}

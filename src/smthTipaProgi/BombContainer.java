@@ -16,7 +16,7 @@ public class BombContainer {
 	public static void add() {
 		t2 = System.currentTimeMillis();
 		if(t2-t1>1000) {
-		Bomb bomb = new Bomb(Game.fighter.getX());
+		Bomb bomb = new Bomb(Game.fighter.getX()+15);
 		Game.lp.add(bomb, Constants.BOMB_LAYER);
 		bombs.add(bomb);
 		t1 =  System.currentTimeMillis();
