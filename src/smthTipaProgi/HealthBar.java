@@ -12,14 +12,14 @@ public class HealthBar extends JPanel {
 		setBackground(Color.WHITE);
 		setOpaque(true);
 		setLocation(x, y + height);
-		setSize(Constants.WEIGHT_OF_LABEL, Constants.HEIGHT_OF_LABEL);
+		setSize(Constants.WEIGHT_OF_BAR, Constants.HEIGHT_OF_BAR);
 
 		for(int i=1;i<=3;i++) {
 		JLabel l = new JLabel();
 		l.setBackground(Color.GREEN);
 		l.setOpaque(true);
 		l.setLocation(x, y + height);
-		l.setSize(i*Constants.WEIGHT_OF_LABEL / 3, Constants.HEIGHT_OF_LABEL);
+		l.setSize(i*Constants.WEIGHT_OF_BAR / 3, Constants.HEIGHT_OF_BAR);
 		Game.lp.add(l, Constants.DEFENCE_LAYER);
 		labels[i-1]=l;
 		}
