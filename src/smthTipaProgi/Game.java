@@ -17,7 +17,7 @@ public class Game {
 	static JLayeredPane lp = frame.getLayeredPane();;
 	static Rocket fighter;
 	static JPanel grid;
-	static Defence df1,df2,df3;
+	static Defence df1,df2,df3,df4;
 
 	
 	public static final Set<Defence> defence = Collections.newSetFromMap(new ConcurrentHashMap<Defence, Boolean>());
@@ -85,15 +85,19 @@ public class Game {
 		lp.add(AlienContainer.getPanel(), Constants.ALIEN_LAYER);
 		//пока через сраку прописано (потом переделаю)
 		
-		df1 = new Defence(40,500);
+		df1 = new Defence(frame.getWidth()/5);
 		lp.add(df1,Constants.DEFENCE_LAYER);
 		defence.add(df1);
-		df2 = new Defence(500,500);
+		df2 = new Defence(2*frame.getWidth()/5);
 		lp.add(df2,Constants.DEFENCE_LAYER);
 		defence.add(df2);
-		df3 = new Defence(1000,500);
+		df3 = new Defence(3*frame.getWidth()/5);
 		lp.add(df3,Constants.DEFENCE_LAYER);
 		defence.add(df3);
+		df4 = new Defence(4*frame.getWidth()/5);
+		lp.add(df4,Constants.DEFENCE_LAYER);
+		defence.add(df4);
+		
 		
 	
 		

@@ -9,18 +9,19 @@ public class Defence extends JLabel implements Updatable {
 	private int life;
 	private HealthBar hb;
 	
-	public  Defence(int x,int y) {
+	public  Defence(int mid) {
 		super();
-		ImageIcon im = new ImageIcon("res/asteroid.png");
+		ImageIcon im = new ImageIcon("res/asteroid (1).png");
 		this.setIcon(im);
-		this.setBackground(new Color(0,0,0,1));
+		this.setBackground(new Color(255,255,255,0));
 		this.setOpaque(false);
-		setLocation(x, y);
 		setSize(im.getIconWidth(), im.getIconHeight());
+		setLocation(mid-this.getWidth()/2, Constants.DEFENCE_Y);
+		System.out.println(this.getWidth()/2);
 		
-		hb = new HealthBar(x,y,im.getIconHeight());
+		
+		hb = new HealthBar(mid-this.getWidth()/2, Constants.DEFENCE_Y,im.getIconHeight());
 		Game.lp.add(hb, Constants.DEFENCE_LAYER);
-		
 	}
 	
 	
