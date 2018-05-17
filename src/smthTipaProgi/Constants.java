@@ -7,6 +7,8 @@ public class Constants {
 	public static final Integer BOMB_LAYER = 4;
 	public static final Integer DEFENCE_LAYER = 3;
 	public static final int ROCKET_LEVEL = 720;
+	public static final int HEIGHT_OF_LABEL = 10;
+	public static final int WEIGHT_OF_LABEL = 240;
 
 	
 	public static final int INTERVAL_X = 35;

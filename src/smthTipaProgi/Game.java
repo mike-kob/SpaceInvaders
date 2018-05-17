@@ -19,7 +19,6 @@ public class Game {
 	static JPanel grid;
 
 	static final Set<Alien> aliens = Collections.newSetFromMap(new ConcurrentHashMap<Alien, Boolean>());
-	//public static final Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
@@ -80,7 +79,6 @@ public class Game {
 		lp.add(fighter, Constants.ROCKET_LAYER);
 
 		lp.add(AlienContainer.getPanel(), Constants.ALIEN_LAYER);
-	}
 
 	public static void gridFactory() {
 		new Thread() {
