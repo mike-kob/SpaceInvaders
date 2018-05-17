@@ -23,4 +23,5 @@ public class Constants {
 
 	public static final int ALIEN_ROWS = 5;
 	public static final int ALIEN_COLUMNS = 7;
+	public static final int NUM_OF_DEF = 4;
 }
