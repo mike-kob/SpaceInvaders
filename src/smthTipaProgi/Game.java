@@ -1,5 +1,6 @@
 package smthTipaProgi;
 
+import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ImageIcon;
@@ -7,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
+
+import smthTipaProgi.Mp3Player;
 
 public class Game {
 	public static final JFrame frame = new JFrame();
@@ -25,8 +28,23 @@ public class Game {
 				gridFactory();
 				defenceFactory();
 				enemyBombFactory();
+				try {
+					musicFactory();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
+	}
+
+	protected static void musicFactory() throws FileNotFoundException {
+		new Thread() {
+			public void run() {
+				Mp3Player mp = new Mp3Player("res/pirati.mp3");
+				mp.play();
+			}
+		}.start();
 	}
 
 	private static void drawEverything() {
