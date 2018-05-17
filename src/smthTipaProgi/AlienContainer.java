@@ -37,8 +37,9 @@ public class AlienContainer {
 			}
 		}
 
-		grid.setBackground(new Color(255, 255, 255, 1));
+		
 		grid.setSize(1000, 1000);
+		
 
 		JLabel d = new JLabel(new ImageIcon("res/defence.png"));
 		d.setLocation(50, 570);
@@ -47,6 +48,13 @@ public class AlienContainer {
 
 		grid.setOpaque(true);
 		grid.setSize(700, 350);;
+
+		grid.setOpaque(false);
+		grid.setBackground(new Color(255, 255, 255, 30));
+	
+		grid.setSize(700, 350);
+
+
 		grid.setLocation((frame.getWidth() - grid.getWidth()) / 2, 50);
 		grid.setVisible(true);
 		return grid;
