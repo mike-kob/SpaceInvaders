@@ -17,8 +17,10 @@ public class Game {
 	static JLayeredPane lp = frame.getLayeredPane();;
 	static Rocket fighter;
 	static JPanel grid;
+	static Defence df1,df2,df3;
 
 	static final Set<Alien> aliens = Collections.newSetFromMap(new ConcurrentHashMap<Alien, Boolean>());
+	public static final Set<Defence> defence = Collections.newSetFromMap(new ConcurrentHashMap<Defence, Boolean>());
 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
@@ -28,6 +30,10 @@ public class Game {
 				BombFactory();
 				addAliens();
 				gridFactory();
+				defenceFactory();
+				
+				
+				
 			}
 		});
 	}
@@ -79,6 +85,20 @@ public class Game {
 		lp.add(fighter, Constants.ROCKET_LAYER);
 
 		lp.add(AlienContainer.getPanel(), Constants.ALIEN_LAYER);
+		//пока через сраку прописано (потом переделаю)
+		df1 = new Defence(40,500);
+		lp.add(df1,Constants.DEFENCE_LAYER);
+		defence.add(df1);
+		df2 = new Defence(500,500);
+		lp.add(df2,Constants.DEFENCE_LAYER);
+		defence.add(df2);
+		df3 = new Defence(1000,500);
+		lp.add(df3,Constants.DEFENCE_LAYER);
+		defence.add(df3);
+		
+	
+		
+	} 
 
 	public static void gridFactory() {
 		new Thread() {
@@ -89,6 +109,18 @@ public class Game {
 			}
 		}.start();
 	}
+	
+	public static void defenceFactory() {
+		new Thread() {
+			public void run() {
+				while (true) {
+					updateAll(defence);
+				}
+			}
+		}.start();
+	}
+	
+
 	
 	public static void updateAll(Set<? extends Updatable> elements) {
 		for (Updatable temp : elements) {
