@@ -27,22 +27,22 @@ public class Game {
 			public void run() {
 				drawEverything();
 				frame.addKeyListener(new GameListener());
-				BombFactory();
-				addAliens();
+				bombFactory();
+				alienFactory();
 				gridFactory();
-				defenceFactory();				
+				defenceFactory();	
+				enemyBombFactory();
 			}
 		});
 	}
 
-	private static void BombFactory() {
+	private static void bombFactory() {
 		new Thread() {
 			public void run() {
-				boolean flag = true;
-				while (flag) {
+				while (true) {
 					BombContainer.update();
 					try {
-						Thread.sleep(10);
+						Thread.sleep(5);
 					} catch (InterruptedException e) {
 					}
 				}
@@ -51,7 +51,7 @@ public class Game {
 	}
 	
 	
-	private static void addAliens() {
+	private static void alienFactory() {
 		new Thread() {
 			public void run() {
 				boolean flag = true;
@@ -71,7 +71,8 @@ public class Game {
 		frame.setVisible(true);
 		frame.setLayout(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		frame.setResizable(false);
+		
 		JLabel l = new JLabel(new ImageIcon("res/background.png"));
 		l.setLocation(0, 0);
 		l.setVisible(true);
@@ -97,6 +98,20 @@ public class Game {
 	
 		
 	} 
+	
+	public static void enemyBombFactory(){
+		new Thread() {
+			public void run() {
+				while (true) {
+					BombContainer.addEnemyBomb();
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+		}.start();
+	}
 
 	public static void gridFactory() {
 		new Thread() {
