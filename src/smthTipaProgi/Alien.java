@@ -14,21 +14,20 @@ public class Alien extends JLabel implements Updatable {
 
 		switch (rang) {
 		case 0:
-			this.setIcon(new ImageIcon("res/ufo/rowhigh.png"));
+			this.setIcon(new ImageIcon(Const.UFO_HIGH_PATH));
 			break;
 		case 1:
-			this.setIcon(new ImageIcon("res/ufo/rowmid.png"));
+			this.setIcon(new ImageIcon(Const.UFO_MID_PATH));
 			break;
 		case 2:
-			this.setIcon(new ImageIcon("res/ufo/rowmid.png"));
+			this.setIcon(new ImageIcon(Const.UFO_MID_PATH));
 			break;
 		default:
-			this.setIcon(new ImageIcon("res/ufo/rowlow.png"));
+			this.setIcon(new ImageIcon(Const.UFO_LOW_PATH));
 		}
+
 		this.setBackground(new Color(0, 0, 0, 1));
-		this.setOpaque(false);
 		setSize(64, 44);
-		setVisible(true);
 		setLocation(x, y);
 	}
 
@@ -42,7 +41,7 @@ public class Alien extends JLabel implements Updatable {
 		}
 	}
 
-	public boolean isHit(Bomb bomb) {
+	private boolean isHit(Bomb bomb) {
 		int x = AlienContainer.getGridX() + this.getX();
 		int y = AlienContainer.getGridY() + this.getY();
 

@@ -1,13 +1,10 @@
 package smthTipaProgi;
 
-import java.awt.Color;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class AlienContainer {
@@ -15,7 +12,7 @@ public class AlienContainer {
 	private static JFrame frame = Game.frame;
 	private static final Set<Alien> aliens = Collections.newSetFromMap(new ConcurrentHashMap<Alien, Boolean>());
 
-	private static Alien[][] matrix = new Alien[Constants.ALIEN_ROWS][Constants.ALIEN_COLUMNS];
+	private static Alien[][] matrix = new Alien[Const.ALIEN_ROWS][Const.ALIEN_COLUMNS];
 
 	public static Set<Alien> getAliens() {
 		return aliens;
@@ -25,10 +22,10 @@ public class AlienContainer {
 		return aliens.size() == 0;
 	}
 
-	public static JPanel getPanel() {
-		for (int i = 0; i < Constants.ALIEN_ROWS; i++) {
-			for (int j = 0; j < Constants.ALIEN_COLUMNS; j++) {
-				Alien cur = new Alien(j * (64 + Constants.INTERVAL_X), i * 64, i);
+	public static void drawPanel() {
+		for (int i = 0; i < Const.ALIEN_ROWS; i++) {
+			for (int j = 0; j < Const.ALIEN_COLUMNS; j++) {
+				Alien cur = new Alien(j * (64 + Const.INTERVAL_X), i * 64, i);
 				matrix[i][j] = cur;
 				cur.setOpaque(true);
 				aliens.add(cur);
@@ -37,22 +34,12 @@ public class AlienContainer {
 			}
 		}
 
-		
-		grid.setSize(1000, 1000);
-		
-
-		grid.setOpaque(true);
-		grid.setSize(700, 350);;
-
 		grid.setOpaque(false);
-		grid.setBackground(new Color(255, 255, 255, 30));
-	
+		grid.setBackground(Const.TRANSPARENT);
 		grid.setSize(700, 350);
-
-
-		grid.setLocation((frame.getWidth() - grid.getWidth()) / 2, 50);
-		grid.setVisible(true);
-		return grid;
+		grid.setLocation((frame.getWidth() - grid.getWidth()) / 2, Const.ALIENT_START_Y);
+		
+		Game.lp.add(grid, Const.ALIEN_LAYER);
 	}
 
 	public static int getGridX() {
@@ -69,7 +56,6 @@ public class AlienContainer {
 		grid.repaint();
 		Game.lp.repaint();
 		removeFromMatrix(alien);
-		
 	}
 
 	public static void updateAliens() {
@@ -80,8 +66,8 @@ public class AlienContainer {
 	
 	
 	private static void removeFromMatrix(Alien alien) {
-		for (int column = 0; column < Constants.ALIEN_COLUMNS; column++) {
-			for (int row = 0; row < Constants.ALIEN_ROWS; row++) {
+		for (int column = 0; column < Const.ALIEN_COLUMNS; column++) {
+			for (int row = 0; row < Const.ALIEN_ROWS; row++) {
 				if (matrix[row][column] == alien) {
 					matrix[row][column] = null;
 					return;
@@ -92,7 +78,7 @@ public class AlienContainer {
 	}
 
 	public static void update() {
-		int direction = Constants.ALIEN_SPEED;
+		int direction = Const.ALIEN_STEP;
 
 		int x = grid.getX();
 		int y = grid.getY();
@@ -107,12 +93,12 @@ public class AlienContainer {
 					grid.setLocation(x, y);
 					grid.repaint();
 					Game.lp.repaint();
-					Thread.sleep(1000);
+					Thread.sleep(Const.ALIEN_TIME_STEP);
 				}
 				grid.setLocation(x + direction, y);
 				grid.repaint();
 				Game.lp.repaint();
-				Thread.sleep(1000);
+				Thread.sleep(Const.ALIEN_TIME_STEP);
 			} catch (InterruptedException e) {
 
 			}
@@ -120,7 +106,7 @@ public class AlienContainer {
 	}
 
 	public static Alien getLastInColumn(int i) {
-		for (int j = Constants.ALIEN_ROWS - 1; j >= 0; j--) {
+		for (int j = Const.ALIEN_ROWS - 1; j >= 0; j--) {
 			if (matrix[j][i] != null) {
 				return matrix[j][i];
 			}
@@ -129,8 +115,8 @@ public class AlienContainer {
 	}
 
 	public static int getLeftBorder() {
-		for (int column = 0; column < Constants.ALIEN_COLUMNS; column++) {
-			for (int row = 0; row < Constants.ALIEN_ROWS; row++) {
+		for (int column = 0; column < Const.ALIEN_COLUMNS; column++) {
+			for (int row = 0; row < Const.ALIEN_ROWS; row++) {
 				if (matrix[row][column] != null) {
 					return matrix[row][column].getX() + grid.getX();
 				}
@@ -140,8 +126,8 @@ public class AlienContainer {
 	}
 
 	public static int getRightBorder() {
-		for (int column = Constants.ALIEN_COLUMNS - 1; column >= 0; column--) {
-			for (int row = 0; row < Constants.ALIEN_ROWS; row++) {
+		for (int column = Const.ALIEN_COLUMNS - 1; column >= 0; column--) {
+			for (int row = 0; row < Const.ALIEN_ROWS; row++) {
 				if (matrix[row][column] != null) {
 					return matrix[row][column].getX() + grid.getX() + matrix[row][column].getWidth();
 				}

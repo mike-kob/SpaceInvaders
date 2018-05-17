@@ -1,7 +1,5 @@
 package smthTipaProgi;
 
-import java.awt.Color;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -11,11 +9,11 @@ public class Bomb extends JLabel{
 
 	public Bomb(int x) {
 		super();
-		ImageIcon im = new ImageIcon("res/bomb (2).png");
+		ImageIcon im = new ImageIcon(Const.BOMB_PATH);
 		this.setIcon(im);
-		this.setBackground(new Color(255, 255, 255, 30));
+		this.setBackground(Const.TRANSPARENT);
 		this.setOpaque(false);
- 		setLocation(x + 20, Constants.BOMB_STARTING_LEVEL);
+ 		setLocation(x + 20, Const.BOMB_STARTING_LEVEL);
 		setSize(im.getIconWidth(), im.getIconHeight());
 		
 	}

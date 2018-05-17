@@ -8,7 +8,7 @@ public class Rocket extends JLabel {
 	public int lives = 5;
 
 	public Rocket(int x, int y) {
-		super(new ImageIcon("res/rocket (2).png"));
+		super(new ImageIcon(Const.ROCKET_PATH));
 		setSize(100, 140);
 		setLocation(x, y);
 	}

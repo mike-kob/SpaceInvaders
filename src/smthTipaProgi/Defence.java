@@ -1,7 +1,5 @@
 package smthTipaProgi;
 
-import java.awt.Color;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -11,17 +9,15 @@ public class Defence extends JLabel implements Updatable {
 	
 	public  Defence(int mid) {
 		super();
-		ImageIcon im = new ImageIcon("res/asteroid (1).png");
+		ImageIcon im = new ImageIcon(Const.ASTEROID_PATH);
 		this.setIcon(im);
-		this.setBackground(new Color(255,255,255,0));
+		this.setBackground(Const.TRANSPARENT);
 		this.setOpaque(false);
 		setSize(im.getIconWidth(), im.getIconHeight());
-		setLocation(mid-this.getWidth()/2, Constants.DEFENCE_Y);
-		System.out.println(this.getWidth()/2);
+		setLocation(mid-this.getWidth()/2, Const.DEFENCE_Y);
 		
-		
-		hb = new HealthBar(mid-this.getWidth()/2, Constants.DEFENCE_Y,im.getIconHeight());
-		Game.lp.add(hb, Constants.DEFENCE_LAYER);
+		hb = new HealthBar(mid-this.getWidth()/2, Const.DEFENCE_Y,im.getIconHeight());
+		Game.lp.add(hb, Const.DEFENCE_LAYER);
 	}
 	
 	
