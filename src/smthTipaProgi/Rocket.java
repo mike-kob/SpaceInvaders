@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 
 public class Rocket extends JLabel {
 	public static final int STEP = 2;
+	public int lives = 5;
 
 	public Rocket(int x, int y) {
 		super(new ImageIcon("res/rocket (2).png"));
@@ -37,6 +38,17 @@ public class Rocket extends JLabel {
 				}
 			}
 		}.start();
+	}
+
+	public boolean isHit(Dynamite dyn) {
+		int x = this.getX();
+		int y = this.getY();
+
+		if (x <= dyn.getX() && x + this.getWidth() >= dyn.getX()) {
+			return y <= dyn.getY();
+		}
+		return false;
+
 	}
 
 	private void pause(int millis) {

@@ -72,6 +72,13 @@ public class AlienContainer {
 		
 	}
 
+	public static void updateAliens() {
+		for(Alien alien: aliens) {
+			alien.update();
+		}
+	}
+	
+	
 	private static void removeFromMatrix(Alien alien) {
 		for (int column = 0; column < Constants.ALIEN_COLUMNS; column++) {
 			for (int row = 0; row < Constants.ALIEN_ROWS; row++) {

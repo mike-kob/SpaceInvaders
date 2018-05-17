@@ -54,9 +54,8 @@ public class Game {
 	private static void alienFactory() {
 		new Thread() {
 			public void run() {
-				boolean flag = true;
-				while (flag) {
-					updateAll(AlienContainer.getAliens());
+				while (true) {
+					AlienContainer.updateAliens();
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
