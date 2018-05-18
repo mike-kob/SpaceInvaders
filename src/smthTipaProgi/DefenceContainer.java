@@ -23,6 +23,7 @@ public class DefenceContainer {
 	
 	public static void remove(Defence def) {
 		Game.lp.remove(def);
+		//Game.lp.repaint();
 		defences.remove(def);
 	}
 

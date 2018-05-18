@@ -29,6 +29,7 @@ public class Const {
 	public static final int ALIEN_ROWS = 5;
 	public static final int ALIEN_COLUMNS = 7;
 	public static final int NUM_OF_DEF = 4;
+	public static final int LIFE_OF_ROCK = 9;
 	
 	public static final String BACKGROUND_PATH = "res/background.png";
 	public static final String UFO_HIGH_PATH = "res/ufo/rowhigh.png";

@@ -23,19 +23,33 @@ public class Defence extends JLabel implements Updatable {
 
 		hb = new HealthBar(mid - this.getWidth() / 2, Const.DEFENCE_Y, im.getIconHeight());
 		Game.lp.add(hb, Const.DEFENCE_LAYER);
+		
 	}
 
 	public void changeRock(int level) {
-		
-		str = String.format("res/камень_%d.png", (level+1));
+
+		str = String.format("res/камень_%d.png", (level + 1));
 		im = new ImageIcon(str);
-	    this.setIcon(im);
+		this.setIcon(im);
 		hb.remove(life);
-		if(level==9) {
-			DefenceContainer.remove(this);
+		if (level == Const.LIFE_OF_ROCK) {
+			im = new ImageIcon("res/bubuh.gif");
+			this.setIcon(im);
 			Game.lp.remove(hb);
-		
+
+			try {
+				Thread.sleep(700);
+			} catch (InterruptedException e) {
+
+				e.printStackTrace();
+			}
+
+			DefenceContainer.remove(this);
+
+			// Game.lp.repaint();
+
 		}
+	
 
 	}
 
@@ -44,8 +58,7 @@ public class Defence extends JLabel implements Updatable {
 			if (isHit(bomb)) {
 				BombContainer.remove(bomb);
 				life++;
-				changeRock(life);	
-				hb.remove(life);
+				changeRock(life);
 			}
 		}
 
@@ -53,8 +66,8 @@ public class Defence extends JLabel implements Updatable {
 			if (isHit(dyn)) {
 				BombContainer.removeDyn(dyn);
 				life++;
-				changeRock(life);	
-				
+				changeRock(life);
+
 			}
 		}
 	}

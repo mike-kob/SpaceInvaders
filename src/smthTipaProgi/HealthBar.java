@@ -26,19 +26,17 @@ public class HealthBar extends JPanel {
 	}
 
 public void remove(int level) {
-	switch(level) {
-	case 3:
+	if(level==Const.LIFE_OF_ROCK/3) {
 		Game.lp.remove(labels[2]);
 		Game.lp.repaint();
-		break;
-	case 6:
-	Game.lp.remove(labels[1]);
-	Game.lp.repaint();
-	break;
-	case 9:
-	Game.lp.remove(labels[0]);
-	Game.lp.repaint();
-}
+	}
+	else if(level==2*Const.LIFE_OF_ROCK/3) {
+		Game.lp.remove(labels[1]);
+		Game.lp.repaint();
+	}else if(level==Const.LIFE_OF_ROCK){
+		Game.lp.remove(labels[0]);
+		Game.lp.repaint();
+	}
 
 }
 
