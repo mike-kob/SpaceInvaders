@@ -20,5 +20,10 @@ public class DefenceContainer {
 			def.update();
 		}
 	}
+	
+	public static void remove(Defence def) {
+		Game.lp.remove(def);
+		defences.remove(def);
+	}
 
 }

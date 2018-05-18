@@ -14,6 +14,7 @@ public class Mp3Player {
 	FileInputStream fis;
 	BufferedInputStream bis;
 	Player player;
+	
 Mp3Player(String str){
 	file = new File(str);
 	fis = null;

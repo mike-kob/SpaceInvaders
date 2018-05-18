@@ -27,15 +27,15 @@ public class HealthBar extends JPanel {
 
 public void remove(int level) {
 	switch(level) {
-	case 5:
+	case 3:
 		Game.lp.remove(labels[2]);
 		Game.lp.repaint();
 		break;
-	case 10:
+	case 6:
 	Game.lp.remove(labels[1]);
 	Game.lp.repaint();
 	break;
-	case 15:
+	case 9:
 	Game.lp.remove(labels[0]);
 	Game.lp.repaint();
 }

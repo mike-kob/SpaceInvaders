@@ -35,7 +35,7 @@ public class Const {
 	public static final String UFO_MID_PATH = "res/ufo/rowmid.png";
 	public static final String UFO_LOW_PATH = "res/ufo/rowlow.png";
 	public static final String BOMB_PATH = "res/bomb (2).png";
-	public static final String ASTEROID_PATH = "res/asteroid (1).png";
+    public static final String ASTEROID_PATH = "res/ камень_1.png";
 	public static final String DYNAMITE_PATH = "res/dynamite.png";
 	public static final String ROCKET_PATH = "res/rocket (2).png";
 	
