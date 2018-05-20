@@ -52,7 +52,7 @@ public class LivesContainer {
 			if(panel.getComponentCount()==10) {
 				return;
 			}
-			Image im = ImageIO.read(new File(Const.ROCKET_PATH)).getScaledInstance(45, 45, Image.SCALE_DEFAULT);
+			Image im = ImageIO.read(new File(Const.HEART_PATH)).getScaledInstance(45, 45, Image.SCALE_DEFAULT);
 			ImageIcon ii = new ImageIcon();
 			ii.setImage(im);
 			JLabel live = new JLabel(ii);

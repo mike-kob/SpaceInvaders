@@ -21,7 +21,7 @@ public class Const {
 	public static final int INTERVAL_Y = 25;
 	
 	
-	public static final int BOMB_SPEED= 5;
+	public static final int BOMB_SPEED=5;
 	public static final int DYN_SPEED= 2;
 	public static final int BOMB_STARTING_LEVEL = 760;
 	public static final long BOMB_TIME_INTERVAL = 300; //-->frequency of bombs
@@ -42,6 +42,7 @@ public class Const {
     public static final String ASTEROID_PATH = "res/ камень_1.png";
 	public static final String DYNAMITE_PATH = "res/dynamite.png";
 	public static final String ROCKET_PATH = "res/rocket (2).png";
+	public static final String HEART_PATH = "res/heart.png";
 	
 	public static final Color TRANSPARENT = new Color(0,0,0,1);
 }
