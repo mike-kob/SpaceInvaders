@@ -31,7 +31,6 @@ public class Game {
 				try {
 					musicFactory();
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -62,6 +61,8 @@ public class Game {
 
 		lp.add(fighter, Const.ROCKET_LAYER);
 
+		LivesContainer.draw();
+		
 		AlienContainer.drawPanel();
 
 		DefenceContainer.drawDefences();

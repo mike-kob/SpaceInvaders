@@ -1,12 +1,17 @@
 package smthTipaProgi;
 
+import java.awt.Color;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 public class BombContainer {
 	private static final Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
+	private static final Set<JLabel> heal = Collections.newSetFromMap(new ConcurrentHashMap<JLabel, Boolean>());
 	private static final Set<Dynamite> enemyBombs = Collections
 			.newSetFromMap(new ConcurrentHashMap<Dynamite, Boolean>());
 
@@ -27,7 +32,10 @@ public class BombContainer {
 	public static Set<Bomb> getBombs() {
 		return bombs;
 	}
-
+	public static Set<JLabel> getHeel() {
+		return heal;
+	}
+	
 	public static Set<Dynamite> getEnemyBombs() {
 		return enemyBombs;
 	}
@@ -45,6 +53,19 @@ public class BombContainer {
 		Game.lp.add(dyn, Const.DYNAMITE_LAYER);
 	}
 
+	public static void addAid(Alien alien) {
+		Random rand = new Random();
+		double chance = rand.nextDouble();
+	
+		if(chance<Const.HEAL_PROBABILITY) {
+			JLabel aid = new JLabel(new ImageIcon("res/first-aid-kit.png"));
+			aid.setSize(64,64);
+			aid.setLocation(alien.getX()+AlienContainer.getGridX(), alien.getY()+AlienContainer.getGridY());
+			heal.add(aid);
+			Game.lp.add(aid, Const.DYNAMITE_LAYER);
+		}
+	}	
+	
 	public static void remove(Bomb bomb) {
 		Game.lp.remove(bomb);
 		bombs.remove(bomb);
@@ -54,6 +75,12 @@ public class BombContainer {
 	public static void removeDyn(Dynamite dyn) {
 		Game.lp.remove(dyn);
 		enemyBombs.remove(dyn);
+		Game.lp.repaint();
+	}
+	
+	public static void removeAid(JLabel aid) {
+		Game.lp.remove(aid);
+		heal.remove(aid);
 		Game.lp.repaint();
 	}
 
@@ -75,6 +102,16 @@ public class BombContainer {
 				removeDyn(dyn);
 			} else {
 				dyn.setLocation(x, y + Const.DYN_SPEED);
+			}
+		}
+		
+		for (JLabel aid : heal) {
+			int x = aid.getX();
+			int y = aid.getY();
+			if (x > Game.frame.getWidth() || y > Game.frame.getHeight()) {
+				removeAid(aid);
+			} else {
+				aid.setLocation(x, y + Const.DYN_SPEED);
 			}
 		}
 	}

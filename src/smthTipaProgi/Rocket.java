@@ -40,6 +40,34 @@ public class Rocket extends JLabel {
 		}.start();
 	}
 
+	public void explode() {
+		ImageIcon boom = new ImageIcon("res/boom2.gif");
+		int x = this.getX();
+		int y = this.getY();
+		this.setIcon(boom);
+		this.setSize(200,170);
+		this.setLocation(this.getX()+this.getWidth()/2-boom.getIconWidth()/2-20, this.getY()-20);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+		}
+		this.setSize(100, 140);
+		this.setLocation(x, y);
+		this.setIcon(new ImageIcon(Const.ROCKET_PATH));
+		
+	}
+	
+	public boolean plusLife(JLabel aid) {
+		int x = this.getX();
+		int y = this.getY();
+
+		if (x <= aid.getX() && x + this.getWidth() >= aid.getX()) {
+			return y <= aid.getY();
+		}
+		return false;
+
+	}
+	
 	public boolean isHit(Dynamite dyn) {
 		int x = this.getX();
 		int y = this.getY();

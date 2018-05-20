@@ -3,6 +3,8 @@ package smthTipaProgi;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JLabel;
+
 public class GameListener implements KeyListener, Runnable {
 	boolean isLeftPressed, isRightPressed, isSpacePressed;
 
@@ -57,9 +59,21 @@ public class GameListener implements KeyListener, Runnable {
 					if (Game.fighter.isHit(dyn)) {
 						BombContainer.removeDyn(dyn);
 						Game.fighter.lives--;
-						System.out.println("lives " + Game.fighter.lives);
+						LivesContainer.remove();
+						Game.lp.add(LivesContainer.panel, Const.LIVES_LAYER);
+						Game.fighter.explode();
 					}
 				}
+				for (JLabel aid : BombContainer.getHeel()) {
+					if (Game.fighter.plusLife(aid)) {
+						BombContainer.removeAid(aid);
+						Game.fighter.lives++;
+						LivesContainer.add();  
+						Game.lp.add(LivesContainer.panel, Const.ROCKET_LAYER);
+						
+					}
+				}
+				
 				Thread.sleep(20);
 			} catch (Exception exc) {
 				exc.printStackTrace();
