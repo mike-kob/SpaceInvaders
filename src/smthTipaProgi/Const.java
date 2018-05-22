@@ -45,4 +45,8 @@ public class Const {
 	public static final String HEART_PATH = "res/heart.png";
 	
 	public static final Color TRANSPARENT = new Color(0,0,0,1);
+	public static final int POINTS_FOR_HIGHT = 50;
+	public static final int POINTS_FOR_MID = 40;
+	public static final int POINTS_FOR_LOW = 30;
 }
+

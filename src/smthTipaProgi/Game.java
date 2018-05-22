@@ -10,6 +10,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
 
 import smthTipaProgi.Mp3Player;
+import smthTipaProgi.PointsContainer;
 
 public class Game {
 	public static final JFrame frame = new JFrame();
@@ -62,6 +63,8 @@ public class Game {
 		lp.add(fighter, Const.ROCKET_LAYER);
 
 		LivesContainer.draw();
+		PointsContainer.draw();
+		
 		
 		AlienContainer.drawPanel();
 

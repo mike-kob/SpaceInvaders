@@ -5,9 +5,14 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import smthTipaProgi.Const;
+import smthTipaProgi.PointsContainer;
+
 public class Alien extends JLabel implements Updatable {
 
 	private static final long serialVersionUID = 1L;
+	private int amount;
+
 
 	public Alien(int x, int y, int rang) {
 		super();
@@ -15,15 +20,15 @@ public class Alien extends JLabel implements Updatable {
 		switch (rang) {
 		case 0:
 			this.setIcon(new ImageIcon(Const.UFO_HIGH_PATH));
+			this.amount = Const.POINTS_FOR_HIGHT;
 			break;
-		case 1:
+		case 1: case 2:
 			this.setIcon(new ImageIcon(Const.UFO_MID_PATH));
-			break;
-		case 2:
-			this.setIcon(new ImageIcon(Const.UFO_MID_PATH));
+			this.amount = Const.POINTS_FOR_MID;
 			break;
 		default:
 			this.setIcon(new ImageIcon(Const.UFO_LOW_PATH));
+			this.amount = Const.POINTS_FOR_LOW;
 		}
 
 		this.setBackground(new Color(0, 0, 0, 1));
@@ -35,6 +40,7 @@ public class Alien extends JLabel implements Updatable {
 	public void update() {
 		for (Bomb bomb : BombContainer.getBombs()) {
 			if (isHit(bomb)) {
+				PointsContainer.change(this.amount);
 				BombContainer.addAid(this);
 				BombContainer.remove(bomb);
 				AlienContainer.remove(this);
