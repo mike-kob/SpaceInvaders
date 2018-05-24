@@ -22,6 +22,7 @@ public class Const {
 	
 	
 	public static final int BOMB_SPEED=5;
+	public static final int BOMB_FREQUENCY = 3000; //--> max number of millis+1000 Thread waits to launch next bomb
 	public static final int DYN_SPEED= 2;
 	public static final int BOMB_STARTING_LEVEL = 760;
 	public static final long BOMB_TIME_INTERVAL = 300; //-->frequency of bombs

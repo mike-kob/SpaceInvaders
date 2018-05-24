@@ -97,7 +97,7 @@ public class Game {
 		new Thread() {
 			public void run() {
 				while (running) {
-					pause(1000);
+					pause(1000+(int)(Math.random()*Const.BOMB_FREQUENCY));
 					BombContainer.addEnemyBomb();
 
 				}
