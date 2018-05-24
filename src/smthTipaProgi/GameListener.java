@@ -3,10 +3,14 @@ package smthTipaProgi;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class GameListener implements KeyListener, Runnable {
 	boolean isLeftPressed, isRightPressed, isSpacePressed;
+	boolean attackable = true;
+	private ImageIcon glow = new ImageIcon(Const.ROCKET_GLOW_PATH);
 
 	public GameListener() {
 		new Thread(this).start();
@@ -45,16 +49,16 @@ public class GameListener implements KeyListener, Runnable {
 
 	public void run() {
 		while (true) {
-			try {
-				if (isLeftPressed) {
-					Game.fighter.left();
-				}
-				if (isRightPressed) {
-					Game.fighter.right();
-				}
-				if (isSpacePressed) {
-					BombContainer.add();
-				}
+			if (isLeftPressed) {
+				Game.fighter.left();
+			}
+			if (isRightPressed) {
+				Game.fighter.right();
+			}
+			if (isSpacePressed) {
+				BombContainer.add();
+			}
+			if (attackable) {
 				for (Dynamite dyn : BombContainer.getEnemyBombs()) {
 					if (Game.fighter.isHit(dyn)) {
 						BombContainer.removeDyn(dyn);
@@ -62,23 +66,40 @@ public class GameListener implements KeyListener, Runnable {
 						LivesContainer.remove();
 						Game.lp.add(LivesContainer.panel, Const.LIVES_LAYER);
 						Game.fighter.explode();
+						makeInvincible();
 					}
 				}
-				for (JLabel aid : BombContainer.getHeel()) {
-					if (Game.fighter.plusLife(aid)) {
-						BombContainer.removeAid(aid);
-						Game.fighter.lives++;
-						LivesContainer.add();  
-						Game.lp.add(LivesContainer.panel, Const.ROCKET_LAYER);
-						
-					}
-				}
-				
-				Thread.sleep(20);
-			} catch (Exception exc) {
-				exc.printStackTrace();
-				break;
 			}
+			for (JLabel aid : BombContainer.getHeel()) {
+				if (Game.fighter.plusLife(aid)) {
+					BombContainer.removeAid(aid);
+					Game.fighter.lives++;
+					LivesContainer.add();
+					Game.lp.add(LivesContainer.panel, Const.ROCKET_LAYER);
+
+				}
+			}
+			pause(20);
+		}
+	}
+
+	private void makeInvincible() {
+		new Thread() {
+			public void run() {
+				attackable = false;
+				Icon temp = Game.fighter.getIcon();
+				Game.fighter.setIcon(glow);
+				pause(Const.TIME_NOT_ATTACK);
+				Game.fighter.setIcon(temp);
+				attackable = true;
+			}
+		}.start();
+	}
+	
+	private void pause(long millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
 		}
 	}
 }

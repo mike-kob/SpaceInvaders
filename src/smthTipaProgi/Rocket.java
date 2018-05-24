@@ -8,7 +8,7 @@ public class Rocket extends JLabel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int STEP = 2;
+	public static final int STEP = 3;
 	public int lives = 5;
 
 	public Rocket(int x, int y) {
@@ -32,10 +32,9 @@ public class Rocket extends JLabel {
 
 	private void move(Rocket rocket, int step) {
 		int y = this.getY();
-
 		new Thread() {
 			public void run() {
-				for (int i = 0; i < 10; i++) {
+				for (int i = 0; i < 5; i++) {
 					int x = rocket.getX();
 					rocket.setLocation(x + step, y);
 					pause(5);

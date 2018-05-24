@@ -42,6 +42,7 @@ public class Const {
     public static final String ASTEROID_PATH = "res/ камень_1.png";
 	public static final String DYNAMITE_PATH = "res/dynamite.png";
 	public static final String ROCKET_PATH = "res/rocket (2).png";
+	public static final String ROCKET_GLOW_PATH = "res/rocket_glow.png";
 	public static final String HEART_PATH = "res/heart.png";
 	
 	public static final Color TRANSPARENT = new Color(0,0,0,1);
@@ -49,5 +50,7 @@ public class Const {
 	public static final int POINTS_FOR_HIGHT = 50;
 	public static final int POINTS_FOR_MID = 40;
 	public static final int POINTS_FOR_LOW = 30;
+	
+	public static final int TIME_NOT_ATTACK = 5000;
 }
 
