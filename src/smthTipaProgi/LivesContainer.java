@@ -6,9 +6,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;

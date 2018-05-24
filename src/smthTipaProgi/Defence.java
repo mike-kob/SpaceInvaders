@@ -4,6 +4,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Defence extends JLabel implements Updatable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int life;
 	private HealthBar hb;
 	ImageIcon[] imageIcons = new ImageIcon[9];

@@ -5,6 +5,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class HealthBar extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JLabel[] labels = new JLabel[3];
 
 	HealthBar(int x, int y, int height) {

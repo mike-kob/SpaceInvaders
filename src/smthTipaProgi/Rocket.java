@@ -4,6 +4,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Rocket extends JLabel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final int STEP = 2;
 	public int lives = 5;
 

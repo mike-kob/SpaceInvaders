@@ -5,6 +5,11 @@ import javax.swing.JLabel;
 
 public class Dynamite extends JLabel  {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Dynamite(Alien alien) {
 		super();
 		ImageIcon im = new ImageIcon(Const.DYNAMITE_PATH);
