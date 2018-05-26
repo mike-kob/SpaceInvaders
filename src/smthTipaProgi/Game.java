@@ -38,7 +38,7 @@ public class Game {
 	protected static void musicFactory() throws FileNotFoundException {
 		new Thread() {
 			public void run() {
-				Mp3Player mp = new Mp3Player("res/pirati.mp3");
+				Mp3Player mp = new Mp3Player("res/Hiding Your Reality.mp3");
 				mp.play();
 			}
 		}.start();
