@@ -95,4 +95,9 @@ public class Defence extends JLabel implements Updatable {
 		}
 		return false;
 	}
+	
+	public void removeHealthBar() {
+		hb.removeBars();
+		Game.lp.remove(hb);
+	}
 }

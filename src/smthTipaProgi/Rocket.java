@@ -43,7 +43,7 @@ public class Rocket extends JLabel {
 		}.start();
 	}
 
-	public void explode() {
+	public void explode(boolean fail) {
 		ImageIcon boom = new ImageIcon("res/boom2.gif");
 		int x = this.getX();
 		int y = this.getY();
@@ -54,10 +54,14 @@ public class Rocket extends JLabel {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
+		if(!fail) {
 		this.setSize(100, 140);
 		this.setLocation(x, y);
 		this.setIcon(new ImageIcon(Const.ROCKET_PATH));
-		
+		} else {
+			Game.lp.remove(this);
+			Game.lp.repaint();
+		}
 	}
 	
 	public boolean plusLife(JLabel aid) {

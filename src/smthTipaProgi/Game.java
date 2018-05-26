@@ -9,21 +9,18 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
 
-import smthTipaProgi.Mp3Player;
-import smthTipaProgi.PointsContainer;
-
 public class Game {
 	public static final JFrame frame = new JFrame();
 	public static final JLayeredPane lp = frame.getLayeredPane();;
 	public static final Rocket fighter =  new Rocket(0, 770);
-
+	public static final GameListener listener = new GameListener();
 	private static boolean running = true;
 	
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				drawEverything();
-				frame.addKeyListener(new GameListener());
+				frame.addKeyListener(listener);
 				bombFactory();
 				alienFactory();
 				gridFactory();
@@ -96,10 +93,10 @@ public class Game {
 	public static void enemyBombFactory() {
 		new Thread() {
 			public void run() {
+				pause(1000+(int)(Math.random()*Const.BOMB_FREQUENCY));
 				while (running) {
-					pause(1000+(int)(Math.random()*Const.BOMB_FREQUENCY));
 					BombContainer.addEnemyBomb();
-
+					pause(1000+(int)(Math.random()*Const.BOMB_FREQUENCY));
 				}
 			}
 		}.start();
@@ -125,6 +122,17 @@ public class Game {
 		}.start();
 	}
 
+	public static void stop(boolean fail) {
+		running = false;
+		frame.removeKeyListener(listener);
+		AlienContainer.removeAliens();
+		DefenceContainer.removeDefences();
+		BombContainer.removeAllBombs();
+		if(fail) {
+			fighter.explode(true);
+		}
+		Game.lp.repaint();
+	}
 	private static void pause(int millis) {
 		try {
 			Thread.sleep(millis);

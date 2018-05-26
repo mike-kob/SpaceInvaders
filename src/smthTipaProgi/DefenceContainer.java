@@ -15,6 +15,13 @@ public class DefenceContainer {
 		}
 	}
 
+	public static void removeDefences() {
+		for(Defence l:defences) {
+			l.removeHealthBar();
+			Game.lp.remove(l);
+		}
+		Game.lp.repaint();
+	}
 	public static void updateDef() {
 		for (Defence def : defences) {
 			def.update();

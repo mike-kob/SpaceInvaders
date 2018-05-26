@@ -65,7 +65,7 @@ public class GameListener implements KeyListener, Runnable {
 						Game.fighter.lives--;
 						LivesContainer.remove();
 						Game.lp.add(LivesContainer.panel, Const.LIVES_LAYER);
-						Game.fighter.explode();
+						Game.fighter.explode(false);
 						makeInvincible();
 					}
 				}

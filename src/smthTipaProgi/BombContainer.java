@@ -28,6 +28,22 @@ public class BombContainer {
 
 	}
 
+	public static void removeAllBombs() {
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+		}
+		for(JLabel l:bombs) {
+			Game.lp.remove(l);
+		}
+		for(JLabel l:heal) {
+			Game.lp.remove(l);
+		}
+		for(JLabel l:enemyBombs) {
+			Game.lp.remove(l);
+		}
+		Game.lp.repaint();
+	}
 	public static Set<Bomb> getBombs() {
 		return bombs;
 	}

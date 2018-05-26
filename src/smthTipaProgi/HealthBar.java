@@ -41,7 +41,13 @@ public void remove(int level) {
 		Game.lp.remove(labels[0]);
 		Game.lp.repaint();
 	}
+}
 
+public void removeBars() {
+	for(JLabel l : labels) {
+		Game.lp.remove(l);
+		Game.lp.repaint();
+	}
 }
 
 }

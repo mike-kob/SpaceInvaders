@@ -22,6 +22,10 @@ public class AlienContainer {
 		return aliens.size() == 0;
 	}
 
+	public static void removeAliens() {
+		grid.removeAll();
+	}
+	
 	public static void drawPanel() {
 		for (int i = 0; i < Const.ALIEN_ROWS; i++) {
 			for (int j = 0; j < Const.ALIEN_COLUMNS; j++) {
@@ -83,7 +87,7 @@ public class AlienContainer {
 		int x = grid.getX();
 		int y = grid.getY();
 
-		while (y + grid.getHeight() < frame.getHeight()) {
+		while (x!=0 && getLowBorder()  < Const.DEFENCE_Y+200 ) {
 			x = grid.getX();
 			y = grid.getY();
 			try {
@@ -103,6 +107,7 @@ public class AlienContainer {
 
 			}
 		}
+		Game.stop(true);
 	}
 
 	public static Alien getLastInColumn(int i) {
@@ -135,5 +140,15 @@ public class AlienContainer {
 		}
 		return -1;
 	}
-
+	
+	public static int getLowBorder() {
+		for (int row = Const.ALIEN_ROWS - 1; row >= 0; row--) {
+			for (int column = 0; column < Const.ALIEN_ROWS; column++) {
+				if (matrix[row][column] != null) {
+					return matrix[row][column].getY() + grid.getY() + matrix[row][column].getHeight();
+				}
+			}
+		}
+		return -1;
+	}
 }
