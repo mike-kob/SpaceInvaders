@@ -12,6 +12,8 @@ public class Alien extends JLabel implements Updatable {
 
 	private static final long serialVersionUID = 1L;
 	private int amount;
+	Mp3Player mp = new Mp3Player("res/Explosion+1.mp3");
+	
 
 
 	public Alien(int x, int y, int rang) {
@@ -44,6 +46,7 @@ public class Alien extends JLabel implements Updatable {
 				BombContainer.addAid(this);
 				BombContainer.remove(bomb);
 				AlienContainer.remove(this);
+				mp.play();
 			}
 		}
 	}
