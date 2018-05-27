@@ -28,11 +28,13 @@ public class Game {
 				gridFactory();
 				defenceFactory();
 				enemyBombFactory();
+				specialAlienFactory();
 				try {
 					musicFactory();
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
+				
 			}
 		});
 	}
@@ -87,6 +89,19 @@ public class Game {
 				while (running) {
 					AlienContainer.updateAliens();
 					pause(10);
+				}
+			}
+		}.start();
+	}
+	
+	
+	private static void specialAlienFactory() {
+		new Thread() {
+			public void run() {
+				pause(Const.PAUSE_FOR_SPECIAL_UFO);
+				SpecialAlienContainer.draw();
+				while (running) {
+					SpecialAlienContainer.update();
 				}
 			}
 		}.start();

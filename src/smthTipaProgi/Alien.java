@@ -12,7 +12,7 @@ public class Alien extends JLabel implements Updatable {
 
 	private static final long serialVersionUID = 1L;
 	private int amount;
-	Mp3Player mp = new Mp3Player("res/Explosion+1.mp3");
+	Mp3Player mp = new Mp3Player(Const.SOUND_OF_EXPLOSION);
 	
 
 

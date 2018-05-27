@@ -54,5 +54,9 @@ public class Const {
 	public static final int POINTS_FOR_LOW = 30;
 	
 	public static final int TIME_NOT_ATTACK = 5000;
+	public static final String UFO_SPECIAL_PATH = "res/ufo/ufo (5).png";
+	public static final int POINTS_FOR_SPECIAL = 100;
+	protected static final int PAUSE_FOR_SPECIAL_UFO = 20000;
+	public static final String SOUND_OF_EXPLOSION = "res/Explosion+1.mp3";
 }
 
