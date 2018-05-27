@@ -1,5 +1,7 @@
 package smthTipaProgi;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -14,7 +16,7 @@ public class Game {
 	public static final JLayeredPane lp = frame.getLayeredPane();;
 	public static final Rocket fighter =  new Rocket(0, 770);
 	public static final GameListener listener = new GameListener();
-	private static boolean running = true;
+	public static boolean running = true;
 	 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
@@ -124,13 +126,23 @@ public class Game {
 
 	public static void stop(boolean fail) {
 		running = false;
+		JLabel msg = new JLabel();
+		msg.setSize(650,150);
+		msg.setFont(new Font("Courier new", Font.PLAIN, 72));
+		msg.setForeground(Color.WHITE);
+		msg.setLocation((frame.getWidth()-650)/2, (frame.getHeight()-150)/2);
+		if(fail) {
+			msg.setText("Game over");
+			fighter.explode(true);
+		} else {
+			msg.setText("Level complete");
+		}
+		msg.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+		Game.lp.add(msg, Const.FINAL_MSG_LAYER);
 		frame.removeKeyListener(listener);
 		AlienContainer.removeAliens();
 		DefenceContainer.removeDefences();
 		BombContainer.removeAllBombs();
-		if(fail) {
-			fighter.explode(true);
-		}
 		Game.lp.repaint();
 	}
 	private static void pause(int millis) {

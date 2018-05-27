@@ -48,14 +48,14 @@ public class GameListener implements KeyListener, Runnable {
 	}
 
 	public void run() {
-		while (true) {
-			if (isLeftPressed) {
+		while (Game.running) {
+			if (isLeftPressed&& Game.running) {
 				Game.fighter.left();
 			}
-			if (isRightPressed) {
+			if (isRightPressed&& Game.running) {
 				Game.fighter.right();
 			}
-			if (isSpacePressed) {
+			if (isSpacePressed && Game.running) {
 				BombContainer.add();
 			}
 			if (attackable) {

@@ -84,14 +84,27 @@ public class AlienContainer {
 	public static void update() {
 		int direction = Const.ALIEN_STEP;
 
-		int x = grid.getX();
-		int y = grid.getY();
-
-		while (x!=0 && getLowBorder()  < Const.DEFENCE_Y+200 ) {
-			x = grid.getX();
-			y = grid.getY();
+		while (Game.running) {
+			int x = grid.getX();
+			int y = grid.getY();
+			if(isEmpty()) {
+				Game.stop(false);
+				return;
+			}
 			try {
+				/*for(int i = 0; i < 5; i++) {
+					System.out.println(matrix[i][0].getY()+matrix[i][0].getHeight());
+					System.out.println(Game.fighter.getY()+"lol");
+					
+				}
+				if(true) Game.stop(false);*/
+				if(getLowBorder()> Game.fighter.getY() && getLeftBorder() <= 0) {
+					System.out.println(Game.fighter.getY()+ " "+getLowBorder());
+					Game.stop(true);
+					return;
+				}
 				if (getRightBorder() > frame.getWidth() || getLeftBorder() < 0) {
+					
 					direction *= -1;
 					y += 50;
 					grid.setLocation(x, y);
@@ -99,15 +112,16 @@ public class AlienContainer {
 					Game.lp.repaint();
 					Thread.sleep(Const.ALIEN_TIME_STEP);
 				}
+				
 				grid.setLocation(x + direction, y);
 				grid.repaint();
 				Game.lp.repaint();
+				
 				Thread.sleep(Const.ALIEN_TIME_STEP);
 			} catch (InterruptedException e) {
 
 			}
 		}
-		Game.stop(true);
 	}
 
 	public static Alien getLastInColumn(int i) {
