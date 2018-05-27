@@ -80,7 +80,7 @@ public class Rocket extends JLabel {
 		int y = this.getY();
 
 		if (x <= dyn.getX() && x + this.getWidth() >= dyn.getX()) {
-			return y <= dyn.getY();
+			return y <= dyn.getY()&&dyn.getY()<=y+this.getHeight()/3;
 		}
 		return false;
 
