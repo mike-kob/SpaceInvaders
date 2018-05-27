@@ -37,10 +37,10 @@ public class LivesContainer {
 
 	public static void remove() {
 		int  count = panel.getComponentCount();
-		if(count>0) {
+		if(count>1) {
 			panel.remove(count-1);
 		} else {
-		//	Game.stop();
+			Game.stop(true);
 		}
 	}
 
