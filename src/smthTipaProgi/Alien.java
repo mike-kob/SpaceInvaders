@@ -46,7 +46,11 @@ public class Alien extends JLabel implements Updatable {
 				BombContainer.addAid(this);
 				BombContainer.remove(bomb);
 				AlienContainer.remove(this);
-				mp.play();
+				new Thread() {
+					public void run() {
+						mp.play();
+					}
+				}.start();
 			}
 		}
 	}

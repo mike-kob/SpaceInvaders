@@ -15,7 +15,7 @@ public class Game {
 	public static final Rocket fighter =  new Rocket(0, 770);
 	public static final GameListener listener = new GameListener();
 	private static boolean running = true;
-	
+	 
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
