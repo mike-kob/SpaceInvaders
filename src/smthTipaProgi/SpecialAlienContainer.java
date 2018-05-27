@@ -8,7 +8,7 @@ public class SpecialAlienContainer extends JLabel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static JLabel label;
-	static Mp3Player mp = new Mp3Player(Const.SOUND_OF_EXPLOSION);
+	
 	
 	public static void draw() {
 		label = new JLabel();
@@ -20,6 +20,7 @@ public class SpecialAlienContainer extends JLabel {
 	}
 
 	public static void update() {
+		Mp3Player mp = new Mp3Player(Const.SOUND_OF_EXPLOSION);
 
 		if (isChecker(label.getX())) {
 			delete();
