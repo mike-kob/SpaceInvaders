@@ -48,7 +48,7 @@ public class SpecialAlienContainer extends JLabel {
 	}
 	
 	
-	private static void delete() {
+	public static void delete() {
 		Game.lp.remove(label);
 		Game.lp.repaint();
 		pause(Const.PAUSE_FOR_SPECIAL_UFO);

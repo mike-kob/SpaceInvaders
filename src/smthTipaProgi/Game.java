@@ -14,10 +14,10 @@ import javax.swing.SwingUtilities;
 public class Game {
 	public static final JFrame frame = new JFrame();
 	public static final JLayeredPane lp = frame.getLayeredPane();;
-	public static final Rocket fighter =  new Rocket(0, 770);
+	public static final Rocket fighter = new Rocket(0, 770);
 	public static final GameListener listener = new GameListener();
 	public static boolean running = true;
-	 
+
 	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
@@ -34,7 +34,7 @@ public class Game {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
 	}
@@ -65,8 +65,7 @@ public class Game {
 
 		LivesContainer.draw();
 		PointsContainer.draw();
-		
-		
+
 		AlienContainer.drawPanel();
 
 		DefenceContainer.drawDefences();
@@ -93,8 +92,7 @@ public class Game {
 			}
 		}.start();
 	}
-	
-	
+
 	private static void specialAlienFactory() {
 		new Thread() {
 			public void run() {
@@ -103,6 +101,7 @@ public class Game {
 				while (running) {
 					SpecialAlienContainer.update();
 				}
+				SpecialAlienContainer.delete();
 			}
 		}.start();
 	}
@@ -110,10 +109,10 @@ public class Game {
 	public static void enemyBombFactory() {
 		new Thread() {
 			public void run() {
-				pause(1000+(int)(Math.random()*Const.BOMB_FREQUENCY));
+				pause(1000 + (int) (Math.random() * Const.BOMB_FREQUENCY));
 				while (running) {
 					BombContainer.addEnemyBomb();
-					pause(1000+(int)(Math.random()*Const.BOMB_FREQUENCY));
+					pause(1000 + (int) (Math.random() * Const.BOMB_FREQUENCY));
 				}
 			}
 		}.start();
@@ -142,11 +141,11 @@ public class Game {
 	public static void stop(boolean fail) {
 		running = false;
 		JLabel msg = new JLabel();
-		msg.setSize(650,150);
+		msg.setSize(650, 150);
 		msg.setFont(new Font("Courier new", Font.PLAIN, 72));
 		msg.setForeground(Color.WHITE);
-		msg.setLocation((frame.getWidth()-650)/2, (frame.getHeight()-150)/2);
-		if(fail) {
+		msg.setLocation((frame.getWidth() - 650) / 2, (frame.getHeight() - 150) / 2);
+		if (fail) {
 			msg.setText("Game over");
 			fighter.explode(true);
 		} else {
@@ -160,6 +159,7 @@ public class Game {
 		BombContainer.removeAllBombs();
 		Game.lp.repaint();
 	}
+
 	private static void pause(int millis) {
 		try {
 			Thread.sleep(millis);
