@@ -12,31 +12,31 @@ import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
 
 public class Game {
-	public static final JFrame frame = new JFrame();
-	public static final JLayeredPane lp = frame.getLayeredPane();;
+	public static JFrame frame;
+	public static JLayeredPane lp;
 	public static final Rocket fighter = new Rocket(0, 770);
 	public static final GameListener listener = new GameListener();
 	public static boolean running = true;
 
-	public static void main(String[] args) throws InvocationTargetException, InterruptedException {
-		SwingUtilities.invokeAndWait(new Runnable() {
-			public void run() {
-				drawEverything();
-				frame.addKeyListener(listener);
-				bombFactory();
-				alienFactory();
-				gridFactory();
-				defenceFactory();
-				enemyBombFactory();
-				specialAlienFactory();
-				try {
-					musicFactory();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
+	public static void init(JFrame fr, JLayeredPane lpn) {
+		frame = fr;
+		lp = lpn;
 
-			}
-		});
+		drawEverything();
+
+		frame.addKeyListener(listener);
+		bombFactory();
+		alienFactory();
+		gridFactory();
+		defenceFactory();
+		enemyBombFactory();
+		specialAlienFactory();
+		try {
+			musicFactory();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	protected static void musicFactory() throws FileNotFoundException {
