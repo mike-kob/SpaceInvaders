@@ -19,6 +19,8 @@ public class GameManager {
 		bar = new MenuBar();
 		bar.setLocation((frame.getWidth()-350)/2, (frame.getHeight()-300)/2);
 		bar.drawStart();
+		bar.drawLeader();
+		bar.drawQuit();
 		lp.add(bar, new Integer(20));
 	}
 	
