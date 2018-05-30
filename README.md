@@ -10,3 +10,7 @@
 ускорения
 вылетающий пришелец(гифка)
 назвать нормально фотки и методы и переменные
+
+
+----------------
+https://stackoverflow.com/questions/25635636/eclipse-exported-runnable-jar-not-showing-images
