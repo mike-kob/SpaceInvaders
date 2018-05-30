@@ -8,98 +8,109 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import levelpac.GameManager;
+
 public class BombContainer {
-	private static final Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
-	private static final Set<JLabel> heal = Collections.newSetFromMap(new ConcurrentHashMap<JLabel, Boolean>());
-	private static final Set<Dynamite> enemyBombs = Collections
+	private Set<Bomb> bombs = Collections.newSetFromMap(new ConcurrentHashMap<Bomb, Boolean>());
+	private Set<JLabel> heal = Collections.newSetFromMap(new ConcurrentHashMap<JLabel, Boolean>());
+	private Set<Dynamite> enemyBombs = Collections
 			.newSetFromMap(new ConcurrentHashMap<Dynamite, Boolean>());
 
-	private static long lastTimeAdded = 0;
-	private static long currentTimeAdded = 0;
-
-	public static void add() {
+	private long lastTimeAdded = 0;
+	private long currentTimeAdded = 0;
+	private Game game = GameManager.getCurrentGame();
+	
+	public void add() {
 		currentTimeAdded = System.currentTimeMillis();
 		if (currentTimeAdded - lastTimeAdded > Const.BOMB_TIME_INTERVAL) {
-			Bomb bomb = new Bomb(Game.fighter.getX() + 15);
-			Game.lp.add(bomb, Const.BOMB_LAYER);
+			Bomb bomb = new Bomb(game.getFighter().getX() + 15);
+			game.lp.add(bomb, Const.BOMB_LAYER);
 			bombs.add(bomb);
 			lastTimeAdded = System.currentTimeMillis();
 		}
 
 	}
 
-	public static void removeAllBombs() {
+	public void removeAllBombs() {
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 		}
 		for(JLabel l:bombs) {
-			Game.lp.remove(l);
+			game.lp.remove(l);
 		}
 		for(JLabel l:heal) {
-			Game.lp.remove(l);
+			game.lp.remove(l);
 		}
 		for(JLabel l:enemyBombs) {
-			Game.lp.remove(l);
+			game.lp.remove(l);
 		}
-		Game.lp.repaint();
+		bombs.removeAll(bombs);
+		heal.removeAll(heal);
+		enemyBombs.removeAll(enemyBombs);
+		game.lp.repaint();
 	}
-	public static Set<Bomb> getBombs() {
+	
+	public Set<Bomb> getBombs() {
 		return bombs;
 	}
-	public static Set<JLabel> getHeel() {
+	
+	public Set<JLabel> getHeel() {
 		return heal;
 	}
 	
-	public static Set<Dynamite> getEnemyBombs() {
+	public Set<Dynamite> getEnemyBombs() {
 		return enemyBombs;
 	}
 
-	public static void addEnemyBomb() {
+	public void addEnemyBomb() {
 		Random rand = new Random();
 		int column = rand.nextInt(Const.ALIEN_COLUMNS);
 
-		while (AlienContainer.getLastInColumn(column) == null && !AlienContainer.isEmpty()) {
+		try {
+		while (game.getAlienCont().getLastInColumn(column) == null && !game.getAlienCont().isEmpty()) {
 			column = rand.nextInt(Const.ALIEN_COLUMNS);
 		}
 		
-		Dynamite dyn = new Dynamite(AlienContainer.getLastInColumn(column));
+		Dynamite dyn = new Dynamite(game.getAlienCont().getLastInColumn(column));
 		enemyBombs.add(dyn);
-		Game.lp.add(dyn, Const.DYNAMITE_LAYER);
+		game.lp.add(dyn, Const.DYNAMITE_LAYER);
+		} catch (Exception e) {
+		}
 	}
 
-	public static void addAid(Alien alien) {
+	public void addAid(Alien alien) {
 		Random rand = new Random();
 		double chance = rand.nextDouble();
 	
 		if(chance<Const.HEAL_PROBABILITY) {
 			JLabel aid = new JLabel(new ImageIcon("res/first-aid-kit.png"));
 			aid.setSize(64,64);
-			aid.setLocation(alien.getX()+AlienContainer.getGridX(), alien.getY()+AlienContainer.getGridY());
+			aid.setLocation(alien.getX()+game.getAlienCont().getGridX(), alien.getY()+game.getAlienCont().getGridY());
 			heal.add(aid);
-			Game.lp.add(aid, Const.DYNAMITE_LAYER);
+			game.lp.add(aid, Const.DYNAMITE_LAYER);
 		}
 	}	
 	
-	public static void remove(Bomb bomb) {
-		Game.lp.remove(bomb);
+	public void remove(Bomb bomb) {
+		game.lp.remove(bomb);
 		bombs.remove(bomb);
-		Game.lp.repaint();
+		game.lp.repaint();
 	}
 
-	public static void removeDyn(Dynamite dyn) {
-		Game.lp.remove(dyn);
+	public void removeDyn(Dynamite dyn) {
+		game.lp.remove(dyn);
 		enemyBombs.remove(dyn);
-		Game.lp.repaint();
+		game.lp.repaint();
 	}
 	
-	public static void removeAid(JLabel aid) {
-		Game.lp.remove(aid);
+	public void removeAid(JLabel aid) {
+		game.lp.remove(aid);
 		heal.remove(aid);
-		Game.lp.repaint();
+		game.lp.repaint();
 	}
 
-	public static void update() {
+	public void update() {
 		for (Bomb bomb : bombs) {
 			int x = bomb.getX();
 			int y = bomb.getY();
@@ -113,7 +124,7 @@ public class BombContainer {
 		for (Dynamite dyn : enemyBombs) {
 			int x = dyn.getX();
 			int y = dyn.getY();
-			if (x > Game.frame.getWidth() || y > Game.frame.getHeight()) {
+			if (x > game.getFrame().getWidth() || y > game.getFrame().getHeight()) {
 				removeDyn(dyn);
 			} else {
 				dyn.setLocation(x, y + Const.DYN_SPEED);
@@ -123,7 +134,7 @@ public class BombContainer {
 		for (JLabel aid : heal) {
 			int x = aid.getX();
 			int y = aid.getY();
-			if (x > Game.frame.getWidth() || y > Game.frame.getHeight()) {
+			if (x > game.getFrame().getWidth() || y > game.getFrame().getHeight()) {
 				removeAid(aid);
 			} else {
 				aid.setLocation(x, y + Const.DYN_SPEED);

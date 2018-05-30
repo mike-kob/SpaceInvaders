@@ -5,26 +5,31 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 
+import levelpac.GameManager;
+
 
 public class PointsContainer {
-	private static JLabel label;
-	private static int count;
+	private JLabel label;
+	private int count;
+	private Game game = GameManager.getCurrentGame();
 	
-	public static void draw() {
+	public void draw(int score) {
+		count = score;
 		label = new JLabel();
 		label.setText("Points: "+String.valueOf(count));
 		label.setFont(new Font("Courier New", Font.BOLD, 42));
 		label.setForeground(Color.WHITE);
 		label.setLocation(0, 5);
 		label.setSize(500,60);
-		Game.lp.add(label, Const.LIVES_LAYER);
+		game.lp.add(label, Const.LIVES_LAYER);
 	}
 	
-	public static void change(int rang) {
+	public void change(int rang) {
 		count+=rang;
 		label.setText("Points: "+String.valueOf(count));
-		Game.lp.repaint();
+		game.lp.repaint();
 		label.repaint();
+		game.score = count;
 	}
 	
 	

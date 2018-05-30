@@ -3,13 +3,16 @@ package smthTipaProgi;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import levelpac.GameManager;
+
 public class Rocket extends JLabel {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int STEP = 3;
-	public int lives = 5;
+	private final int STEP = 3;
+	private Game game = GameManager.getCurrentGame();
 
 	public Rocket(int x, int y) {
 		super(new ImageIcon(Const.ROCKET_PATH));
@@ -21,7 +24,6 @@ public class Rocket extends JLabel {
 		if (this.getX() + 20 > 0) {
 			move(this, -STEP);
 		}
-
 	}
 
 	public void right() {
@@ -44,7 +46,7 @@ public class Rocket extends JLabel {
 	}
 
 	public void explode(boolean fail) {
-		ImageIcon boom = new ImageIcon("res/boom2.gif");
+		ImageIcon boom = new ImageIcon(Const.BOOM_PATH);
 		int x = this.getX();
 		int y = this.getY();
 		this.setIcon(boom);
@@ -59,8 +61,8 @@ public class Rocket extends JLabel {
 		this.setLocation(x, y);
 		this.setIcon(new ImageIcon(Const.ROCKET_PATH));
 		} else {
-			Game.lp.remove(this);
-			Game.lp.repaint();
+			game.lp.remove(this);
+			game.lp.repaint();
 		}
 	}
 	

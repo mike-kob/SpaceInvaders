@@ -4,12 +4,15 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import levelpac.GameManager;
+
 public class HealthBar extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JLabel[] labels = new JLabel[3];
+	private JLabel[] labels = new JLabel[3];
+	private Game game = GameManager.getCurrentGame();
 
 	HealthBar(int x, int y, int height) {
 		super();
@@ -18,36 +21,35 @@ public class HealthBar extends JPanel {
 		setLocation(x, y + height - 20);
 		setSize(Const.WEIGHT_OF_BAR, Const.HEIGHT_OF_BAR);
 
-		for(int i=1;i<=3;i++) {
-		JLabel l = new JLabel();
-		l.setBackground(Color.GREEN);
-		l.setOpaque(true);
-		l.setLocation(x, y + height -20);
-		l.setSize(i*Const.WEIGHT_OF_BAR / 3, Const.HEIGHT_OF_BAR);
-		Game.lp.add(l, Const.DEFENCE_LAYER);
-		labels[i-1]=l;
+		for (int i = 1; i <= 3; i++) {
+			JLabel l = new JLabel();
+			l.setBackground(Color.GREEN);
+			l.setOpaque(true);
+			l.setLocation(x, y + height - 20);
+			l.setSize(i * Const.WEIGHT_OF_BAR / 3, Const.HEIGHT_OF_BAR);
+			game.lp.add(l, Const.DEFENCE_LAYER);
+			labels[i - 1] = l;
 		}
 	}
 
-public void remove(int level) {
-	if(level==Const.LIFE_OF_ROCK/3) {
-		Game.lp.remove(labels[2]);
-		Game.lp.repaint();
+	public void remove(int level) {
+		if (level == Const.LIFE_OF_ROCK / 3) {
+			game.lp.remove(labels[2]);
+			game.lp.repaint();
+		} else if (level == 2 * Const.LIFE_OF_ROCK / 3) {
+			game.lp.remove(labels[1]);
+			game.lp.repaint();
+		} else if (level == Const.LIFE_OF_ROCK) {
+			game.lp.remove(labels[0]);
+			game.lp.repaint();
+		}
 	}
-	else if(level==2*Const.LIFE_OF_ROCK/3) {
-		Game.lp.remove(labels[1]);
-		Game.lp.repaint();
-	}else if(level==Const.LIFE_OF_ROCK){
-		Game.lp.remove(labels[0]);
-		Game.lp.repaint();
-	}
-}
 
-public void removeBars() {
-	for(JLabel l : labels) {
-		Game.lp.remove(l);
-		Game.lp.repaint();
+	public void removeBars() {
+		for (JLabel l : labels) {
+			game.lp.remove(l);
+			game.lp.repaint();
+		}
 	}
-}
 
 }

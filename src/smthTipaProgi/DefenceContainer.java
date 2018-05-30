@@ -4,33 +4,37 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DefenceContainer {
-	private static final Set<Defence> defences = Collections.newSetFromMap(new ConcurrentHashMap<Defence, Boolean>());
+import levelpac.GameManager;
 
-	public static void drawDefences() {
+public class DefenceContainer {
+	private final Set<Defence> defences = Collections.newSetFromMap(new ConcurrentHashMap<Defence, Boolean>());
+	private Game game = GameManager.getCurrentGame();
+	
+	public void drawDefences() {
 		for (int i = 1; i <= Const.NUM_OF_DEF; i++) {
-			Defence df1 = new Defence(i * Game.frame.getWidth() / (Const.NUM_OF_DEF + 1));
-			Game.lp.add(df1, Const.DEFENCE_LAYER);
+			Defence df1 = new Defence(i * game.getFrame().getWidth() / (Const.NUM_OF_DEF + 1));
+			game.lp.add(df1, Const.DEFENCE_LAYER);
 			defences.add(df1);
 		}
 	}
 
-	public static void removeDefences() {
+	public void removeDefences() {
 		for(Defence l:defences) {
 			l.removeHealthBar();
-			Game.lp.remove(l);
+			game.lp.remove(l);
 		}
-		Game.lp.repaint();
+		game.lp.repaint();
+		defences.removeAll(defences);
 	}
-	public static void updateDef() {
+	
+	public void updateDef() {
 		for (Defence def : defences) {
 			def.update();
 		}
 	}
 	
-	public static void remove(Defence def) {
-		Game.lp.remove(def);
-		//Game.lp.repaint();
+	public void remove(Defence def) {
+		game.lp.remove(def);
 		defences.remove(def);
 	}
 

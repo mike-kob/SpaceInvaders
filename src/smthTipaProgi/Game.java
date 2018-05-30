@@ -2,28 +2,51 @@ package smthTipaProgi;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.SwingUtilities;
+
+import levelpac.GameManager;
 
 public class Game {
-	public static JFrame frame;
-	public static JLayeredPane lp;
-	public static final Rocket fighter = new Rocket(0, 770);
-	public static final GameListener listener = new GameListener();
-	public static boolean running = true;
-
-	public static void init(JFrame fr, JLayeredPane lpn) {
+	public JFrame frame;
+	public JLayeredPane lp;
+	public Rocket fighter;
+	private GameListener listener;
+	public boolean running = true;
+	public int score, level, lives;
+	
+	private AlienContainer alienCont;
+	private BombContainer bombCont;
+	private DefenceContainer defenceCont;
+	private LivesContainer livesCont;
+	private PointsContainer pointsCont;
+	private SpecialAlienContainer spAlienCont;
+	
+	public Game(JFrame fr, JLayeredPane lpn, int scoreP, int levelP, int livesP) {
 		frame = fr;
 		lp = lpn;
-
+		score = scoreP;
+		level = levelP;
+		lives = livesP;
+	}
+	
+	public void start() {
+		running = true;
+		fighter = new Rocket(0, 770);
+		
+		alienCont = new AlienContainer();
+		bombCont = new BombContainer();
+		defenceCont = new DefenceContainer();
+		livesCont = new LivesContainer();
+		pointsCont = new PointsContainer();
+		spAlienCont = new SpecialAlienContainer();
+		
+		listener = new GameListener();
 		drawEverything();
-
+		
 		frame.addKeyListener(listener);
 		bombFactory();
 		alienFactory();
@@ -31,24 +54,9 @@ public class Game {
 		defenceFactory();
 		enemyBombFactory();
 		specialAlienFactory();
-		try {
-			musicFactory();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
 	}
 
-	protected static void musicFactory() throws FileNotFoundException {
-		new Thread() {
-			public void run() {
-				Mp3Player mp = new Mp3Player("res/Hiding Your Reality.mp3");
-				mp.play();
-			}
-		}.start();
-	}
-
-	private static void drawEverything() {
+	private void drawEverything() {
 		frame.setSize(1280, 980);
 		frame.setVisible(true);
 		frame.setLayout(null);
@@ -63,101 +71,129 @@ public class Game {
 
 		lp.add(fighter, Const.ROCKET_LAYER);
 
-		LivesContainer.draw();
-		PointsContainer.draw();
+		JLabel levelTxt = new JLabel();
+		levelTxt.setText("Level: " + level);
+		levelTxt.setFont(new Font("Courier New", Font.BOLD, 42));
+		levelTxt.setSize(400, 60);
+		levelTxt.setForeground(Color.WHITE);
+		levelTxt.setLocation((frame.getWidth()-levelTxt.getWidth())/2, 5);
+		lp.add(levelTxt, Const.LIVES_LAYER);
+		
+		livesCont.draw(lives);
+		
+		pointsCont.draw(score);
 
-		AlienContainer.drawPanel();
+		alienCont.drawPanel();
 
-		DefenceContainer.drawDefences();
+		defenceCont.drawDefences();
 	}
 
-	private static void bombFactory() {
+	public int getScore() {
+		return score;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public int getLives() {
+		return lives;
+	}
+
+	private void bombFactory() {
 		new Thread() {
 			public void run() {
 				while (running) {
-					BombContainer.update();
+					bombCont.update();
 					pause(5);
 				}
 			}
 		}.start();
 	}
 
-	private static void alienFactory() {
+	private void alienFactory() {
 		new Thread() {
 			public void run() {
 				while (running) {
-					AlienContainer.updateAliens();
+					alienCont.updateAliens();
 					pause(10);
 				}
 			}
 		}.start();
 	}
 
-	private static void specialAlienFactory() {
+	private void specialAlienFactory() {
 		new Thread() {
 			public void run() {
 				pause(Const.PAUSE_FOR_SPECIAL_UFO);
-				SpecialAlienContainer.draw();
+				spAlienCont.draw();
 				while (running) {
-					SpecialAlienContainer.update();
+					spAlienCont.update();
+					pause(50);
 				}
-				SpecialAlienContainer.delete();
+				spAlienCont.delete("");
 			}
 		}.start();
 	}
 
-	public static void enemyBombFactory() {
+	public void enemyBombFactory() {
 		new Thread() {
 			public void run() {
 				pause(1000 + (int) (Math.random() * Const.BOMB_FREQUENCY));
 				while (running) {
-					BombContainer.addEnemyBomb();
+					bombCont.addEnemyBomb();
 					pause(1000 + (int) (Math.random() * Const.BOMB_FREQUENCY));
 				}
 			}
 		}.start();
 	}
 
-	public static void gridFactory() {
+	public void gridFactory() {
 		new Thread() {
 			public void run() {
 				while (running) {
-					AlienContainer.update();
+					alienCont.update();
 				}
 			}
 		}.start();
 	}
 
-	public static void defenceFactory() {
+	public void defenceFactory() {
 		new Thread() {
 			public void run() {
 				while (running) {
-					DefenceContainer.updateDef();
+					defenceCont.updateDef();
 				}
 			}
 		}.start();
 	}
 
-	public static void stop(boolean fail) {
+	public void stop(boolean fail) {
 		running = false;
-		JLabel msg = new JLabel();
-		msg.setSize(650, 150);
-		msg.setFont(new Font("Courier new", Font.PLAIN, 72));
-		msg.setForeground(Color.WHITE);
-		msg.setLocation((frame.getWidth() - 650) / 2, (frame.getHeight() - 150) / 2);
+		JLabel msg;
+		
 		if (fail) {
-			msg.setText("Game over");
+			msg = new JLabel("Game over");
 			fighter.explode(true);
 		} else {
-			msg.setText("Level complete");
+			msg = new JLabel("Level complete");
 		}
-		msg.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-		Game.lp.add(msg, Const.FINAL_MSG_LAYER);
+		msg.setFont(new Font("Courier new", Font.PLAIN, 72));
+		msg.setForeground(Color.WHITE);
+		msg.setSize(msg.getPreferredSize());
+		msg.setLocation((frame.getWidth() - msg.getWidth()) / 2, (frame.getHeight() - msg.getHeight()) / 2);
+		lp.add(msg, Const.FINAL_MSG_LAYER);
 		frame.removeKeyListener(listener);
-		AlienContainer.removeAliens();
-		DefenceContainer.removeDefences();
-		BombContainer.removeAllBombs();
-		Game.lp.repaint();
+		alienCont.removeAliens();
+		defenceCont.removeDefences();
+		bombCont.removeAllBombs();
+		lp.repaint();
+		pause(1000);
+		if(fail) {
+			GameManager.askName();
+		} else {
+			GameManager.continueGame(score, level, lives);
+		}
 	}
 
 	private static void pause(int millis) {
@@ -166,5 +202,33 @@ public class Game {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public AlienContainer getAlienCont() {
+		return alienCont;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	public Rocket getFighter() {
+		return fighter;
+	}
+
+	public BombContainer getBombCont() {
+		return bombCont;
+	}
+
+	public DefenceContainer getDefenceCont() {
+		return defenceCont;
+	}
+
+	public LivesContainer getLivesCont() {
+		return livesCont;
+	}
+
+	public PointsContainer getPointsCont() {
+		return pointsCont;
 	}
 }

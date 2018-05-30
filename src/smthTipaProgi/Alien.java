@@ -5,15 +5,14 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import smthTipaProgi.Const;
-import smthTipaProgi.PointsContainer;
+import levelpac.GameManager;
 
 public class Alien extends JLabel implements Updatable {
 
 	private static final long serialVersionUID = 1L;
 	private int amount;
-	Mp3Player mp = new Mp3Player(Const.SOUND_OF_EXPLOSION);
-	
+	private Mp3Player mp = new Mp3Player(Const.SOUND_OF_EXPLOSION);
+	private Game game = GameManager.getCurrentGame();
 
 
 	public Alien(int x, int y, int rang) {
@@ -40,12 +39,12 @@ public class Alien extends JLabel implements Updatable {
 
 	@Override
 	public void update() {
-		for (Bomb bomb : BombContainer.getBombs()) {
+		for (Bomb bomb : game.getBombCont().getBombs()) {
 			if (isHit(bomb)) {
-				PointsContainer.change(this.amount);
-				BombContainer.addAid(this);
-				BombContainer.remove(bomb);
-				AlienContainer.remove(this);
+				game.getPointsCont().change(this.amount);
+				game.getBombCont().addAid(this);
+				game.getBombCont().remove(bomb);
+				game.getAlienCont().remove(this);
 				new Thread() {
 					public void run() {
 						mp.play();
@@ -56,8 +55,8 @@ public class Alien extends JLabel implements Updatable {
 	}
 
 	private boolean isHit(Bomb bomb) {
-		int x = AlienContainer.getGridX() + this.getX();
-		int y = AlienContainer.getGridY() + this.getY();
+		int x = game.getAlienCont().getGridX() + this.getX();
+		int y = game.getAlienCont().getGridY() + this.getY();
 
 		if (x - 20 < bomb.getX() && bomb.getX() + bomb.getWidth() < x + this.getWidth() + 20) {
 			if (y + this.getHeight() >= bomb.getY() && (y < bomb.getY())) {

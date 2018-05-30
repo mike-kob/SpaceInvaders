@@ -10,38 +10,31 @@ import javazoom.jl.player.Player;
 
 public class Mp3Player {
 
-	File file;
-	FileInputStream fis;
-	BufferedInputStream bis;
-	Player player;
-	
-Mp3Player(String str){
-	file = new File(str);
-	fis = null;
-	try {
-		fis = new FileInputStream(file);
-	} catch (FileNotFoundException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
+	private File file;
+	private FileInputStream fis;
+	private BufferedInputStream bis;
+	private Player player;
+
+	public Mp3Player(String str) {
+		file = new File(str);
+		fis = null;
+		try {
+			fis = new FileInputStream(file);
+		} catch (FileNotFoundException e1) {
+		}
+		bis = new BufferedInputStream(fis);
 	}
-	bis = new BufferedInputStream(fis);
-	
 
-}
-
-public void play() {
-	try {
-		player = new Player(bis);
-		player.play();
-	
-	}catch(JavaLayerException e)
-	{
+	public void play() {
+		try {
+			player = new Player(bis);
+			player.play();
+		} catch (JavaLayerException e) {
+		}
 	}
-}
 
-public void close() {
-	player.close();
-	
-}
+	public void close() {
+		player.close();
+	}
 
 }

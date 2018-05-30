@@ -12,41 +12,47 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class LivesContainer {
-	// TODO created
-	public static JPanel panel;
+import levelpac.GameManager;
 
-	public static void draw() {
+public class LivesContainer {
+	private JPanel panel;
+	private Game game = GameManager.getCurrentGame();
+	
+	public JPanel getPanel() {
+		return panel;
+	}
+	
+	public void draw(int lives) {
 		panel = new JPanel();
 		JLabel livesTxt = new JLabel("Lives:");
 		livesTxt.setFont(new Font("Courier New", Font.BOLD, 42));
 		livesTxt.setForeground(Color.WHITE);
 		livesTxt.setLocation(850, 5);
-		livesTxt.setSize(500,60);
-		Game.lp.add(livesTxt, Const.LIVES_LAYER);
-		
+		livesTxt.setSize(500, 60);
+		game.lp.add(livesTxt, Const.LIVES_LAYER);
+
 		panel.setLayout(new GridLayout(0, 5));
 		panel.setSize(270, 60);
 		panel.setLocation(990, 0);
 		panel.setOpaque(false);
-		add();
-		add();
-		add();
-		Game.lp.add(panel, Const.LIVES_LAYER);
+		for (int i = 0; i < lives; i++)
+			add();
+		game.lp.add(panel, Const.LIVES_LAYER);
 	}
 
-	public static void remove() {
-		int  count = panel.getComponentCount();
-		if(count>1) {
-			panel.remove(count-1);
+	public void remove() {
+		int count = panel.getComponentCount();
+		if (count > 1) {
+			panel.remove(count - 1);
 		} else {
-			Game.stop(true);
+			panel.removeAll();
+			game.stop(true);
 		}
 	}
 
-	public static void add() {
+	public void add() {
 		try {
-			if(panel.getComponentCount()==10) {
+			if (panel.getComponentCount() == 10) {
 				return;
 			}
 			Image im = ImageIO.read(new File(Const.HEART_PATH)).getScaledInstance(45, 45, Image.SCALE_DEFAULT);
@@ -55,7 +61,7 @@ public class LivesContainer {
 			JLabel live = new JLabel(ii);
 			panel.add(live);
 			panel.repaint();
-			Game.lp.repaint();
+			game.lp.repaint();
 			if (panel.getComponentCount() == 6) {
 				panel.setSize(panel.getWidth(), panel.getHeight() * 2);
 			}

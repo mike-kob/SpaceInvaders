@@ -7,11 +7,14 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class GameListener implements KeyListener, Runnable {
-	boolean isLeftPressed, isRightPressed, isSpacePressed;
-	boolean attackable = true;
-	private ImageIcon glow = new ImageIcon(Const.ROCKET_GLOW_PATH);
+import levelpac.GameManager;
 
+public class GameListener implements KeyListener, Runnable {
+	private boolean isLeftPressed, isRightPressed, isSpacePressed;
+	private boolean attackable = true;
+	private ImageIcon glow = new ImageIcon(Const.ROCKET_GLOW_PATH);
+	private Game game = GameManager.getCurrentGame();
+	
 	public GameListener() {
 		new Thread(this).start();
 	}
@@ -48,34 +51,34 @@ public class GameListener implements KeyListener, Runnable {
 	}
 
 	public void run() {
-		while (Game.running) {
-			if (isLeftPressed&& Game.running) {
-				Game.fighter.left();
+		while (game.running) {
+			if (isLeftPressed&& game.running) {
+				game.fighter.left();
 			}
-			if (isRightPressed&& Game.running) {
-				Game.fighter.right();
+			if (isRightPressed&& game.running) {
+				game.fighter.right();
 			}
-			if (isSpacePressed && Game.running) {
-				BombContainer.add();
+			if (isSpacePressed && game.running) {
+				game.getBombCont().add();
 			}
 			if (attackable) {
-				for (Dynamite dyn : BombContainer.getEnemyBombs()) {
-					if (Game.fighter.isHit(dyn)) {
-						BombContainer.removeDyn(dyn);
-						Game.fighter.lives--;
-						LivesContainer.remove();
-						Game.lp.add(LivesContainer.panel, Const.LIVES_LAYER);
-						Game.fighter.explode(false);
+				for (Dynamite dyn : game.getBombCont().getEnemyBombs()) {
+					if (game.getFighter().isHit(dyn)) {
+						game.getBombCont().removeDyn(dyn);
+						game.getLivesCont().remove();
+						game.lives--;
+						game.lp.add(game.getLivesCont().getPanel(), Const.LIVES_LAYER);
+						game.getFighter().explode(false);
 						makeInvincible();
 					}
 				}
 			}
-			for (JLabel aid : BombContainer.getHeel()) {
-				if (Game.fighter.plusLife(aid)) {
-					BombContainer.removeAid(aid);
-					Game.fighter.lives++;
-					LivesContainer.add();
-					Game.lp.add(LivesContainer.panel, Const.ROCKET_LAYER);
+			for (JLabel aid : game.getBombCont().getHeel()) {
+				if (game.getFighter().plusLife(aid)) {
+					game.getBombCont().removeAid(aid);
+					game.getLivesCont().add();
+					game.lives++;
+					game.lp.add(game.getLivesCont().getPanel(), Const.ROCKET_LAYER);
 
 				}
 			}
@@ -87,10 +90,10 @@ public class GameListener implements KeyListener, Runnable {
 		new Thread() {
 			public void run() {
 				attackable = false;
-				Icon temp = Game.fighter.getIcon();
-				Game.fighter.setIcon(glow);
+				Icon temp = game.getFighter().getIcon();
+				game.getFighter().setIcon(glow);
 				pause(Const.TIME_NOT_ATTACK);
-				Game.fighter.setIcon(temp);
+				game.getFighter().setIcon(temp);
 				attackable = true;
 			}
 		}.start();
