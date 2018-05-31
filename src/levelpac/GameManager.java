@@ -14,6 +14,7 @@ public class GameManager {
 	public static final JFrame frame = new JFrame();
 	public static final JLayeredPane lp = frame.getLayeredPane();
 	static MenuBar bar;
+	static Leaderboard board;
 	static Game currGame;
 	public static boolean musicOn = true;
 
@@ -40,7 +41,14 @@ public class GameManager {
 		lp.add(background, Const.BACKGROUND_LAYER);
 	}
 
-	protected static void musicFactory() {
+	public static void drawLeader() {
+		if(bar!=null) lp.remove(bar);
+		board = new Leaderboard();
+		board.setLocation((frame.getWidth() - board.getWidth()) / 2, (frame.getHeight() - board.getHeight()) / 2);
+		lp.add(board, Const.MENU_LAYER);
+	}
+
+	private static void musicFactory() {
 		new Thread() {
 			public void run() {
 				while (musicOn) {
@@ -54,7 +62,8 @@ public class GameManager {
 	public static void startNewGame() {
 		new Thread() {
 			public void run() {
-				lp.remove(bar);
+				if(bar!=null) lp.remove(bar);
+				if(board!=null) lp.remove(board);
 				currGame = new Game(frame, lp, 0, 1, 3);
 				currGame.start();
 			}

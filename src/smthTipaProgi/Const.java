@@ -50,6 +50,7 @@ public class Const {
 	public static final String UFO_SPECIAL_PATH = "res/ufo/ufo_special.png";
 	public static final String BOOM_PATH = "res/boom.gif";
 	public static final String ROCK_BUBUH_PATH = "res/bubuh.gif";
+	public static final String LEADER_PATH = "res/leaderboard/leaderboard2.png";
 	public static final String SOUND_OF_EXPLOSION = "res/Explosion.mp3";
 	public static final String MUSIC_PATH = "res/Hiding Your Reality.mp3";
 	
