@@ -118,7 +118,7 @@ public class MenuBar extends JLabel {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				System.exit(0);
 			}
 
 			@Override
