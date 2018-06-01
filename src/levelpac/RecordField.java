@@ -17,9 +17,7 @@ public class RecordField extends JLabel  {
 	  private String points;
 	  private String level;
 	  private String name;
-	  private final int PAD = 4;
-	private final Font recFont = new Font("Courier", Font.BOLD, 25);
-	  
+	 
 
 	public RecordField( String name, String level, String score) {
 		super();

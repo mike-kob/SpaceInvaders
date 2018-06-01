@@ -59,9 +59,9 @@ public class GameManager {
 		lp.add(background, Const.BACKGROUND_LAYER);
 	}
 
-	public static void drawLeader() {
+	public static void drawLeader(int page) {
 		if(bar!=null) lp.remove(bar);
-		board = new Leaderboard();
+		board = new Leaderboard(page);
 		board.setLocation((frame.getWidth() - board.getWidth()) / 2, (frame.getHeight() - board.getHeight()) / 2);
 		lp.add(board, Const.MENU_LAYER);
 	}
@@ -109,14 +109,14 @@ public class GameManager {
 		RecordField rec = new RecordField(jtf.getText(),String.valueOf(level),String.valueOf(score));
 		try {
 			list.add(rec);
-			list.getIndex(rec);
+			int page = checker(list.getIndex(rec));
 			lp.remove(panel);
 			lp.remove(currGame.getMsg());
-			currGame.getPointsCont().delete();
-			currGame.getLivesCont().delete();
+			//currGame.getPointsCont().delete();
+			//currGame.getLivesCont().delete();
 			lp.repaint();
 			
-			GameManager.drawLeader();
+			GameManager.drawLeader(page);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,6 +125,16 @@ public class GameManager {
 		panel.setSize(100,100);
 		panel.setLocation((frame.getWidth() - currGame.getMsg().getWidth()) / 2,(frame.getHeight() - currGame.getMsg().getHeight()) / 2 + 200);
 		lp.add(panel, Const.FINAL_MSG_LAYER);	
+	}
+
+	protected static int checker(int index) {
+		int page =0;
+		while(index>=10) {
+			index-=10;
+			page++;
+		}
+		//System.out.println(page);
+		return page;
 	}
 
 	public static void continueGame(int score, int level, int lives) {

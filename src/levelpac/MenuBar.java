@@ -79,7 +79,7 @@ public class MenuBar extends JLabel {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GameManager.drawLeader();
+				GameManager.drawLeader(0);
 				
 				
 			
