@@ -68,5 +68,9 @@ public class LivesContainer {
 		} catch (IOException e) {
 		}
 	}
+	
+	public void delete() {
+		game.lp.remove(panel);
+	}
 
 }

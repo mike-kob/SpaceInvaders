@@ -32,6 +32,10 @@ public class PointsContainer {
 		game.score = count;
 	}
 	
+	public void delete() {
+		game.lp.remove(label);
+	}
+	
 	
 	
 

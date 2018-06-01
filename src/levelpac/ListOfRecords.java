@@ -1,0 +1,74 @@
+package levelpac;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class ListOfRecords {
+private ArrayList<RecordField> list;
+final Comparator<RecordField> BY_POINTS = new ByPoints();
+
+public ListOfRecords(String str) throws IOException {
+	list = new ArrayList<RecordField>();
+	 BufferedReader first = new BufferedReader(new FileReader("results.txt"));
+	 String st;
+	while ((st = first.readLine()) != null) {
+		String[] str1 = st.split(" ");
+ 		RecordField rec = new RecordField(str1[0],str1[1],str1[2]);
+ 		list.add(rec);
+	}
+	Collections.sort(list, BY_POINTS);
+	Collections.reverse(list);
+}
+
+public void add(RecordField cur) throws IOException {
+	list.add(cur);
+	Collections.sort(list, BY_POINTS);
+	Collections.reverse(list);
+	try {
+        FileWriter fstream1 = new FileWriter("results.txt");// конструктор с одним параметром - для перезаписи
+        BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
+        out1.write(""); // очищаем, перезаписав поверх пустую строку
+         out1.close(); // закрываем
+         } catch (Exception e) 
+            {System.err.println("Error in file cleaning: " + e.getMessage());}
+	  PrintWriter out1 = new PrintWriter(new BufferedWriter(new FileWriter("results.txt", true)));
+	  for(int i =0;i<list.size();i++) {
+      out1.println(list.get(i).getName()+" "+list.get(i).getLevel()+" "+list.get(i).getPoints());
+   
+}out1.close();
+}
+
+public int getSize() {
+	// TODO Auto-generated method stub
+	return list.size();
+}
+
+public RecordField getObject(int i) {
+	// TODO Auto-generated method stub
+	return list.get(i);
+}
+
+public int getIndex(RecordField rf) {
+	// TODO Auto-generated method stub
+	return list.indexOf(rf);
+}
+
+}
+
+
+
+class ByPoints implements Comparator<RecordField> {
+
+    public int compare(RecordField first, RecordField second) {
+      return Integer.valueOf(first.getPoints()) - Integer.valueOf(second.getPoints());
+    }
+  }
+

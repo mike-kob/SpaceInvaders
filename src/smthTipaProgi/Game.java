@@ -1,14 +1,21 @@
 package smthTipaProgi;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
+
 import levelpac.GameManager;
+
 
 public class Game {
 	public JFrame frame;
@@ -17,6 +24,7 @@ public class Game {
 	private GameListener listener;
 	public boolean running = true;
 	public int score, level, lives;
+	private JLabel msg;
 	
 	private AlienContainer alienCont;
 	private BombContainer bombCont;
@@ -168,14 +176,18 @@ public class Game {
 		}.start();
 	}
 
+	
+	
+	
 	public void stop(boolean fail) {
 		running = false;
-		JLabel msg;
+		
 		
 		if (fail) {
 			msg = new JLabel("Game over");
 			fighter.explode(true);
-		} else {
+			
+		}else {
 			msg = new JLabel("Level complete");
 		}
 		msg.setFont(new Font("Courier new", Font.PLAIN, 72));
@@ -190,7 +202,7 @@ public class Game {
 		lp.repaint();
 		pause(1000);
 		if(fail) {
-			GameManager.askName();
+			GameManager.askName(level,score);
 		} else {
 			GameManager.continueGame(score, level, lives);
 		}
@@ -203,6 +215,11 @@ public class Game {
 			e.printStackTrace();
 		}
 	}
+	
+	public  JLabel getMsg() {
+		return msg;
+	}
+	
 
 	public AlienContainer getAlienCont() {
 		return alienCont;
