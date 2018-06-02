@@ -1,6 +1,8 @@
 package levelpac;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -38,7 +40,7 @@ public class GameManager {
 		drawMenu();
 		musicFactory();
 	}
-	
+
 	public static void drawMenu() {
 		bar = new MenuBar();
 		bar.setLocation((frame.getWidth() - 350) / 2, (frame.getHeight() - 300) / 2);
@@ -60,12 +62,13 @@ public class GameManager {
 	}
 
 	public static void drawLeader(int page) {
-		if(bar!=null) lp.remove(bar);
+		if (bar != null)
+			lp.remove(bar);
 		board = new Leaderboard(page);
 		board.setLocation((frame.getWidth() - board.getWidth()) / 2, (frame.getHeight() - board.getHeight()) / 2);
 		lp.add(board, Const.MENU_LAYER);
 	}
-	
+
 	public static void deleteLeader(JLabel main) {
 		lp.remove(main);
 		lp.repaint();
@@ -85,55 +88,75 @@ public class GameManager {
 	public static void startNewGame() {
 		new Thread() {
 			public void run() {
-				if(bar!=null) lp.remove(bar);
-				if(board!=null) lp.remove(board);
+				if (bar != null)
+					lp.remove(bar);
+				if (board != null)
+					lp.remove(board);
 				currGame = new Game(frame, lp, 0, 1, 3);
 				currGame.start();
 			}
 		}.start();
 	}
 
-	public static void askName(int level,int score) {
-		JLabel name  = new JLabel("Tell your name");
-		JButton but = new JButton("ok");
+	public static void askName(int level, int score) {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setSize(300, 200);
+		panel.setLocation((frame.getWidth() - currGame.getMsg().getWidth()) / 2+currGame.getMsg().getWidth()/10,
+				(frame.getHeight() - currGame.getMsg().getHeight()) / 2 +20 );
 		
-		JPanel	panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		JTextField	jtf = new JTextField();
-		panel.add(name, BorderLayout.NORTH);
-		panel.add(jtf,BorderLayout.CENTER);
-		panel.add(but,BorderLayout.SOUTH);
-		but.addActionListener(new ActionListener() { 
+		JLabel name = new JLabel("Enter your name");
+		name.setFont(new Font("Courier New", Font.BOLD, 20));
+		name.setLocation(panel.getWidth() / 3 - panel.getWidth()/15, panel.getHeight()/10);
+		name.setSize(name.getPreferredSize());
+		
+		JButton but = new JButton("Ok");
+		but.setLocation(panel.getWidth() / 3+panel.getWidth() / 10, panel.getHeight()-panel.getHeight()/4);
+		but.setSize(panel.getWidth()/6, panel.getHeight()/7);
+		but.setBackground(Color.WHITE);
+		but.setBorderPainted(false);
+
+		panel.setBackground(new Color(43, 186, 174));
+		JTextField jtf = new JTextField();
+		jtf.setLocation(panel.getWidth()/30, panel.getHeight()/3);
+		jtf.setSize(panel.getWidth()-panel.getWidth()/15, panel.getHeight()/7);
+
+		panel.add(name);
+		panel.add(jtf);
+		panel.add(but);
+		but.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-		RecordField rec = new RecordField(jtf.getText(),String.valueOf(level),String.valueOf(score));
-		try {
-			list.add(rec);
-			int page = checker(list.getIndex(rec));
-			lp.remove(panel);
-			lp.remove(currGame.getMsg());
-			//currGame.getPointsCont().delete();
-			//currGame.getLivesCont().delete();
-			lp.repaint();
-			
-			GameManager.drawLeader(page);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}}}
-			);
-		panel.setSize(100,100);
-		panel.setLocation((frame.getWidth() - currGame.getMsg().getWidth()) / 2,(frame.getHeight() - currGame.getMsg().getHeight()) / 2 + 200);
-		lp.add(panel, Const.FINAL_MSG_LAYER);	
+				RecordField rec = new RecordField(jtf.getText(), String.valueOf(level), String.valueOf(score));
+
+				try {
+					list.add(rec);
+					int page = checker(list.getIndex(rec));
+					lp.remove(panel);
+					lp.remove(currGame.getMsg());
+					currGame.getPointsCont().delete();
+					currGame.getLivesCont().delete();
+					lp.remove(currGame.levelTxt());
+					lp.repaint();
+
+					GameManager.drawLeader(page);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+
+		lp.add(panel, Const.FINAL_MSG_LAYER);
 	}
 
 	protected static int checker(int index) {
-		int page =0;
-		while(index>=10) {
-			index-=10;
+		int page = 0;
+		while (index >= 10) {
+			index -= 10;
 			page++;
 		}
-		//System.out.println(page);
+		// System.out.println(page);
 		return page;
 	}
 

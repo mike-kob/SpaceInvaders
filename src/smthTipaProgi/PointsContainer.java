@@ -33,6 +33,7 @@ public class PointsContainer {
 	}
 	
 	public void delete() {
+		
 		game.lp.remove(label);
 	}
 	

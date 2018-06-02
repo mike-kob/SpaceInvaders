@@ -16,6 +16,7 @@ import levelpac.GameManager;
 
 public class LivesContainer {
 	private JPanel panel;
+	private JLabel livesTxt;
 	private Game game = GameManager.getCurrentGame();
 	
 	public JPanel getPanel() {
@@ -24,7 +25,7 @@ public class LivesContainer {
 	
 	public void draw(int lives) {
 		panel = new JPanel();
-		JLabel livesTxt = new JLabel("Lives:");
+	    livesTxt = new JLabel("Lives:");
 		livesTxt.setFont(new Font("Courier New", Font.BOLD, 42));
 		livesTxt.setForeground(Color.WHITE);
 		livesTxt.setLocation(850, 5);
@@ -71,6 +72,15 @@ public class LivesContainer {
 	
 	public void delete() {
 		game.lp.remove(panel);
+		game.lp.remove(livesTxt);
+	}
+
+	public JLabel getLivesTxt() {
+		return livesTxt;
+	}
+
+	public void setLivesTxt(JLabel livesTxt) {
+		this.livesTxt = livesTxt;
 	}
 
 }

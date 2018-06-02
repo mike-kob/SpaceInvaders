@@ -27,8 +27,6 @@ public class Leaderboard extends JLabel {
 	JButton skip2;
 	JButton menu;
 
-	
-
 	public Leaderboard(int page) {
 		super(new ImageIcon(Const.LEADER_PATH));
 		setSize(getPreferredSize());
@@ -47,16 +45,16 @@ public class Leaderboard extends JLabel {
 		skip1.setSize(32, 32);
 		skip1.setOpaque(false);
 		skip1.addActionListener(next);
-		skip1.setBackground(new Color(255,255,255));
+		skip1.setBackground(new Color(255, 255, 255));
 		skip1.setBorderPainted(false);
 		add(skip1);
-		
+
 		skip2 = new JButton(new ImageIcon("res/skip2.png"));
 		skip2.setLocation(40, 565);
 		skip2.setSize(32, 32);
 		skip2.setOpaque(false);
 		skip2.addActionListener(back);
-		skip2.setBackground(new Color(255,255,255));
+		skip2.setBackground(new Color(255, 255, 255));
 		skip2.setBorderPainted(false);
 		add(skip2);
 
@@ -69,11 +67,10 @@ public class Leaderboard extends JLabel {
 
 		add(grid);
 		addRecords();
-		
-		
+
 	}
 
-	 ActionListener next = (ActionEvent e) -> {
+	ActionListener next = (ActionEvent e) -> {
 		page++;
 		deleteRecords();
 		last.setSize(1, 1);
@@ -81,7 +78,7 @@ public class Leaderboard extends JLabel {
 		addRecords();
 	};
 
-	 ActionListener back = (ActionEvent e) -> {
+	ActionListener back = (ActionEvent e) -> {
 		page--;
 		deleteRecords();
 		last.setSize(1, 1);
@@ -89,13 +86,13 @@ public class Leaderboard extends JLabel {
 		addRecords();
 	};
 
-	 ActionListener exit = (ActionEvent e) -> {
-		
+	ActionListener exit = (ActionEvent e) -> {
+
 		GameManager.lp.removeAll();
 		GameManager.lp.repaint();
 		GameManager.drawWindow();
 		GameManager.drawMenu();
-		
+
 	};
 
 	public void addRecords() {
@@ -111,12 +108,12 @@ public class Leaderboard extends JLabel {
 			addRecord(String.valueOf(i + 1), GameManager.list.getObject(i).getName(),
 					GameManager.list.getObject(i).getLevel(), GameManager.list.getObject(i).getPoints());
 		}
-		System.out.println(page);
-		if(page==0) {
+
+		if (page == 0) {
 			skip2.setEnabled(false);
 			grid.repaint();
 		}
-		if(page==getNumOfPages()-1) {
+		if (page == getNumOfPages() - 1) {
 			skip1.setEnabled(false);
 		}
 	}
@@ -125,18 +122,18 @@ public class Leaderboard extends JLabel {
 		grid.removeAll();
 		grid.repaint();
 	}
-	
-public int getNumOfPages() {
-	int size = GameManager.list.getSize();
-	int page =1;
-	while(size>=10) {
-		size-=10;
-		page++;
-	}
-	return page;
-}
 
-	public  void addRecord(String place, String name, String level, String score) {
+	public int getNumOfPages() {
+		int size = GameManager.list.getSize();
+		int page = 1;
+		while (size >= 10) {
+			size -= 10;
+			page++;
+		}
+		return page;
+	}
+
+	public void addRecord(String place, String name, String level, String score) {
 		JLabel record = new JLabel();
 		record.setLayout(null);
 		record.setSize(grid.getWidth(), (grid.getHeight() - PAD * 10) / 10);

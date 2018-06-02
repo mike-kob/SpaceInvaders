@@ -25,6 +25,7 @@ public class Game {
 	public boolean running = true;
 	public int score, level, lives;
 	private JLabel msg;
+	private JLabel levelTxt;
 	
 	private AlienContainer alienCont;
 	private BombContainer bombCont;
@@ -32,6 +33,7 @@ public class Game {
 	private LivesContainer livesCont;
 	private PointsContainer pointsCont;
 	private SpecialAlienContainer spAlienCont;
+
 	
 	public Game(JFrame fr, JLayeredPane lpn, int scoreP, int levelP, int livesP) {
 		frame = fr;
@@ -79,7 +81,7 @@ public class Game {
 
 		lp.add(fighter, Const.ROCKET_LAYER);
 
-		JLabel levelTxt = new JLabel();
+		levelTxt = new JLabel();
 		levelTxt.setText("Level: " + level);
 		levelTxt.setFont(new Font("Courier New", Font.BOLD, 42));
 		levelTxt.setSize(400, 60);
@@ -96,17 +98,7 @@ public class Game {
 		defenceCont.drawDefences();
 	}
 
-	public int getScore() {
-		return score;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public int getLives() {
-		return lives;
-	}
+	
 
 	private void bombFactory() {
 		new Thread() {
@@ -193,7 +185,7 @@ public class Game {
 		msg.setFont(new Font("Courier new", Font.PLAIN, 72));
 		msg.setForeground(Color.WHITE);
 		msg.setSize(msg.getPreferredSize());
-		msg.setLocation((frame.getWidth() - msg.getWidth()) / 2, (frame.getHeight() - msg.getHeight()) / 2);
+		msg.setLocation((frame.getWidth() - msg.getWidth()) / 2, (frame.getHeight() - msg.getHeight()) / 2- msg.getHeight());
 		lp.add(msg, Const.FINAL_MSG_LAYER);
 		frame.removeKeyListener(listener);
 		alienCont.removeAliens();
@@ -219,7 +211,9 @@ public class Game {
 	public  JLabel getMsg() {
 		return msg;
 	}
-	
+	public  JLabel levelTxt() {
+		return levelTxt;
+	}
 
 	public AlienContainer getAlienCont() {
 		return alienCont;
@@ -247,5 +241,16 @@ public class Game {
 
 	public PointsContainer getPointsCont() {
 		return pointsCont;
+	}
+	public int getScore() {
+		return score;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public int getLives() {
+		return lives;
 	}
 }
