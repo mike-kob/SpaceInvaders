@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 
 import levelpac.GameManager;
 
@@ -24,7 +25,7 @@ public class BombContainer {
 		currentTimeAdded = System.currentTimeMillis();
 		if (currentTimeAdded - lastTimeAdded > Const.BOMB_TIME_INTERVAL) {
 			Bomb bomb = new Bomb(game.getFighter().getX() + 15);
-			game.lp.add(bomb, Const.BOMB_LAYER);
+			game.getLp().add(bomb, Const.BOMB_LAYER);
 			bombs.add(bomb);
 			lastTimeAdded = System.currentTimeMillis();
 		}
@@ -37,18 +38,18 @@ public class BombContainer {
 		} catch (InterruptedException e) {
 		}
 		for(JLabel l:bombs) {
-			game.lp.remove(l);
+			game.getLp().remove(l);
 		}
 		for(JLabel l:heal) {
-			game.lp.remove(l);
+			game.getLp().remove(l);
 		}
 		for(JLabel l:enemyBombs) {
-			game.lp.remove(l);
+			game.getLp().remove(l);
 		}
 		bombs.removeAll(bombs);
 		heal.removeAll(heal);
 		enemyBombs.removeAll(enemyBombs);
-		game.lp.repaint();
+		game.getLp().repaint();
 	}
 	
 	public Set<Bomb> getBombs() {
@@ -74,7 +75,7 @@ public class BombContainer {
 		
 		Dynamite dyn = new Dynamite(game.getAlienCont().getLastInColumn(column));
 		enemyBombs.add(dyn);
-		game.lp.add(dyn, Const.DYNAMITE_LAYER);
+		game.getLp().add(dyn, Const.DYNAMITE_LAYER);
 		} catch (Exception e) {
 		}
 	}
@@ -88,26 +89,26 @@ public class BombContainer {
 			aid.setSize(64,64);
 			aid.setLocation(alien.getX()+game.getAlienCont().getGridX(), alien.getY()+game.getAlienCont().getGridY());
 			heal.add(aid);
-			game.lp.add(aid, Const.DYNAMITE_LAYER);
+			game.getLp().add(aid, Const.DYNAMITE_LAYER);
 		}
 	}	
 	
 	public void remove(Bomb bomb) {
-		game.lp.remove(bomb);
+		game.getLp().remove(bomb);
 		bombs.remove(bomb);
-		game.lp.repaint();
+		game.getLp().repaint();
 	}
 
 	public void removeDyn(Dynamite dyn) {
-		game.lp.remove(dyn);
+		game.getLp().remove(dyn);
 		enemyBombs.remove(dyn);
-		game.lp.repaint();
+		game.getLp().repaint();
 	}
 	
 	public void removeAid(JLabel aid) {
-		game.lp.remove(aid);
+		game.getLp().remove(aid);
 		heal.remove(aid);
-		game.lp.repaint();
+		game.getLp().repaint();
 	}
 
 	public void update() {

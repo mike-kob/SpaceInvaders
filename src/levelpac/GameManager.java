@@ -1,6 +1,5 @@
 package levelpac;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -23,25 +22,52 @@ public class GameManager {
 
 	public static final JFrame frame = new JFrame();
 	public static final JLayeredPane lp = frame.getLayeredPane();
-	static MenuBar bar;
-	static Leaderboard board;
-	static Game currGame;
-	public static boolean musicOn = true;
 	public static ListOfRecords list;
+
+	private static MenuBar bar;
+	private static Leaderboard board;
+	private static Game currGame;
+	private static boolean musicOn = true;
+
+	public static Game getCurrentGame() {
+		return currGame;
+	}
 
 	public static void main(String[] args) {
 		drawWindow();
 		try {
 			list = new ListOfRecords("results.txt");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		drawMenu();
 		musicFactory();
 	}
 
+	public static void startNewGame() {
+		new Thread() {
+			public void run() {
+				if (bar != null)
+					lp.remove(bar);
+				if (board != null)
+					lp.remove(board);
+				currGame = new Game(frame, lp, 0, 1, 3);
+				currGame.start();
+			}
+		}.start();
+	}
+
+	public static void continueGame(int score, int level, int lives) {
+		lp.removeAll();
+		lp.repaint();
+		currGame = new Game(frame, lp, score, level + 1, lives);
+		currGame.start();
+	}
+
 	public static void drawMenu() {
+		if (board != null)
+			lp.remove(board);
+		lp.repaint();
 		bar = new MenuBar();
 		bar.setLocation((frame.getWidth() - 350) / 2, (frame.getHeight() - 300) / 2);
 		lp.add(bar, Const.MENU_LAYER);
@@ -74,52 +100,28 @@ public class GameManager {
 		lp.repaint();
 	}
 
-	private static void musicFactory() {
-		new Thread() {
-			public void run() {
-				while (musicOn) {
-					Mp3Player mp = new Mp3Player(Const.MUSIC_PATH);
-					mp.play();
-				}
-			}
-		}.start();
-	}
-
-	public static void startNewGame() {
-		new Thread() {
-			public void run() {
-				if (bar != null)
-					lp.remove(bar);
-				if (board != null)
-					lp.remove(board);
-				currGame = new Game(frame, lp, 0, 1, 3);
-				currGame.start();
-			}
-		}.start();
-	}
-
 	public static void askName(int level, int score) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setSize(300, 200);
-		panel.setLocation((frame.getWidth() - currGame.getMsg().getWidth()) / 2+currGame.getMsg().getWidth()/10,
-				(frame.getHeight() - currGame.getMsg().getHeight()) / 2 +20 );
-		
+		panel.setLocation((frame.getWidth() - currGame.getMsg().getWidth()) / 2 + currGame.getMsg().getWidth() / 10,
+				(frame.getHeight() - currGame.getMsg().getHeight()) / 2 + 20);
+
 		JLabel name = new JLabel("Enter your name");
 		name.setFont(new Font("Courier New", Font.BOLD, 20));
-		name.setLocation(panel.getWidth() / 3 - panel.getWidth()/15, panel.getHeight()/10);
+		name.setLocation(panel.getWidth() / 3 - panel.getWidth() / 15, panel.getHeight() / 10);
 		name.setSize(name.getPreferredSize());
-		
+
 		JButton but = new JButton("Ok");
-		but.setLocation(panel.getWidth() / 3+panel.getWidth() / 10, panel.getHeight()-panel.getHeight()/4);
-		but.setSize(panel.getWidth()/6, panel.getHeight()/7);
+		but.setLocation(panel.getWidth() / 3 + panel.getWidth() / 10, panel.getHeight() - panel.getHeight() / 4);
+		but.setSize(panel.getWidth() / 6, panel.getHeight() / 7);
 		but.setBackground(Color.WHITE);
 		but.setBorderPainted(false);
 
 		panel.setBackground(new Color(43, 186, 174));
 		JTextField jtf = new JTextField();
-		jtf.setLocation(panel.getWidth()/30, panel.getHeight()/3);
-		jtf.setSize(panel.getWidth()-panel.getWidth()/15, panel.getHeight()/7);
+		jtf.setLocation(panel.getWidth() / 30, panel.getHeight() / 3);
+		jtf.setSize(panel.getWidth() - panel.getWidth() / 15, panel.getHeight() / 7);
 
 		panel.add(name);
 		panel.add(jtf);
@@ -141,7 +143,6 @@ public class GameManager {
 
 					GameManager.drawLeader(page);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -156,22 +157,18 @@ public class GameManager {
 			index -= 10;
 			page++;
 		}
-		// System.out.println(page);
 		return page;
 	}
 
-	public static void continueGame(int score, int level, int lives) {
-		lp.removeAll();
-		lp.repaint();
-		currGame = new Game(frame, lp, score, level + 1, lives);
-		currGame.start();
+	private static void musicFactory() {
+		new Thread() {
+			public void run() {
+				while (musicOn) {
+					Mp3Player mp = new Mp3Player(Const.MUSIC_PATH);
+					mp.play();
+				}
+			}
+		}.start();
 	}
 
-	public static Game getCurrentGame() {
-		return currGame;
-	}
-
-	public static JFrame getFrame() {
-		return frame;
-	}
 }

@@ -14,7 +14,7 @@ public class AlienContainer {
 	private JPanel grid = new JPanel(null);
 	private Set<Alien> aliens = Collections.newSetFromMap(new ConcurrentHashMap<Alien, Boolean>());
 	private Game currGame = GameManager.getCurrentGame();
-	private JFrame frame = GameManager.getFrame();
+	private JFrame frame = GameManager.frame;
 	private Alien[][] matrix  = new Alien[Const.ALIEN_ROWS][Const.ALIEN_COLUMNS];
 
 	public boolean isEmpty() {
@@ -41,7 +41,7 @@ public class AlienContainer {
 		grid.setSize(700, 350);
 		grid.setLocation((frame.getWidth() - grid.getWidth()) / 2, Const.ALIENT_START_Y);
 		
-		currGame.lp.add(grid, Const.ALIEN_LAYER);
+		currGame.getLp().add(grid, Const.ALIEN_LAYER);
 	}
 
 	public int getGridX() {
@@ -56,7 +56,7 @@ public class AlienContainer {
 		aliens.remove(alien);
 		grid.remove(alien);
 		grid.repaint();
-		currGame.lp.repaint();
+		currGame.getLp().repaint();
 		removeFromMatrix(alien);
 	}
 
@@ -82,7 +82,7 @@ public class AlienContainer {
 	public void update() {
 		int direction = Const.ALIEN_STEP;
 
-		while (currGame.running) {
+		while (currGame.isRunning()) {
 			int x = grid.getX();
 			int y = grid.getY();
 			if(isEmpty()) {
@@ -90,7 +90,7 @@ public class AlienContainer {
 				return;
 			}
 			try {
-				if(getLowBorder()> currGame.fighter.getY() && getLeftBorder() <= 0) {
+				if(getLowBorder()> currGame.getFighter().getY() && getLeftBorder() <= 0) {
 					currGame.stop(true);
 					return;
 				}
@@ -100,12 +100,12 @@ public class AlienContainer {
 					y += 50;
 					grid.setLocation(x, y);
 					grid.repaint();
-					currGame.lp.repaint();
+					currGame.getLp().repaint();
 					Thread.sleep(pause);
 				}
 				grid.setLocation(x + direction, y);
 				grid.repaint();
-				currGame.lp.repaint();
+				currGame.getLp().repaint();
 				
 				Thread.sleep(pause);
 			} catch (Exception e) {

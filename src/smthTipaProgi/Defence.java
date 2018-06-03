@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 
 import levelpac.GameManager;
 
-public class Defence extends JLabel implements Updatable {
+public class Defence extends JLabel{
 	/**
 	 * 
 	 */
@@ -26,7 +26,7 @@ public class Defence extends JLabel implements Updatable {
 		setLocation(mid - this.getWidth() / 2, Const.DEFENCE_Y);
 
 		hb = new HealthBar(mid - this.getWidth() / 2, Const.DEFENCE_Y, skin.getIconHeight());
-		game.lp.add(hb, Const.DEFENCE_LAYER);
+		game.getLp().add(hb, Const.DEFENCE_LAYER);
 		
 	}
 
@@ -38,7 +38,7 @@ public class Defence extends JLabel implements Updatable {
 		if (level == Const.LIFE_OF_ROCK) {
 			skin = new ImageIcon(Const.ROCK_BUBUH_PATH);
 			this.setIcon(skin);
-			game.lp.remove(hb);
+			game.getLp().remove(hb);
 			try {
 				Thread.sleep(700);
 			} catch (Exception e) {
@@ -90,6 +90,6 @@ public class Defence extends JLabel implements Updatable {
 	
 	public void removeHealthBar() {
 		hb.removeBars();
-		game.lp.remove(hb);
+		game.getLp().remove(hb);
 	}
 }

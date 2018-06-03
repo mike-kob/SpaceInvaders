@@ -27,28 +27,28 @@ public class HealthBar extends JPanel {
 			l.setOpaque(true);
 			l.setLocation(x, y + height - 20);
 			l.setSize(i * Const.WEIGHT_OF_BAR / 3, Const.HEIGHT_OF_BAR);
-			game.lp.add(l, Const.DEFENCE_LAYER);
+			game.getLp().add(l, Const.DEFENCE_LAYER);
 			labels[i - 1] = l;
 		}
 	}
 
 	public void remove(int level) {
 		if (level == Const.LIFE_OF_ROCK / 3) {
-			game.lp.remove(labels[2]);
-			game.lp.repaint();
+			game.getLp().remove(labels[2]);
+			game.getLp().repaint();
 		} else if (level == 2 * Const.LIFE_OF_ROCK / 3) {
-			game.lp.remove(labels[1]);
-			game.lp.repaint();
+			game.getLp().remove(labels[1]);
+			game.getLp().repaint();
 		} else if (level == Const.LIFE_OF_ROCK) {
-			game.lp.remove(labels[0]);
-			game.lp.repaint();
+			game.getLp().remove(labels[0]);
+			game.getLp().repaint();
 		}
 	}
 
 	public void removeBars() {
 		for (JLabel l : labels) {
-			game.lp.remove(l);
-			game.lp.repaint();
+			game.getLp().remove(l);
+			game.getLp().repaint();
 		}
 	}
 

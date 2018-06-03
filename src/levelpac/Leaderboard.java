@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,9 +26,9 @@ public class Leaderboard extends JLabel {
 	private final static Font recFont = new Font("Courier", Font.BOLD, 25);
 	private JLabel last = new JLabel();
 	private int page = 0;
-	JButton skip1;
-	JButton skip2;
-	JButton menu;
+	private JLabel skip1;
+	private JLabel skip2;
+	private JLabel menu;
 
 	public Leaderboard(int page) {
 		super(new ImageIcon(Const.LEADER_PATH));
@@ -40,29 +43,27 @@ public class Leaderboard extends JLabel {
 		last.setLocation(0, 0);
 		grid.add(last);
 
-		skip1 = new JButton(new ImageIcon("res/fast-forward.png"));
+		skip1 = new JLabel(new ImageIcon("res/fast-forward.png"));
 		skip1.setLocation(150, 565);
 		skip1.setSize(32, 32);
 		skip1.setOpaque(false);
-		skip1.addActionListener(next);
+		skip1.addMouseListener(next);
 		skip1.setBackground(new Color(255, 255, 255));
-		skip1.setBorderPainted(false);
 		add(skip1);
 
-		skip2 = new JButton(new ImageIcon("res/skip2.png"));
+		skip2 = new JLabel(new ImageIcon("res/skip2.png"));
 		skip2.setLocation(40, 565);
 		skip2.setSize(32, 32);
 		skip2.setOpaque(false);
-		skip2.addActionListener(back);
+		skip2.addMouseListener(back);
 		skip2.setBackground(new Color(255, 255, 255));
-		skip2.setBorderPainted(false);
 		add(skip2);
 
-		menu = new JButton(new ImageIcon("res/home.png"));
+		menu = new JLabel(new ImageIcon("res/home.png"));
 		menu.setLocation(95, 565);
 		menu.setSize(32, 32);
-		menu.setOpaque(false);
-		menu.addActionListener(exit);
+		menu.setOpaque(true);
+		menu.addMouseListener(exit);
 		add(menu);
 
 		add(grid);
@@ -70,29 +71,33 @@ public class Leaderboard extends JLabel {
 
 	}
 
-	ActionListener next = (ActionEvent e) -> {
-		page++;
-		deleteRecords();
-		last.setSize(1, 1);
-		last.setLocation(0, 0);
-		addRecords();
+	private MouseListener next = new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			page++;
+			deleteRecords();
+			last.setSize(1, 1);
+			last.setLocation(0, 0);
+			addRecords();
+		}
 	};
 
-	ActionListener back = (ActionEvent e) -> {
-		page--;
-		deleteRecords();
-		last.setSize(1, 1);
-		last.setLocation(0, 0);
-		addRecords();
+	private MouseListener back = new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			page--;
+			deleteRecords();
+			last.setSize(1, 1);
+			last.setLocation(0, 0);
+			addRecords();
+		}
 	};
 
-	ActionListener exit = (ActionEvent e) -> {
-
-		GameManager.lp.removeAll();
-		GameManager.lp.repaint();
-		GameManager.drawWindow();
-		GameManager.drawMenu();
-
+	private MouseListener exit = new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			GameManager.drawMenu();
+		}
 	};
 
 	public void addRecords() {

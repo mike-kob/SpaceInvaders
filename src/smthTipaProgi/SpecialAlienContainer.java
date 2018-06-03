@@ -22,7 +22,7 @@ public class SpecialAlienContainer extends JLabel {
 		label.setIcon(im);
 		label.setLocation(-64, 50);
 		label.setSize(64, 44);
-		game.lp.add(label, Const.ALIEN_LAYER);
+		game.getLp().add(label, Const.ALIEN_LAYER);
 		mp = new Mp3Player(Const.SOUND_OF_EXPLOSION);
 	}
 
@@ -32,7 +32,7 @@ public class SpecialAlienContainer extends JLabel {
 			draw();
 		}
 		label.setLocation(label.getX() + 10, label.getY());
-		game.lp.repaint();
+		game.getLp().repaint();
 
 		for (Bomb bomb : game.getBombCont().getBombs()) {
 			if (isHit(bomb)) {
@@ -57,8 +57,8 @@ public class SpecialAlienContainer extends JLabel {
 		label.setForeground(Color.GREEN);
 		label.setText(String.valueOf(reward));
 		pause(2000);
-		game.lp.remove(label);
-		game.lp.repaint();
+		game.getLp().remove(label);
+		game.getLp().repaint();
 		pause(Const.PAUSE_FOR_SPECIAL_UFO + (long)(Math.random()*15000));
 	}
 
@@ -75,7 +75,7 @@ public class SpecialAlienContainer extends JLabel {
 	}
 
 	private boolean isChecker(int x) {
-		return x >= game.frame.getWidth();
+		return x >= game.getFrame().getWidth();
 	}
 
 	private void pause(long millis) {

@@ -18,11 +18,11 @@ import levelpac.GameManager;
 
 
 public class Game {
-	public JFrame frame;
-	public JLayeredPane lp;
-	public Rocket fighter;
+	private JFrame frame;
+	private JLayeredPane lp;
+	private Rocket fighter;
 	private GameListener listener;
-	public boolean running = true;
+	private boolean running = true;
 	public int score, level, lives;
 	private JLabel msg;
 	private JLabel levelTxt;
@@ -252,5 +252,13 @@ public class Game {
 
 	public int getLives() {
 		return lives;
+	}
+	
+	public JLayeredPane getLp() {
+		return lp;
+	}
+	
+	public boolean isRunning() {
+		return running;
 	}
 }

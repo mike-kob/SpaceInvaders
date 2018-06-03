@@ -13,7 +13,7 @@ public class DefenceContainer {
 	public void drawDefences() {
 		for (int i = 1; i <= Const.NUM_OF_DEF; i++) {
 			Defence df1 = new Defence(i * game.getFrame().getWidth() / (Const.NUM_OF_DEF + 1));
-			game.lp.add(df1, Const.DEFENCE_LAYER);
+			game.getLp().add(df1, Const.DEFENCE_LAYER);
 			defences.add(df1);
 		}
 	}
@@ -21,9 +21,9 @@ public class DefenceContainer {
 	public void removeDefences() {
 		for(Defence l:defences) {
 			l.removeHealthBar();
-			game.lp.remove(l);
+			game.getLp().remove(l);
 		}
-		game.lp.repaint();
+		game.getLp().repaint();
 		defences.removeAll(defences);
 	}
 	
@@ -34,7 +34,7 @@ public class DefenceContainer {
 	}
 	
 	public void remove(Defence def) {
-		game.lp.remove(def);
+		game.getLp().remove(def);
 		defences.remove(def);
 	}
 

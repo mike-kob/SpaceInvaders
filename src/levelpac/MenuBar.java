@@ -1,5 +1,6 @@
 package levelpac;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -35,7 +36,7 @@ public class MenuBar extends JLabel {
 		start.setSize(240, 40);
 		start.setLocation((getWidth() - 240) / 2, getHeight() * 2 / 5 - 30);
 		add(start);
-		start.addMouseListener(new MouseListener() {
+		start.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -45,27 +46,12 @@ public class MenuBar extends JLabel {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				start.setIcon(start_on);
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				start.setIcon(start_off);
-
 			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
 		});
 
 	}
@@ -75,40 +61,22 @@ public class MenuBar extends JLabel {
 		leader.setSize(240, 40);
 		leader.setLocation((getWidth() - 240) / 2, getHeight() * 3 / 5 - 30);
 		add(leader);
-		leader.addMouseListener(new MouseListener() {
+		leader.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				GameManager.drawLeader(0);
-				
-				
-			
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				leader.setIcon(leader_on);
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				leader.setIcon(leader_off);
-
 			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
 		});
 	}
 
@@ -117,7 +85,7 @@ public class MenuBar extends JLabel {
 		quit.setSize(240, 40);
 		quit.setLocation((getWidth() - 240) / 2, getHeight() * 4 / 5 - 30);
 		add(quit);
-		quit.addMouseListener(new MouseListener() {
+		quit.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -127,27 +95,12 @@ public class MenuBar extends JLabel {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				quit.setIcon(quit_on);
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				quit.setIcon(quit_off);
-
 			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
 		});
 	}
 

@@ -61,8 +61,8 @@ public class Rocket extends JLabel {
 		this.setLocation(x, y);
 		this.setIcon(new ImageIcon(Const.ROCKET_PATH));
 		} else {
-			game.lp.remove(this);
-			game.lp.repaint();
+			game.getLp().remove(this);
+			game.getLp().repaint();
 		}
 	}
 	

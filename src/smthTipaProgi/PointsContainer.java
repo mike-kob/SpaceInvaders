@@ -21,20 +21,20 @@ public class PointsContainer {
 		label.setForeground(Color.WHITE);
 		label.setLocation(0, 5);
 		label.setSize(500,60);
-		game.lp.add(label, Const.LIVES_LAYER);
+		game.getLp().add(label, Const.LIVES_LAYER);
 	}
 	
 	public void change(int rang) {
 		count+=rang;
 		label.setText("Points: "+String.valueOf(count));
-		game.lp.repaint();
+		game.getLp().repaint();
 		label.repaint();
 		game.score = count;
 	}
 	
 	public void delete() {
 		
-		game.lp.remove(label);
+		game.getLp().remove(label);
 	}
 	
 	

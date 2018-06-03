@@ -16,7 +16,7 @@ public class Const {
 	public static final int DEFENCE_Y = 600;
 	public static final int HEIGHT_OF_BAR = 10;
 	public static final int WEIGHT_OF_BAR = 140;
-	public static final int NUM_OF_DEF = 1;
+	public static final int NUM_OF_DEF = 3;
 	public static final int LIFE_OF_ROCK = 9;
 	public static final int INTERVAL_X = 35;
 	public static final int INTERVAL_Y = 25;

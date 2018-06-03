@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 
 import levelpac.GameManager;
 
-public class Alien extends JLabel implements Updatable {
+public class Alien extends JLabel{
 
 	private static final long serialVersionUID = 1L;
 	private int amount;
@@ -37,7 +37,6 @@ public class Alien extends JLabel implements Updatable {
 		setLocation(x, y);
 	}
 
-	@Override
 	public void update() {
 		for (Bomb bomb : game.getBombCont().getBombs()) {
 			if (isHit(bomb)) {

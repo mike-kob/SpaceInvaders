@@ -51,14 +51,14 @@ public class GameListener implements KeyListener, Runnable {
 	}
 
 	public void run() {
-		while (game.running) {
-			if (isLeftPressed&& game.running) {
-				game.fighter.left();
+		while (game.isRunning()) {
+			if (isLeftPressed&& game.isRunning()) {
+				game.getFighter().left();
 			}
-			if (isRightPressed&& game.running) {
-				game.fighter.right();
+			if (isRightPressed&& game.isRunning()) {
+				game.getFighter().right();
 			}
-			if (isSpacePressed && game.running) {
+			if (isSpacePressed && game.isRunning()) {
 				game.getBombCont().add();
 			}
 			if (attackable) {
@@ -67,7 +67,7 @@ public class GameListener implements KeyListener, Runnable {
 						game.getBombCont().removeDyn(dyn);
 						game.getLivesCont().remove();
 						game.lives--;
-						game.lp.add(game.getLivesCont().getPanel(), Const.LIVES_LAYER);
+						game.getLp().add(game.getLivesCont().getPanel(), Const.LIVES_LAYER);
 						game.getFighter().explode(false);
 						makeInvincible();
 					}
@@ -78,7 +78,7 @@ public class GameListener implements KeyListener, Runnable {
 					game.getBombCont().removeAid(aid);
 					game.getLivesCont().add();
 					game.lives++;
-					game.lp.add(game.getLivesCont().getPanel(), Const.ROCKET_LAYER);
+					game.getLp().add(game.getLivesCont().getPanel(), Const.ROCKET_LAYER);
 
 				}
 			}

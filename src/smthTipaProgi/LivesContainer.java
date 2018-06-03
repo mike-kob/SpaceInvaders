@@ -30,7 +30,7 @@ public class LivesContainer {
 		livesTxt.setForeground(Color.WHITE);
 		livesTxt.setLocation(850, 5);
 		livesTxt.setSize(500, 60);
-		game.lp.add(livesTxt, Const.LIVES_LAYER);
+		game.getLp().add(livesTxt, Const.LIVES_LAYER);
 
 		panel.setLayout(new GridLayout(0, 5));
 		panel.setSize(270, 60);
@@ -38,7 +38,7 @@ public class LivesContainer {
 		panel.setOpaque(false);
 		for (int i = 0; i < lives; i++)
 			add();
-		game.lp.add(panel, Const.LIVES_LAYER);
+		game.getLp().add(panel, Const.LIVES_LAYER);
 	}
 
 	public void remove() {
@@ -62,7 +62,7 @@ public class LivesContainer {
 			JLabel live = new JLabel(ii);
 			panel.add(live);
 			panel.repaint();
-			game.lp.repaint();
+			game.getLp().repaint();
 			if (panel.getComponentCount() == 6) {
 				panel.setSize(panel.getWidth(), panel.getHeight() * 2);
 			}
@@ -71,8 +71,8 @@ public class LivesContainer {
 	}
 	
 	public void delete() {
-		game.lp.remove(panel);
-		game.lp.remove(livesTxt);
+		game.getLp().remove(panel);
+		game.getLp().remove(livesTxt);
 	}
 
 	public JLabel getLivesTxt() {
