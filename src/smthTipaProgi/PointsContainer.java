@@ -19,7 +19,7 @@ public class PointsContainer {
 		label.setText("Points: "+String.valueOf(count));
 		label.setFont(new Font("Courier New", Font.BOLD, 42));
 		label.setForeground(Color.WHITE);
-		label.setLocation(0, 5);
+		label.setLocation(90, 5);
 		label.setSize(500,60);
 		game.getLp().add(label, Const.LIVES_LAYER);
 	}

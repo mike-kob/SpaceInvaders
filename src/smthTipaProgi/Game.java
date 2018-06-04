@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -15,6 +17,7 @@ import javax.swing.JLayeredPane;
 
 
 import levelpac.GameManager;
+import levelpac.MenuBar;
 
 
 public class Game {
@@ -26,15 +29,95 @@ public class Game {
 	public int score, level, lives;
 	private JLabel msg;
 	private JLabel levelTxt;
-	
+	private JLabel menulabel;
+	public JLabel getMenulabel() {
+		return menulabel;
+	}
+
+	public void setMenulabel(JLabel menulabel) {
+		this.menulabel = menulabel;
+	}
+
 	private AlienContainer alienCont;
 	private BombContainer bombCont;
 	private DefenceContainer defenceCont;
 	private LivesContainer livesCont;
 	private PointsContainer pointsCont;
+	public GameListener getListener() {
+		return listener;
+	}
+
+	public void setListener(GameListener listener) {
+		this.listener = listener;
+	}
+
 	private SpecialAlienContainer spAlienCont;
+	private Thread bombThread;
+	
+	public Thread getBombThread() {
+		return bombThread;
+	}
+
+	public void setBombThread(Thread bombThread) {
+		this.bombThread = bombThread;
+	}
+
+	public Thread getAlienThread() {
+		return alienThread;
+	}
+
+	public void setAlienThread(Thread alienThread) {
+		this.alienThread = alienThread;
+	}
+
+	public Thread getSpecialAlienThread() {
+		return specialAlienThread;
+	}
+
+	public void setSpecialAlienThread(Thread specialAlienThread) {
+		this.specialAlienThread = specialAlienThread;
+	}
+
+	public Thread getEnemyBombThread() {
+		return enemyBombThread;
+	}
+
+	public void setEnemyBombThread(Thread enemyBombThread) {
+		this.enemyBombThread = enemyBombThread;
+	}
+
+	public Thread getGridThread() {
+		return gridThread;
+	}
+
+	public void setGridThread(Thread gridThread) {
+		this.gridThread = gridThread;
+	}
+
+	public Thread getDefenceThread() {
+		return defenceThread;
+	}
+
+	public void setDefenceThread(Thread defenceThread) {
+		this.defenceThread = defenceThread;
+	}
+
+	private Thread alienThread;
+	private Thread specialAlienThread;
+	private Thread enemyBombThread;
+	private Thread gridThread;
+	private Thread defenceThread;
+	private MenuBar menu;
 
 	
+	public MenuBar getMenu() {
+		return menu;
+	}
+
+	public void setMenu(MenuBar menu) {
+		this.menu = menu;
+	}
+
 	public Game(JFrame fr, JLayeredPane lpn, int scoreP, int levelP, int livesP) {
 		frame = fr;
 		lp = lpn;
@@ -69,6 +152,7 @@ public class Game {
 	}
 
 	private void drawEverything() {
+		
 		frame.setSize(1280, 980);
 		frame.setVisible(true);
 		frame.setLayout(null);
@@ -98,34 +182,94 @@ public class Game {
 		alienCont.drawPanel();
 
 		defenceCont.drawDefences();
+		drawMenu();
 	}
 
+	private void drawMenu() {
+		 menu = new MenuBar(false);
+		ImageIcon setting = new ImageIcon("res/settings (4).png");
+		menulabel = new JLabel(setting);
+		 menulabel.setSize(64,50);
+		 menulabel.setLocation(10, 5);
+		 lp.add( menulabel, Const.LIVES_LAYER);
+		
+		 menulabel.addMouseListener(new MouseListener() {
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseClicked(MouseEvent arg0)  {
+				menu.setLocation((frame.getWidth()-350)/2, (frame.getHeight()-300)/2);
+				lp.add(menu, new Integer(20));
+				bombThread.suspend();
+				alienThread.suspend();
+				specialAlienThread.suspend();
+				enemyBombThread.suspend();
+				gridThread.suspend();
+				defenceThread.suspend();
+				frame.removeKeyListener(listener);
+				
+				
+			 
+							
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+		});
+	
+		
+	}
 	
 
 	private void bombFactory() {
-		new Thread() {
+		bombThread = new Thread() {
 			public void run() {
 				while (running) {
 					bombCont.update();
 					pause(5);
 				}
 			}
-		}.start();
+		};
+		bombThread.start();
 	}
 
 	private void alienFactory() {
-		new Thread() {
+		alienThread = new Thread() {
 			public void run() {
 				while (running) {
 					alienCont.updateAliens();
 					pause(10);
 				}
 			}
-		}.start();
+		};
+		alienThread.start();
 	}
 
 	private void specialAlienFactory() {
-		new Thread() {
+		specialAlienThread=	new Thread() {
 			public void run() {
 				pause(Const.PAUSE_FOR_SPECIAL_UFO);
 				spAlienCont.draw();
@@ -135,11 +279,12 @@ public class Game {
 				}
 				spAlienCont.delete("");
 			}
-		}.start();
+		};
+		specialAlienThread.start();
 	}
 
 	public void enemyBombFactory() {
-		new Thread() {
+		enemyBombThread = new Thread() {
 			public void run() {
 				pause(1000 + (int) (Math.random() * Const.BOMB_FREQUENCY));
 				while (running) {
@@ -147,27 +292,30 @@ public class Game {
 					pause(1000 + (int) (Math.random() * Const.BOMB_FREQUENCY));
 				}
 			}
-		}.start();
+		};
+		enemyBombThread.start();
 	}
 
 	public void gridFactory() {
-		new Thread() {
+		 gridThread = new Thread() {
 			public void run() {
 				while (running) {
 					alienCont.update();
 				}
 			}
-		}.start();
+		};
+		 gridThread.start();
 	}
 
 	public void defenceFactory() {
-		new Thread() {
+	 defenceThread = new Thread() {
 			public void run() {
 				while (running) {
 					defenceCont.updateDef();
 				}
 			}
-		}.start();
+		};
+		 defenceThread.start();
 	}
 
 	

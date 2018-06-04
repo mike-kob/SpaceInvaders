@@ -72,7 +72,7 @@ public class GameManager {
 		if (board != null)
 			lp.remove(board);
 		lp.repaint();
-		bar = new MenuBar();
+		bar = new MenuBar(true);
 		bar.setLocation((frame.getWidth() - 350) / 2, (frame.getHeight() - 300) / 2);
 		lp.add(bar, Const.MENU_LAYER);
 	}
@@ -142,6 +142,7 @@ public class GameManager {
 					lp.remove(currGame.getMsg());
 					currGame.getPointsCont().delete();
 					currGame.getLivesCont().delete();
+					lp.remove(currGame.getMenulabel());
 					lp.remove(currGame.levelTxt());
 					lp.repaint();
 

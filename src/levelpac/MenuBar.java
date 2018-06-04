@@ -7,6 +7,8 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import smthTipaProgi.Game;
+
 public class MenuBar extends JLabel {
 
 	/**
@@ -22,13 +24,30 @@ public class MenuBar extends JLabel {
 	private final ImageIcon quit_off = new ImageIcon("res/menu/quit_bar_off.png");
 	private final ImageIcon quit_on = new ImageIcon("res/menu/quit_bar_on.png");
 
-	public MenuBar() {
+	
+	private final ImageIcon resume_off = new ImageIcon("res/menu/resume_bar_off.png");
+	private final ImageIcon resume_on = new ImageIcon("res/menu/resume_bar_on.png");
+	private Game game = GameManager.getCurrentGame();
+	private JLabel label;
+	
+	public JLabel getLabel() {
+		return label;
+	}
+
+	public void setLabel(JLabel label) {
+		this.label = label;
+	}
+
+	public MenuBar(boolean flag) {
 		super(new ImageIcon("res/menu/main_menu.png"));
+		label = this;
 		setLayout(null);
 		setSize(350, 300);
+		if(flag) {
 		drawStart();
 		drawLeader();
-		drawQuit();
+		drawQuit();} 
+		else drawResume();
 	}
 
 	public void drawStart() {
@@ -101,6 +120,60 @@ public class MenuBar extends JLabel {
 			public void mouseExited(MouseEvent arg0) {
 				quit.setIcon(quit_off);
 			}
+		});
+	}
+	
+
+	public void drawResume() {
+		JLabel resume = new JLabel(resume_off);
+		resume.setSize(240,40);
+		resume.setLocation((getWidth()-240)/2, getHeight()*3/5-30);
+		add(resume);
+		resume.addMouseListener(new MouseListener() {
+	
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				game.getLp().remove(label);
+		        game.getBombThread().resume();
+		    	game.getAlienThread().resume();
+		    	game.getDefenceThread().resume();
+		    	game.getEnemyBombThread().resume();
+		    	game.getGridThread().resume();
+		    	game.getSpecialAlienThread().resume();
+		    	game.getFrame().addKeyListener(game.getListener());
+		    	
+				
+			
+			//	Game.listener.notifyAll();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				resume.setIcon(resume_on);
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				resume.setIcon(resume_off);
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		});
 	}
 
