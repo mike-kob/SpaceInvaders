@@ -54,7 +54,9 @@ public class Game {
 		pointsCont = new PointsContainer();
 		spAlienCont = new SpecialAlienContainer();
 		
-		listener = new GameListener();
+		
+				listener = new GameListener();
+
 		drawEverything();
 		
 		frame.addKeyListener(listener);

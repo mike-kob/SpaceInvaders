@@ -49,6 +49,8 @@ public class GameManager {
 	public static void startNewGame() {
 		new Thread() {
 			public void run() {
+				frame.setFocusable(true);
+				frame.requestFocusInWindow();
 				if (bar != null)
 					lp.remove(bar);
 				if (board != null)
@@ -115,7 +117,7 @@ public class GameManager {
 		name.setLocation(panel.getWidth() / 3 - panel.getWidth() / 15, panel.getHeight() / 10);
 		name.setSize(name.getPreferredSize());
         
-		JLabel but = new JLabel("Ok");
+		JButton but = new JButton("Ok");
 		but.setLocation(panel.getWidth() / 3 + panel.getWidth() / 10, panel.getHeight() - panel.getHeight() / 4);
 		but.setSize(panel.getWidth() / 6, panel.getHeight() / 7);
 		but.setBackground(Color.WHITE);
