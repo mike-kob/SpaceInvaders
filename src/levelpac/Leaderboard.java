@@ -102,8 +102,17 @@ public class Leaderboard extends JLabel {
 
 	public void addRecords() {
 		int to;
+		
+	if(!skip1.isEnabled()) {
 		skip1.setEnabled(true);
+		skip1.addMouseListener(next);
+	
+	}
+	if(!skip2.isEnabled()) {
 		skip2.setEnabled(true);
+		skip2.addMouseListener(back);
+		
+	}
 		if (GameManager.list.getSize() > 10 + 10 * page) {
 			to = 10 + 10 * page;
 		} else {
@@ -116,10 +125,13 @@ public class Leaderboard extends JLabel {
 
 		if (page == 0) {
 			skip2.setEnabled(false);
+			skip2.removeMouseListener(back);
 			grid.repaint();
 		}
-		if (page == getNumOfPages() - 1) {
+		if (page == getNumOfPages() -1) {
 			skip1.setEnabled(false);
+			skip1.removeMouseListener(next);
+	
 		}
 	}
 
@@ -131,7 +143,7 @@ public class Leaderboard extends JLabel {
 	public int getNumOfPages() {
 		int size = GameManager.list.getSize();
 		int page = 1;
-		while (size >= 10) {
+		while (size > 10) {
 			size -= 10;
 			page++;
 		}

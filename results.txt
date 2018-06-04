@@ -2,19 +2,23 @@ Michael 11 15219
 mikhail 3 3138
 masha 2 2262
 vadym 2 2020
+Dasha 2 1663
 dasha 2 1414
 vlad 1 950
 ira 1 428
+Anya 1 370
 kesha 1 290
+Anya 1 190
 Juliet 1 170
 лиза 1 161
 dasha 1 100
 cat 1 90
 misha 1 80
-misha k 1 60
+ппп 1 60
 Andrey 1 60
 dasha 1 30
 dasha 1 30
+misha k 1
 Ann 1 0
 Dasha 1 0
 anya 1 0
@@ -24,4 +28,5 @@ philip 1 0
 anya 1 0
 даша 1 0
 vasya 1 0
+philip 1 0
 philip 1 0

@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
@@ -106,19 +108,20 @@ public class GameManager {
 		panel.setSize(300, 200);
 		panel.setLocation((frame.getWidth() - currGame.getMsg().getWidth()) / 2 + currGame.getMsg().getWidth() / 10,
 				(frame.getHeight() - currGame.getMsg().getHeight()) / 2 + 20);
+		panel.setBackground(new Color(43, 186, 174));
 
 		JLabel name = new JLabel("Enter your name");
 		name.setFont(new Font("Courier New", Font.BOLD, 20));
 		name.setLocation(panel.getWidth() / 3 - panel.getWidth() / 15, panel.getHeight() / 10);
 		name.setSize(name.getPreferredSize());
-
-		JButton but = new JButton("Ok");
+        
+		JLabel but = new JLabel("Ok");
 		but.setLocation(panel.getWidth() / 3 + panel.getWidth() / 10, panel.getHeight() - panel.getHeight() / 4);
 		but.setSize(panel.getWidth() / 6, panel.getHeight() / 7);
 		but.setBackground(Color.WHITE);
-		but.setBorderPainted(false);
+		
 
-		panel.setBackground(new Color(43, 186, 174));
+	
 		JTextField jtf = new JTextField();
 		jtf.setLocation(panel.getWidth() / 30, panel.getHeight() / 3);
 		jtf.setSize(panel.getWidth() - panel.getWidth() / 15, panel.getHeight() / 7);
@@ -126,9 +129,8 @@ public class GameManager {
 		panel.add(name);
 		panel.add(jtf);
 		panel.add(but);
-		but.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
+		but.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				RecordField rec = new RecordField(jtf.getText(), String.valueOf(level), String.valueOf(score));
 
 				try {
@@ -142,8 +144,8 @@ public class GameManager {
 					lp.repaint();
 
 					GameManager.drawLeader(page);
-				} catch (IOException e) {
-					e.printStackTrace();
+				} catch (IOException ex) {
+					ex.printStackTrace();
 				}
 			}
 		});
