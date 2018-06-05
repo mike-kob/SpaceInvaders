@@ -15,10 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
-
 import levelpac.GameManager;
 import levelpac.MenuBar;
-
 
 public class Game {
 	private JFrame frame;
@@ -30,6 +28,7 @@ public class Game {
 	private JLabel msg;
 	private JLabel levelTxt;
 	private JLabel menulabel;
+
 	public JLabel getMenulabel() {
 		return menulabel;
 	}
@@ -43,6 +42,7 @@ public class Game {
 	private DefenceContainer defenceCont;
 	private LivesContainer livesCont;
 	private PointsContainer pointsCont;
+
 	public GameListener getListener() {
 		return listener;
 	}
@@ -53,7 +53,7 @@ public class Game {
 
 	private SpecialAlienContainer spAlienCont;
 	private Thread bombThread;
-	
+
 	public Thread getBombThread() {
 		return bombThread;
 	}
@@ -109,7 +109,6 @@ public class Game {
 	private Thread defenceThread;
 	private MenuBar menu;
 
-	
 	public MenuBar getMenu() {
 		return menu;
 	}
@@ -125,23 +124,22 @@ public class Game {
 		level = levelP;
 		lives = livesP;
 	}
-	
+
 	public void start() {
 		running = true;
 		fighter = new Rocket(0, 770);
-		
+
 		alienCont = new AlienContainer();
 		bombCont = new BombContainer();
 		defenceCont = new DefenceContainer();
 		livesCont = new LivesContainer();
 		pointsCont = new PointsContainer();
 		spAlienCont = new SpecialAlienContainer();
-		
-		
-				listener = new GameListener();
+
+		listener = new GameListener();
 
 		drawEverything();
-		
+
 		frame.addKeyListener(listener);
 		bombFactory();
 		alienFactory();
@@ -152,7 +150,7 @@ public class Game {
 	}
 
 	private void drawEverything() {
-		
+
 		frame.setSize(1280, 980);
 		frame.setVisible(true);
 		frame.setLayout(null);
@@ -172,11 +170,11 @@ public class Game {
 		levelTxt.setFont(new Font("Courier New", Font.BOLD, 42));
 		levelTxt.setSize(400, 60);
 		levelTxt.setForeground(Color.WHITE);
-		levelTxt.setLocation((frame.getWidth()-levelTxt.getWidth())/2, 5);
+		levelTxt.setLocation((frame.getWidth() - levelTxt.getWidth()) / 2, 5);
 		lp.add(levelTxt, Const.LIVES_LAYER);
-		
+
 		livesCont.draw(lives);
-		
+
 		pointsCont.draw(score);
 
 		alienCont.drawPanel();
@@ -186,19 +184,19 @@ public class Game {
 	}
 
 	private void drawMenu() {
-		 menu = new MenuBar(false);
+		menu = new MenuBar(false);
 		ImageIcon setting = new ImageIcon("res/settings (4).png");
 		menulabel = new JLabel(setting);
-		 menulabel.setSize(64,50);
-		 menulabel.setLocation(10, 5);
-		 lp.add( menulabel, Const.LIVES_LAYER);
-		
-		 menulabel.addMouseListener(new MouseListener() {
+		menulabel.setSize(64, 50);
+		menulabel.setLocation(10, 5);
+		lp.add(menulabel, Const.LIVES_LAYER);
+
+		menulabel.addMouseListener(new MouseListener() {
 
 			@SuppressWarnings("deprecation")
 			@Override
-			public void mouseClicked(MouseEvent arg0)  {
-				menu.setLocation((frame.getWidth()-350)/2, (frame.getHeight()-300)/2);
+			public void mouseClicked(MouseEvent arg0) {
+				menu.setLocation((frame.getWidth() - 350) / 2, (frame.getHeight() - 300) / 2);
 				lp.add(menu, new Integer(20));
 				bombThread.suspend();
 				alienThread.suspend();
@@ -206,43 +204,38 @@ public class Game {
 				enemyBombThread.suspend();
 				gridThread.suspend();
 				defenceThread.suspend();
+				GameManager.getMusicThread().suspend();
 				frame.removeKeyListener(listener);
-				
-				
-			 
-							
-				
+
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 		});
-	
-		
+
 	}
-	
 
 	private void bombFactory() {
 		bombThread = new Thread() {
@@ -269,7 +262,7 @@ public class Game {
 	}
 
 	private void specialAlienFactory() {
-		specialAlienThread=	new Thread() {
+		specialAlienThread = new Thread() {
 			public void run() {
 				pause(Const.PAUSE_FOR_SPECIAL_UFO);
 				spAlienCont.draw();
@@ -297,54 +290,51 @@ public class Game {
 	}
 
 	public void gridFactory() {
-		 gridThread = new Thread() {
+		gridThread = new Thread() {
 			public void run() {
 				while (running) {
 					alienCont.update();
 				}
 			}
 		};
-		 gridThread.start();
+		gridThread.start();
 	}
 
 	public void defenceFactory() {
-	 defenceThread = new Thread() {
+		defenceThread = new Thread() {
 			public void run() {
 				while (running) {
 					defenceCont.updateDef();
 				}
 			}
 		};
-		 defenceThread.start();
+		defenceThread.start();
 	}
 
-	
-	
-	
 	public void stop(boolean fail) {
 		running = false;
-		
-		
+
 		if (fail) {
 			msg = new JLabel("Game over");
 			fighter.explode(true);
-			
-		}else {
+
+		} else {
 			msg = new JLabel("Level complete");
 		}
 		msg.setFont(new Font("Courier new", Font.PLAIN, 72));
 		msg.setForeground(Color.WHITE);
 		msg.setSize(msg.getPreferredSize());
-		msg.setLocation((frame.getWidth() - msg.getWidth()) / 2, (frame.getHeight() - msg.getHeight()) / 2- msg.getHeight());
+		msg.setLocation((frame.getWidth() - msg.getWidth()) / 2,
+				(frame.getHeight() - msg.getHeight()) / 2 - msg.getHeight());
 		lp.add(msg, Const.FINAL_MSG_LAYER);
 		frame.removeKeyListener(listener);
 		alienCont.removeAliens();
 		defenceCont.removeDefences();
 		bombCont.removeAllBombs();
 		lp.repaint();
-		pause(1000);
-		if(fail) {
-			GameManager.askName(level,score);
+	//	pause(1000);
+		if (fail) {
+			GameManager.askName(level, score);
 		} else {
 			GameManager.continueGame(score, level, lives);
 		}
@@ -357,22 +347,23 @@ public class Game {
 			e.printStackTrace();
 		}
 	}
-	
-	public  JLabel getMsg() {
+
+	public JLabel getMsg() {
 		return msg;
 	}
-	public  JLabel levelTxt() {
+
+	public JLabel levelTxt() {
 		return levelTxt;
 	}
 
 	public AlienContainer getAlienCont() {
 		return alienCont;
 	}
-	
+
 	public JFrame getFrame() {
 		return frame;
 	}
-	
+
 	public Rocket getFighter() {
 		return fighter;
 	}
@@ -392,6 +383,7 @@ public class Game {
 	public PointsContainer getPointsCont() {
 		return pointsCont;
 	}
+
 	public int getScore() {
 		return score;
 	}
@@ -403,11 +395,11 @@ public class Game {
 	public int getLives() {
 		return lives;
 	}
-	
+
 	public JLayeredPane getLp() {
 		return lp;
 	}
-	
+
 	public boolean isRunning() {
 		return running;
 	}

@@ -53,7 +53,7 @@ public class LivesContainer {
 
 	public void add() {
 		try {
-			if (panel.getComponentCount() == 10) {
+			if (panel.getComponentCount() == 5) {
 				return;
 			}
 			Image im = ImageIO.read(new File(Const.HEART_PATH)).getScaledInstance(45, 45, Image.SCALE_DEFAULT);
@@ -63,9 +63,7 @@ public class LivesContainer {
 			panel.add(live);
 			panel.repaint();
 			game.getLp().repaint();
-			if (panel.getComponentCount() == 6) {
-				panel.setSize(panel.getWidth(), panel.getHeight() * 2);
-			}
+			
 		} catch (IOException e) {
 		}
 	}

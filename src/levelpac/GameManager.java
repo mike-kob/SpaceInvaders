@@ -30,6 +30,15 @@ public class GameManager {
 	private static Leaderboard board;
 	private static Game currGame;
 	private static boolean musicOn = true;
+	private static Thread musicThread;
+
+	public static Thread getMusicThread() {
+		return musicThread;
+	}
+
+	public static void setMusicThread(Thread musicThread) {
+		GameManager.musicThread = musicThread;
+	}
 
 	public static Game getCurrentGame() {
 		return currGame;
@@ -166,14 +175,15 @@ public class GameManager {
 	}
 
 	private static void musicFactory() {
-		new Thread() {
+	musicThread = 	new Thread() {
 			public void run() {
 				while (musicOn) {
 					Mp3Player mp = new Mp3Player(Const.MUSIC_PATH);
 					mp.play();
 				}
 			}
-		}.start();
+		};
+		musicThread.start();
 	}
 
 }

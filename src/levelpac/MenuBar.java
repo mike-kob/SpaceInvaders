@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
 import smthTipaProgi.Game;
@@ -24,12 +25,18 @@ public class MenuBar extends JLabel {
 	private final ImageIcon quit_off = new ImageIcon("res/menu/quit_bar_off.png");
 	private final ImageIcon quit_on = new ImageIcon("res/menu/quit_bar_on.png");
 
-	
 	private final ImageIcon resume_off = new ImageIcon("res/menu/resume_bar_off.png");
 	private final ImageIcon resume_on = new ImageIcon("res/menu/resume_bar_on.png");
+	
+	private final ImageIcon exit_menu_off = new ImageIcon("res/menu/main_menu_bar.png");
+	private final ImageIcon exit_menu_on = new ImageIcon("res/menu/main_menu_bar_on.png");
+	
+	private final ImageIcon main_menu = new ImageIcon("res/menu/main_menu.png");
+	private final ImageIcon pause_menu = new ImageIcon("res/menu/pause_menu.png");
+	
 	private Game game = GameManager.getCurrentGame();
 	private JLabel label;
-	
+
 	public JLabel getLabel() {
 		return label;
 	}
@@ -39,15 +46,24 @@ public class MenuBar extends JLabel {
 	}
 
 	public MenuBar(boolean flag) {
-		super(new ImageIcon("res/menu/main_menu.png"));
+		super();
 		label = this;
 		setLayout(null);
 		setSize(350, 300);
-		if(flag) {
-		drawStart();
-		drawLeader();
-		drawQuit();} 
-		else drawResume();
+		if (flag) {
+			setIcon(main_menu);
+			drawStart();
+			drawLeader();
+			drawQuit();
+		} else
+			setIcon(pause_menu);
+			drawCheck();
+			drawResume();
+			drawExitToMenu();
+	}
+	
+	public void drawCheck() {
+	
 	}
 
 	public void drawStart() {
@@ -122,59 +138,87 @@ public class MenuBar extends JLabel {
 			}
 		});
 	}
-	
+	public void drawExitToMenu() {
+		JLabel exit = new JLabel(exit_menu_off);
+		exit.setSize(240, 40);
+		exit.setLocation((getWidth() - 240) / 2, getHeight() * 3 / 5 - 30);
+		add(exit);
+		exit.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				game.getLp().remove(label);
+				repaint();
+			//	resumeGame();
+				game.stop(true);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				exit.setIcon(exit_menu_on);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				exit.setIcon(exit_menu_off);
+			}
+		});
+	}
 
 	public void drawResume() {
 		JLabel resume = new JLabel(resume_off);
-		resume.setSize(240,40);
-		resume.setLocation((getWidth()-240)/2, getHeight()*3/5-30);
+		resume.setSize(240, 40);
+		resume.setLocation((getWidth() - 240) / 2, getHeight() * 2 / 5 - 30);
 		add(resume);
 		resume.addMouseListener(new MouseListener() {
-	
 
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+
 				game.getLp().remove(label);
-		        game.getBombThread().resume();
-		    	game.getAlienThread().resume();
-		    	game.getDefenceThread().resume();
-		    	game.getEnemyBombThread().resume();
-		    	game.getGridThread().resume();
-		    	game.getSpecialAlienThread().resume();
-		    	game.getFrame().addKeyListener(game.getListener());
-		    	
-				
-			
-			//	Game.listener.notifyAll();
+				resumeGame();
+				game.getFrame().addKeyListener(game.getListener());
+
+				// Game.listener.notifyAll();
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				resume.setIcon(resume_on);
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				resume.setIcon(resume_off);
-				
+
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void resumeGame() {
+		game.getBombThread().resume();
+		game.getAlienThread().resume();
+		game.getDefenceThread().resume();
+		game.getEnemyBombThread().resume();
+		game.getGridThread().resume();
+		game.getSpecialAlienThread().resume();
+		GameManager.getMusicThread().resume();
 	}
 
 }
