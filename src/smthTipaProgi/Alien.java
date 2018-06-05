@@ -44,12 +44,13 @@ public class Alien extends JLabel{
 				game.getBombCont().addAid(this);
 				game.getBombCont().remove(bomb);
 				game.getAlienCont().remove(this);
+				if(GameManager.isFlagForSound()) {
 				new Thread() {
 					public void run() {
 						mp.play();
 					}
 				}.start();
-			}
+			}}
 		}
 	}
 

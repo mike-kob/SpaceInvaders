@@ -32,6 +32,8 @@ public class GameManager {
 	private static boolean musicOn = true;
 	private static Thread musicThread;
 	private static long currTime;
+	private static boolean flagForMusic = true;
+	private static boolean flagForSound = true;
 
 	public static void getTime() {
 		 setCurrTime(currGame.getMenu().getCurrentTime()-currGame.getCurrentTime());
@@ -200,6 +202,22 @@ public class GameManager {
 		GameManager.currTime = currTime;
 		currGame.getMenu().setCurrentTime(currTime);
 		currGame.setCurrentTime(currTime);
+	}
+
+	public static boolean isFlagForMusic() {
+		return flagForMusic;
+	}
+
+	public static void setFlagForMusic(boolean flag) {
+		GameManager.flagForMusic = flag;
+	}
+
+	public static boolean isFlagForSound() {
+		return flagForSound;
+	}
+
+	public static void setFlagForSound(boolean flagForSound) {
+		GameManager.flagForSound = flagForSound;
 	}
 
 }

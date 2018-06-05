@@ -18,6 +18,16 @@ public class SpecialAlienContainer extends JLabel {
 	private Mp3Player mp;
 	
 
+	
+	
+	public JLabel getLabel() {
+		return label;
+	}
+
+	public void setLabel(JLabel label) {
+		this.label = label;
+	}
+
 	public void draw() {
 		label = new JLabel();
 		ImageIcon im = new ImageIcon(Const.UFO_SPECIAL_PATH);
@@ -45,11 +55,12 @@ public class SpecialAlienContainer extends JLabel {
 				int reward = Const.POINTS_FOR_SPECIAL+(int)(Math.random()*150);
 				game.getPointsCont().change(reward);
 				game.getBombCont().remove(bomb);
+				if(GameManager.isFlagForSound()) {
 				new Thread() {
 					public void run() {
 						mp.play();
 					}
-				}.start();
+				}.start();}
 				delete(reward+"");
 				pause(GameManager.getCurrTime());
 				GameManager.setCurrTime(0);
@@ -69,6 +80,10 @@ public class SpecialAlienContainer extends JLabel {
 		game.getLp().repaint();
 		pause(Const.PAUSE_FOR_SPECIAL_UFO + (long)(Math.random()*15000));
 		
+	} 
+	public void delete() {
+		game.getLp().remove(label);
+		game.getLp().repaint();
 	}
 
 	private boolean isHit(Bomb bomb) {

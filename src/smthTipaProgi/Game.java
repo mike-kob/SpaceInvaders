@@ -204,7 +204,6 @@ public class Game {
 				enemyBombThread.suspend();
 				gridThread.suspend();
 				defenceThread.suspend();
-				GameManager.getMusicThread().suspend();
 				frame.removeKeyListener(listener);
 				currentTime = System.currentTimeMillis();
 
@@ -334,6 +333,8 @@ public class Game {
 		alienCont.removeAliens();
 		defenceCont.removeDefences();
 		bombCont.removeAllBombs();
+		if(spAlienCont.getLabel()!=null) {
+		spAlienCont.delete();}
 		lp.remove(menulabel);
 		lp.repaint();
 	//	pause(1000);
