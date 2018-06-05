@@ -20,7 +20,7 @@ public class ListOfRecords {
 		BufferedReader first = new BufferedReader(new FileReader("results.txt"));
 		String st;
 		while ((st = first.readLine()) != null) {
-			String[] str1 = st.split(" ");
+			String[] str1 = st.split("~");
 			RecordField rec = new RecordField(str1[0], str1[1], str1[2]);
 			list.add(rec);
 		}
@@ -43,7 +43,7 @@ public class ListOfRecords {
 		}
 		PrintWriter out1 = new PrintWriter(new BufferedWriter(new FileWriter("results.txt", true)));
 		for (int i = 0; i < list.size(); i++) {
-			out1.println(list.get(i).getName() + " " + list.get(i).getLevel() + " " + list.get(i).getPoints());
+			out1.println(list.get(i).getName() + "~" + list.get(i).getLevel() + "~" + list.get(i).getPoints());
 		}
 		out1.close();
 	}

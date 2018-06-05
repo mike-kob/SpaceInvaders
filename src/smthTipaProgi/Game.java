@@ -334,6 +334,7 @@ public class Game {
 		alienCont.removeAliens();
 		defenceCont.removeDefences();
 		bombCont.removeAllBombs();
+		lp.remove(menulabel);
 		lp.repaint();
 	//	pause(1000);
 		if (fail) {

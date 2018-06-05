@@ -1,53 +1,13 @@
-Анна 20 28018
-Michael 11 15219
-dasha 4 5595
-Dasha 4 4797
-ok 4 4233
-mikhail 3 3138
-masha 2 2262
-vadym 2 2020
-Dasha 2 1663
-dasha 2 1414
- 1 1190
-m6 1 1183
-vlad 1 950
-Marina 1 903
-m 1 450
-ira 1 428
-Anya 1 370
-kesha 1 290
-Anya 1 190
-m3 1 185
-Juliet 1 170
-лиза 1 161
-m2 1 150
-m5 1 150
-Darina 1 120
-dasha 1 100
-cat 1 90
-misha 1 80
-bla 1 80
-Andrey 1 60
-ппп 1 60
-Karina 1 60
-dasha 1 30
-dasha 1 30
-misha k 1
-bla 1 0
- 1 0
-Darina 1 0
-philip 1 0
-philip 1 0
-vasya 1 0
-даша 1 0
-anya 1 0
-philip 1 0
-vasya 1 0
-даша 1 0
-anya 1 0
-Dasha 1 0
-Ann 1 0
-Dasha 1 0
-111 1 0
- 1 0
- 1 0
+Анна~20~28018
+Michael~11~15219
+dasha~4~5595
+Dasha~4~4797
+ok~4~4233
+mikhail~3~3138
+masha~2~2262
+vadym~2~2020
+Dasha~2~1663
+dasha~2~1414
+иии ии~1~120
+~1~0
+Вф~1~0
