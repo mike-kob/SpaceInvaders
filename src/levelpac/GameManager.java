@@ -31,7 +31,12 @@ public class GameManager {
 	private static Game currGame;
 	private static boolean musicOn = true;
 	private static Thread musicThread;
+	private static long currTime;
 
+	public static void getTime() {
+		 setCurrTime(currGame.getMenu().getCurrentTime()-currGame.getCurrentTime());
+	}
+	
 	public static Thread getMusicThread() {
 		return musicThread;
 	}
@@ -184,6 +189,17 @@ public class GameManager {
 			}
 		};
 		musicThread.start();
+	}
+
+	public static long getCurrTime() {
+		getTime();
+		return currTime;
+	}
+
+	public static void setCurrTime(long currTime) {
+		GameManager.currTime = currTime;
+		currGame.getMenu().setCurrentTime(currTime);
+		currGame.setCurrentTime(currTime);
 	}
 
 }

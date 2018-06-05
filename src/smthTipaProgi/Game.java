@@ -28,7 +28,7 @@ public class Game {
 	private JLabel msg;
 	private JLabel levelTxt;
 	private JLabel menulabel;
-
+	private long currentTime;
 	public JLabel getMenulabel() {
 		return menulabel;
 	}
@@ -206,6 +206,7 @@ public class Game {
 				defenceThread.suspend();
 				GameManager.getMusicThread().suspend();
 				frame.removeKeyListener(listener);
+				currentTime = System.currentTimeMillis();
 
 			}
 
@@ -265,6 +266,8 @@ public class Game {
 		specialAlienThread = new Thread() {
 			public void run() {
 				pause(Const.PAUSE_FOR_SPECIAL_UFO);
+				pause(GameManager.getCurrTime());
+				GameManager.setCurrTime(0);
 				spAlienCont.draw();
 				while (running) {
 					spAlienCont.update();
@@ -340,9 +343,9 @@ public class Game {
 		}
 	}
 
-	private static void pause(int millis) {
+	private static void pause(long l) {
 		try {
-			Thread.sleep(millis);
+			Thread.sleep(l);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -402,5 +405,13 @@ public class Game {
 
 	public boolean isRunning() {
 		return running;
+	}
+
+	public long getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(long currentTime) {
+		this.currentTime = currentTime;
 	}
 }

@@ -1,11 +1,14 @@
+Анна 20 28018
 Michael 11 15219
 dasha 4 5595
 Dasha 4 4797
+ok 4 4233
 mikhail 3 3138
 masha 2 2262
 vadym 2 2020
 Dasha 2 1663
 dasha 2 1414
+ 1 1190
 m6 1 1183
 vlad 1 950
 Marina 1 903
@@ -30,6 +33,7 @@ Karina 1 60
 dasha 1 30
 dasha 1 30
 misha k 1
+bla 1 0
  1 0
 Darina 1 0
 philip 1 0

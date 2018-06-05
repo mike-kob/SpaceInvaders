@@ -1,11 +1,12 @@
 package smthTipaProgi;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.MenuBar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
 import levelpac.GameManager;
+
 
 public class SpecialAlienContainer extends JLabel {
 	/**
@@ -15,6 +16,7 @@ public class SpecialAlienContainer extends JLabel {
 	private JLabel label;
 	private Game game = GameManager.getCurrentGame();
 	private Mp3Player mp;
+	
 
 	public void draw() {
 		label = new JLabel();
@@ -27,8 +29,12 @@ public class SpecialAlienContainer extends JLabel {
 	}
 
 	public void update() {
+		
+		System.out.println(GameManager.getCurrTime());
 		if (isChecker(label.getX())) {
 			delete("");
+			pause(GameManager.getCurrTime());
+			GameManager.setCurrTime(0);
 			draw();
 		}
 		label.setLocation(label.getX() + 10, label.getY());
@@ -45,6 +51,8 @@ public class SpecialAlienContainer extends JLabel {
 					}
 				}.start();
 				delete(reward+"");
+				pause(GameManager.getCurrTime());
+				GameManager.setCurrTime(0);
 				draw();
 			}
 		}
@@ -60,6 +68,7 @@ public class SpecialAlienContainer extends JLabel {
 		game.getLp().remove(label);
 		game.getLp().repaint();
 		pause(Const.PAUSE_FOR_SPECIAL_UFO + (long)(Math.random()*15000));
+		
 	}
 
 	private boolean isHit(Bomb bomb) {

@@ -36,6 +36,7 @@ public class MenuBar extends JLabel {
 	
 	private Game game = GameManager.getCurrentGame();
 	private JLabel label;
+	private long currentTime;
 
 	public JLabel getLabel() {
 		return label;
@@ -218,7 +219,17 @@ public class MenuBar extends JLabel {
 		game.getEnemyBombThread().resume();
 		game.getGridThread().resume();
 		game.getSpecialAlienThread().resume();
+		currentTime = System.currentTimeMillis();
 		GameManager.getMusicThread().resume();
+		
+	}
+
+	public long getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(long currentTime) {
+		this.currentTime = currentTime;
 	}
 
 }
