@@ -75,11 +75,11 @@ public class GameListener implements KeyListener, Runnable {
 			}
 			for (JLabel aid : game.getBombCont().getHeel()) {
 				if (game.getFighter().plusLife(aid)) {
+					
 					game.getBombCont().removeAid(aid);
 					game.getLivesCont().add();
 					game.lives++;
 					game.getLp().add(game.getLivesCont().getPanel(), Const.ROCKET_LAYER);
-
 				}
 			}
 			pause(20);
@@ -87,7 +87,7 @@ public class GameListener implements KeyListener, Runnable {
 	}
 
 	private void makeInvincible() {
-		new Thread() {
+		game.setInvincible(new Thread() {
 			public void run() {
 				attackable = false;
 				Icon temp = game.getFighter().getIcon();
@@ -96,7 +96,8 @@ public class GameListener implements KeyListener, Runnable {
 				game.getFighter().setIcon(temp);
 				attackable = true;
 			}
-		}.start();
+		});
+		game.getInvincible().start();
 	}
 	
 	private void pause(long millis) {

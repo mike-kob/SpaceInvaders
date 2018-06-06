@@ -34,8 +34,7 @@ public class MenuBar extends JLabel {
 	private final ImageIcon main_menu = new ImageIcon("res/menu/main_menu.png");
 
 	private final ImageIcon pause_menu = new ImageIcon("res/menu/pause_menu.png");
-	
-	
+
 	private final ImageIcon sound_on = new ImageIcon("res/menu/speaker (1).png");
 	private final ImageIcon sound_off = new ImageIcon("res/menu/speaker.png");
 
@@ -83,11 +82,12 @@ public class MenuBar extends JLabel {
 		}
 		JLabel music = new JLabel(musicIcon);
 		music.setSize(32, 32);
-		music.setLocation(getWidth() - 60, 40);//можешь поменять тут, я опять хочу спать
+		music.setLocation(getWidth() - 60, 40);// можешь поменять тут, я опять хочу спать
 		add(music);
 
 		music.addMouseListener(new MouseListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if (GameManager.isFlagForMusic()) {
@@ -127,15 +127,11 @@ public class MenuBar extends JLabel {
 			}
 
 		});
-		
-		
-		
-	
+
 	}
 
 	public void drawSound() {
-	
-		
+
 		ImageIcon soundIcon;
 		if (GameManager.isFlagForSound()) {
 			soundIcon = sound_on;
@@ -144,7 +140,7 @@ public class MenuBar extends JLabel {
 		}
 		JLabel music = new JLabel(soundIcon);
 		music.setSize(32, 32);
-		music.setLocation(30, 40);//можешь поменять тут, я опять хочу спать
+		music.setLocation(30, 40);// можешь поменять тут, я опять хочу спать
 		add(music);
 
 		music.addMouseListener(new MouseListener() {
@@ -272,7 +268,6 @@ public class MenuBar extends JLabel {
 			public void mouseClicked(MouseEvent arg0) {
 				game.getLp().remove(label);
 				repaint();
-				// resumeGame();
 				game.stop(true);
 			}
 
@@ -293,56 +288,40 @@ public class MenuBar extends JLabel {
 		resume.setSize(240, 40);
 		resume.setLocation((getWidth() - 240) / 2, getHeight() * 2 / 5 - 30);
 		add(resume);
-		resume.addMouseListener(new MouseListener() {
-
-			@SuppressWarnings("deprecation")
+		resume.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-
 				game.getLp().remove(label);
 				resumeGame();
 				game.getFrame().addKeyListener(game.getListener());
-
-				// Game.listener.notifyAll();
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
 				resume.setIcon(resume_on);
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				resume.setIcon(resume_off);
-
 			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
 		});
 	}
 
 	@SuppressWarnings("deprecation")
 	private void resumeGame() {
-		game.getBombThread().resume();
-		game.getAlienThread().resume();
-		game.getDefenceThread().resume();
-		game.getEnemyBombThread().resume();
-		game.getGridThread().resume();
-		game.getSpecialAlienThread().resume();
-		currentTime = System.currentTimeMillis();
+		try {
+			game.getBombThread().resume();
+			game.getAlienThread().resume();
+			game.getDefenceThread().resume();
+			game.getEnemyBombThread().resume();
+			game.getGridThread().resume();
+			game.getSpecialAlienThread().resume();
+			game.getInvincible().resume();
+			currentTime = System.currentTimeMillis();
+		} catch (Exception e) {
 
+		}
 	}
 
 	public long getCurrentTime() {

@@ -29,6 +29,15 @@ public class Game {
 	private JLabel levelTxt;
 	private JLabel menulabel;
 	private long currentTime;
+
+	private Thread alienThread;
+	private Thread specialAlienThread;
+	private Thread enemyBombThread;
+	private Thread gridThread;
+	private Thread defenceThread;
+	private Thread invincible;
+	private MenuBar menu;
+
 	public JLabel getMenulabel() {
 		return menulabel;
 	}
@@ -101,13 +110,6 @@ public class Game {
 	public void setDefenceThread(Thread defenceThread) {
 		this.defenceThread = defenceThread;
 	}
-
-	private Thread alienThread;
-	private Thread specialAlienThread;
-	private Thread enemyBombThread;
-	private Thread gridThread;
-	private Thread defenceThread;
-	private MenuBar menu;
 
 	public MenuBar getMenu() {
 		return menu;
@@ -196,16 +198,21 @@ public class Game {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				menu.setLocation((frame.getWidth() - 350) / 2, (frame.getHeight() - 300) / 2);
-				lp.add(menu, new Integer(20));
-				bombThread.suspend();
-				alienThread.suspend();
-				specialAlienThread.suspend();
-				enemyBombThread.suspend();
-				gridThread.suspend();
-				defenceThread.suspend();
-				frame.removeKeyListener(listener);
-				currentTime = System.currentTimeMillis();
+				try {
+					menu.setLocation((frame.getWidth() - 350) / 2, (frame.getHeight() - 300) / 2);
+					lp.add(menu, new Integer(20));
+					bombThread.suspend();
+					alienThread.suspend();
+					specialAlienThread.suspend();
+					enemyBombThread.suspend();
+					gridThread.suspend();
+					defenceThread.suspend();
+					invincible.suspend();
+					frame.removeKeyListener(listener);
+					currentTime = System.currentTimeMillis();
+				} catch (Exception e) {
+
+				}
 
 			}
 
@@ -333,11 +340,12 @@ public class Game {
 		alienCont.removeAliens();
 		defenceCont.removeDefences();
 		bombCont.removeAllBombs();
-		if(spAlienCont.getLabel()!=null) {
-		spAlienCont.delete();}
+		if (spAlienCont.getLabel() != null) {
+			spAlienCont.delete();
+		}
 		lp.remove(menulabel);
 		lp.repaint();
-	//	pause(1000);
+		// pause(1000);
 		if (fail) {
 			GameManager.askName(level, score);
 		} else {
@@ -415,5 +423,13 @@ public class Game {
 
 	public void setCurrentTime(long currentTime) {
 		this.currentTime = currentTime;
+	}
+
+	public Thread getInvincible() {
+		return invincible;
+	}
+
+	public void setInvincible(Thread invincible) {
+		this.invincible = invincible;
 	}
 }

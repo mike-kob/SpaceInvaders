@@ -74,7 +74,6 @@ public class Rocket extends JLabel {
 			return y <= aid.getY();
 		}
 		return false;
-
 	}
 	
 	public boolean isHit(Dynamite dyn) {
@@ -85,7 +84,6 @@ public class Rocket extends JLabel {
 			return y <= dyn.getY()&&dyn.getY()<=y+this.getHeight()/3;
 		}
 		return false;
-
 	}
 
 	private void pause(int millis) {
