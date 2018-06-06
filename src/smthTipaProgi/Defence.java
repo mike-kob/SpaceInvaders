@@ -12,13 +12,12 @@ public class Defence extends JLabel{
 	private static final long serialVersionUID = 1L;
 	private int life;
 	private HealthBar hb;
-	private String path = "res/rock/камень_1.png";
 	private ImageIcon skin;
 	private Game game = GameManager.getCurrentGame();
-
+	//d
 	public Defence(int mid) {
 		super();
-		skin = new ImageIcon(path);
+		skin = new ImageIcon(Const.ASTEROID_PATH);
 		this.setIcon(skin);
 		this.setBackground(Const.TRANSPARENT);
 		this.setOpaque(false);
@@ -29,9 +28,9 @@ public class Defence extends JLabel{
 		game.getLp().add(hb, Const.DEFENCE_LAYER);
 		
 	}
-
+	//d
 	public void changeRock(int level) {
-		path = String.format("res/rock/камень_%d.png", (level + 1));
+		String path = String.format("res/rock/камень_%d.png", (level + 1));
 		skin = new ImageIcon(path);
 		this.setIcon(skin);
 		hb.remove(life);
@@ -48,7 +47,7 @@ public class Defence extends JLabel{
 	
 
 	}
-
+	//d
 	public void update() {
 		for (Bomb bomb : game.getBombCont().getBombs()) {
 			if (isHit(bomb)) {
@@ -67,7 +66,7 @@ public class Defence extends JLabel{
 			}
 		}
 	}
-
+	//d
 	public boolean isHit(Bomb bomb) {
 		int x = this.getX();
 		int y = this.getY();
@@ -77,7 +76,7 @@ public class Defence extends JLabel{
 		}
 		return false;
 	}
-
+	//d
 	public boolean isHit(Dynamite dyn) {
 		int x = this.getX();
 		int y = this.getY();
@@ -87,7 +86,7 @@ public class Defence extends JLabel{
 		}
 		return false;
 	}
-	
+	//d
 	public void removeHealthBar() {
 		hb.removeBars();
 		game.getLp().remove(hb);

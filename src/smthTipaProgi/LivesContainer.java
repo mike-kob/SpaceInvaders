@@ -18,14 +18,14 @@ public class LivesContainer {
 	private JPanel panel;
 	private JLabel livesTxt;
 	private Game game = GameManager.getCurrentGame();
-	
+	//m
 	public JPanel getPanel() {
 		return panel;
 	}
-	
+	//m
 	public void draw(int lives) {
 		panel = new JPanel();
-	    livesTxt = new JLabel("Lives:");
+		livesTxt = new JLabel("Lives:");
 		livesTxt.setFont(new Font("Courier New", Font.BOLD, 42));
 		livesTxt.setForeground(Color.WHITE);
 		livesTxt.setLocation(850, 5);
@@ -40,7 +40,7 @@ public class LivesContainer {
 			add();
 		game.getLp().add(panel, Const.LIVES_LAYER);
 	}
-
+	//m
 	public void remove() {
 		int count = panel.getComponentCount();
 		if (count > 1) {
@@ -50,7 +50,7 @@ public class LivesContainer {
 			game.stop(true);
 		}
 	}
-
+	//m
 	public void add() {
 		try {
 			if (panel.getComponentCount() == 5) {
@@ -63,22 +63,13 @@ public class LivesContainer {
 			panel.add(live);
 			panel.repaint();
 			game.getLp().repaint();
-			
+
 		} catch (IOException e) {
 		}
 	}
-	
+	//m
 	public void delete() {
 		game.getLp().remove(panel);
 		game.getLp().remove(livesTxt);
 	}
-
-	public JLabel getLivesTxt() {
-		return livesTxt;
-	}
-
-	public void setLivesTxt(JLabel livesTxt) {
-		this.livesTxt = livesTxt;
-	}
-
 }

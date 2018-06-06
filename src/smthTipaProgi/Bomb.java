@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 public class Bomb extends JLabel{
 	
 	private static final long serialVersionUID = 1L;
-
+	//d
 	public Bomb(int x) {
 		super();
 		ImageIcon im = new ImageIcon(Const.BOMB_PATH);

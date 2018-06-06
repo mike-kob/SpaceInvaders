@@ -29,7 +29,7 @@ public class Leaderboard extends JLabel {
 	private JButton skip1;
 	private JButton skip2;
 	private JButton menu;
-
+	//d
 	public Leaderboard(int page) {
 		super(new ImageIcon(Const.LEADER_PATH));
 		setSize(getPreferredSize());
@@ -76,7 +76,7 @@ public class Leaderboard extends JLabel {
 		addRecords();
 
 	}
-
+	//d
 	private ActionListener next = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -87,7 +87,7 @@ public class Leaderboard extends JLabel {
 			addRecords();
 		}
 	};
-
+	//d
 	private ActionListener back = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -98,23 +98,20 @@ public class Leaderboard extends JLabel {
 			addRecords();
 		}
 	};
-
+	//d
 	private MouseListener exit = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			GameManager.drawMenu();
 		}
 	};
-
+	//d
 	public void addRecords() {
 		int to;
 		
-
 		skip1.setEnabled(true);
 		skip2.setEnabled(true);
-	
-		
-	
+				
 		if (GameManager.list.getSize() > 10 + 10 * page) {
 			to = 10 + 10 * page;
 		} else {
@@ -127,21 +124,19 @@ public class Leaderboard extends JLabel {
 
 		if (page == 0) {
 			skip2.setEnabled(false);
-		
 			grid.repaint();
 		}
 		if (page == getNumOfPages() -1) {
 			skip1.setEnabled(false);
 			grid.repaint();
-	
 		}
 	}
-
+	//m
 	public void deleteRecords() {
 		grid.removeAll();
 		grid.repaint();
 	}
-
+	//d
 	public int getNumOfPages() {
 		int size = GameManager.list.getSize();
 		int page = 1;
@@ -151,7 +146,7 @@ public class Leaderboard extends JLabel {
 		}
 		return page;
 	}
-
+	//m
 	public void addRecord(String place, String name, String level, String score) {
 		JLabel record = new JLabel();
 		record.setLayout(null);
@@ -189,7 +184,7 @@ public class Leaderboard extends JLabel {
 		last = record;
 		grid.repaint();
 	}
-
+	//m
 	public void clearPage() {
 		grid.removeAll();
 		grid.repaint();

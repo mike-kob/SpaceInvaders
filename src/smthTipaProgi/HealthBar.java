@@ -13,7 +13,7 @@ public class HealthBar extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JLabel[] labels = new JLabel[3];
 	private Game game = GameManager.getCurrentGame();
-
+	//d
 	HealthBar(int x, int y, int height) {
 		super();
 		setBackground(Color.WHITE);
@@ -31,7 +31,7 @@ public class HealthBar extends JPanel {
 			labels[i - 1] = l;
 		}
 	}
-
+	//d
 	public void remove(int level) {
 		if (level == Const.LIFE_OF_ROCK / 3) {
 			game.getLp().remove(labels[2]);
@@ -44,7 +44,7 @@ public class HealthBar extends JPanel {
 			game.getLp().repaint();
 		}
 	}
-
+	//d
 	public void removeBars() {
 		for (JLabel l : labels) {
 			game.getLp().remove(l);

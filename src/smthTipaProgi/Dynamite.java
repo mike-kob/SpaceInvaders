@@ -12,7 +12,7 @@ public class Dynamite extends JLabel  {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Game game = GameManager.getCurrentGame();
-	
+	//m
 	public Dynamite(Alien alien) {
 		super();
 		ImageIcon im = new ImageIcon(Const.DYNAMITE_PATH);

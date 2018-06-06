@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 
 import levelpac.GameManager;
 
@@ -20,7 +19,7 @@ public class BombContainer {
 	private long lastTimeAdded = 0;
 	private long currentTimeAdded = 0;
 	private Game game = GameManager.getCurrentGame();
-	
+	//d
 	public void add() {
 		currentTimeAdded = System.currentTimeMillis();
 		if (currentTimeAdded - lastTimeAdded > Const.BOMB_TIME_INTERVAL) {
@@ -31,7 +30,7 @@ public class BombContainer {
 		}
 
 	}
-
+//m
 	public void removeAllBombs() {
 		try {
 			Thread.sleep(100);
@@ -51,19 +50,19 @@ public class BombContainer {
 		enemyBombs.removeAll(enemyBombs);
 		game.getLp().repaint();
 	}
-	
+	//m
 	public Set<Bomb> getBombs() {
 		return bombs;
 	}
-	
+	//m
 	public Set<JLabel> getHeel() {
 		return heal;
 	}
-	
+	//m
 	public Set<Dynamite> getEnemyBombs() {
 		return enemyBombs;
 	}
-
+	//m
 	public void addEnemyBomb() {
 		Random rand = new Random();
 		int column = rand.nextInt(Const.ALIEN_COLUMNS);
@@ -79,7 +78,7 @@ public class BombContainer {
 		} catch (Exception e) {
 		}
 	}
-
+    //m
 	public void addAid(Alien alien) {
 		Random rand = new Random();
 		double chance = rand.nextDouble();
@@ -92,25 +91,25 @@ public class BombContainer {
 			game.getLp().add(aid, Const.DYNAMITE_LAYER);
 		}
 	}	
-	
+	//m
 	public void remove(Bomb bomb) {
 		game.getLp().remove(bomb);
 		bombs.remove(bomb);
 		game.getLp().repaint();
 	}
-
+	//m
 	public void removeDyn(Dynamite dyn) {
 		game.getLp().remove(dyn);
 		enemyBombs.remove(dyn);
 		game.getLp().repaint();
 	}
-	
+	//m
 	public void removeAid(JLabel aid) {
 		game.getLp().remove(aid);
 		heal.remove(aid);
 		game.getLp().repaint();
 	}
-
+	//m
 	public void update() {
 		for (Bomb bomb : bombs) {
 			int x = bomb.getX();

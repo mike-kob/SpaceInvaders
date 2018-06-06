@@ -38,15 +38,11 @@ public class GameManager {
 	public static void getTime() {
 		 setCurrTime(currGame.getMenu().getCurrentTime()-currGame.getCurrentTime());
 	}
-	
+	//
 	public static Thread getMusicThread() {
 		return musicThread;
 	}
-
-	public static void setMusicThread(Thread musicThread) {
-		GameManager.musicThread = musicThread;
-	}
-
+	//
 	public static Game getCurrentGame() {
 		return currGame;
 	}
@@ -83,7 +79,7 @@ public class GameManager {
 		currGame = new Game(frame, lp, score, level + 1, lives);
 		currGame.start();
 	}
-
+	//
 	public static void drawMenu() {
 		if (board != null)
 			lp.remove(board);
@@ -106,7 +102,7 @@ public class GameManager {
 		background.setSize(1280, 980);
 		lp.add(background, Const.BACKGROUND_LAYER);
 	}
-
+	//
 	public static void drawLeader(int page) {
 		if (bar != null)
 			lp.remove(bar);
@@ -114,12 +110,12 @@ public class GameManager {
 		board.setLocation((frame.getWidth() - board.getWidth()) / 2, (frame.getHeight() - board.getHeight()) / 2);
 		lp.add(board, Const.MENU_LAYER);
 	}
-
+	//
 	public static void deleteLeader(JLabel main) {
 		lp.remove(main);
 		lp.repaint();
 	}
-
+	//
 	public static void askName(int level, int score) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -171,7 +167,7 @@ public class GameManager {
 
 		lp.add(panel, Const.FINAL_MSG_LAYER);
 	}
-
+	//
 	protected static int checker(int index) {
 		int page = 0;
 		while (index >= 10) {
@@ -192,30 +188,30 @@ public class GameManager {
 		};
 		musicThread.start();
 	}
-
+	//
 	public static long getCurrTime() {
 		getTime();
 		return currTime;
 	}
-
+	//
 	public static void setCurrTime(long currTime) {
 		GameManager.currTime = currTime;
 		currGame.getMenu().setCurrentTime(currTime);
 		currGame.setCurrentTime(currTime);
 	}
-
+	//
 	public static boolean isFlagForMusic() {
 		return flagForMusic;
 	}
-
+	//
 	public static void setFlagForMusic(boolean flag) {
 		GameManager.flagForMusic = flag;
 	}
-
+	//
 	public static boolean isFlagForSound() {
 		return flagForSound;
 	}
-
+	//
 	public static void setFlagForSound(boolean flagForSound) {
 		GameManager.flagForSound = flagForSound;
 	}

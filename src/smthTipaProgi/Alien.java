@@ -14,7 +14,7 @@ public class Alien extends JLabel{
 	private Mp3Player mp = new Mp3Player(Const.SOUND_OF_EXPLOSION);
 	private Game game = GameManager.getCurrentGame();
 
-
+	//d
 	public Alien(int x, int y, int rang) {
 		super();
 
@@ -36,7 +36,7 @@ public class Alien extends JLabel{
 		setSize(64, 44);
 		setLocation(x, y);
 	}
-
+	//d
 	public void update() {
 		for (Bomb bomb : game.getBombCont().getBombs()) {
 			if (isHit(bomb)) {
@@ -53,7 +53,7 @@ public class Alien extends JLabel{
 			}}
 		}
 	}
-
+	//d
 	private boolean isHit(Bomb bomb) {
 		int x = game.getAlienCont().getGridX() + this.getX();
 		int y = game.getAlienCont().getGridY() + this.getY();

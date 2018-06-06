@@ -10,22 +10,22 @@ import javax.swing.JPanel;
 import levelpac.GameManager;
 
 public class AlienContainer {
-	
+	//m
 	private JPanel grid = new JPanel(null);
 	private Set<Alien> aliens = Collections.newSetFromMap(new ConcurrentHashMap<Alien, Boolean>());
 	private Game currGame = GameManager.getCurrentGame();
 	private JFrame frame = GameManager.frame;
 	private Alien[][] matrix  = new Alien[Const.ALIEN_ROWS][Const.ALIEN_COLUMNS];
-
+	//m
 	public boolean isEmpty() {
 		return aliens.size() == 0;
 	}
-
+	//m
 	public void removeAliens() {
 		aliens.removeAll(aliens);
 		grid.removeAll();
 	}
-	
+	//m
 	public void drawPanel() {
 		for (int i = 0; i < Const.ALIEN_ROWS; i++) {
 			for (int j = 0; j < Const.ALIEN_COLUMNS; j++) {
@@ -43,15 +43,15 @@ public class AlienContainer {
 		
 		currGame.getLp().add(grid, Const.ALIEN_LAYER);
 	}
-
+	//m
 	public int getGridX() {
 		return grid.getX();
 	}
-
+	//m
 	public int getGridY() {
 		return grid.getY();
 	}
-
+	//m
 	public void remove(Alien alien) {
 		aliens.remove(alien);
 		grid.remove(alien);
@@ -59,14 +59,14 @@ public class AlienContainer {
 		currGame.getLp().repaint();
 		removeFromMatrix(alien);
 	}
-
+	//m
 	public void updateAliens() {
 		for(Alien alien: aliens) {
 			alien.update();
 		}
 	}
 	
-	
+	//m
 	private void removeFromMatrix(Alien alien) {
 		for (int column = 0; column < Const.ALIEN_COLUMNS; column++) {
 			for (int row = 0; row < Const.ALIEN_ROWS; row++) {
@@ -78,7 +78,7 @@ public class AlienContainer {
 		}
 
 	}
-
+	//m
 	public void update() {
 		int direction = Const.ALIEN_STEP;
 
@@ -90,12 +90,12 @@ public class AlienContainer {
 				return;
 			}
 			try {
-				if(getLowBorder()> currGame.getFighter().getY() && getLeftBorder() <= 0) {
+				if(getBottomBorderY()> currGame.getFighter().getY() && getLeftBorderX() <= 0) {
 					currGame.stop(true);
 					return;
 				}
 				long pause = (currGame.level>7)? 400 : (Const.ALIEN_TIME_STEP - (currGame.level-1)*100);
-				if (getRightBorder() > frame.getWidth() || getLeftBorder() < 0) {
+				if (getRightBorderX() > frame.getWidth() || getLeftBorderX() < 0) {
 					direction *= -1;
 					y += 50;
 					grid.setLocation(x, y);
@@ -112,17 +112,17 @@ public class AlienContainer {
 			}
 		}
 	}
-
-	public Alien getLastInColumn(int i) {
+	//m
+	public Alien getLastInColumn(int column) {
 		for (int j = Const.ALIEN_ROWS - 1; j >= 0; j--) {
-			if (matrix[j][i] != null) {
-				return matrix[j][i];
+			if (matrix[j][column] != null) {
+				return matrix[j][column];
 			}
 		}
 		return null;
 	}
-
-	public int getLeftBorder() {
+	//m
+	public int getLeftBorderX() {
 		for (int column = 0; column < Const.ALIEN_COLUMNS; column++) {
 			for (int row = 0; row < Const.ALIEN_ROWS; row++) {
 				if (matrix[row][column] != null) {
@@ -132,8 +132,8 @@ public class AlienContainer {
 		}
 		return -1;
 	}
-
-	public int getRightBorder() {
+	//m
+	public int getRightBorderX() {
 		for (int column = Const.ALIEN_COLUMNS - 1; column >= 0; column--) {
 			for (int row = 0; row < Const.ALIEN_ROWS; row++) {
 				if (matrix[row][column] != null) {
@@ -143,8 +143,8 @@ public class AlienContainer {
 		}
 		return -1;
 	}
-	
-	public int getLowBorder() {
+	//m
+	public int getBottomBorderY() {
 		for (int row = Const.ALIEN_ROWS - 1; row >= 0; row--) {
 			for (int column = 0; column < Const.ALIEN_COLUMNS; column++) {
 				if (matrix[row][column] != null) {

@@ -1,16 +1,11 @@
 package smthTipaProgi;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -25,100 +20,116 @@ public class Game {
 	private GameListener listener;
 	private boolean running = true;
 	public int score, level, lives;
-	private JLabel msg;
-	private JLabel levelTxt;
-	private JLabel menulabel;
+	private JLabel msg, levelTxt, menulabel;
 	private long currentTime;
 
-	private Thread alienThread;
-	private Thread specialAlienThread;
-	private Thread enemyBombThread;
-	private Thread gridThread;
-	private Thread defenceThread;
-	private Thread invincible;
+	private Thread alienThread, specialAlienThread, enemyBombThread;
+	private Thread gridThread, defenceThread, invincibleThread, bombThread;
 	private MenuBar menu;
-
-	public JLabel getMenulabel() {
-		return menulabel;
-	}
-
-	public void setMenulabel(JLabel menulabel) {
-		this.menulabel = menulabel;
-	}
 
 	private AlienContainer alienCont;
 	private BombContainer bombCont;
 	private DefenceContainer defenceCont;
 	private LivesContainer livesCont;
 	private PointsContainer pointsCont;
-
+	private SpecialAlienContainer spAlienCont;
+	//d
+	public JLabel getMenulabel() {
+		return menulabel;
+	}
+	//d
 	public GameListener getListener() {
 		return listener;
 	}
-
-	public void setListener(GameListener listener) {
-		this.listener = listener;
-	}
-
-	private SpecialAlienContainer spAlienCont;
-	private Thread bombThread;
-
+	//d
 	public Thread getBombThread() {
 		return bombThread;
 	}
-
-	public void setBombThread(Thread bombThread) {
-		this.bombThread = bombThread;
-	}
-
+	//d
 	public Thread getAlienThread() {
 		return alienThread;
 	}
-
-	public void setAlienThread(Thread alienThread) {
-		this.alienThread = alienThread;
-	}
-
+	//d
 	public Thread getSpecialAlienThread() {
 		return specialAlienThread;
 	}
-
-	public void setSpecialAlienThread(Thread specialAlienThread) {
-		this.specialAlienThread = specialAlienThread;
-	}
-
+	//d
 	public Thread getEnemyBombThread() {
 		return enemyBombThread;
 	}
-
-	public void setEnemyBombThread(Thread enemyBombThread) {
-		this.enemyBombThread = enemyBombThread;
-	}
-
+	//d
 	public Thread getGridThread() {
 		return gridThread;
 	}
-
-	public void setGridThread(Thread gridThread) {
-		this.gridThread = gridThread;
-	}
-
+	//d
 	public Thread getDefenceThread() {
 		return defenceThread;
 	}
-
-	public void setDefenceThread(Thread defenceThread) {
-		this.defenceThread = defenceThread;
+	//d
+	public Thread getInvincibleThread() {
+		return invincibleThread;
 	}
-
+	//m
+	public void setInvincible(Thread invincible) {
+		this.invincibleThread = invincible;
+	}
+	//m
+	public AlienContainer getAlienCont() {
+		return alienCont;
+	}
+	//m
+	public JFrame getFrame() {
+		return frame;
+	}
+	//m
+	public Rocket getFighter() {
+		return fighter;
+	}
+	//m
+	public BombContainer getBombCont() {
+		return bombCont;
+	}
+	//m
+	public DefenceContainer getDefenceCont() {
+		return defenceCont;
+	}
+	//m
+	public LivesContainer getLivesCont() {
+		return livesCont;
+	}
+	//m
+	public PointsContainer getPointsCont() {
+		return pointsCont;
+	}
+	//m
+	public JLayeredPane getLp() {
+		return lp;
+	}
+	//m
+	public boolean isRunning() {
+		return running;
+	}
+	//d
+	public long getCurrentTime() {
+		return currentTime;
+	}
+	//d
+	public void setCurrentTime(long currentTime) {
+		this.currentTime = currentTime;
+	}
+	//d
 	public MenuBar getMenu() {
 		return menu;
 	}
-
-	public void setMenu(MenuBar menu) {
-		this.menu = menu;
+	//d
+	public JLabel getMsg() {
+		return msg;
 	}
-
+	//m
+	public JLabel levelTxt() {
+		return levelTxt;
+	}
+//dm
 	public Game(JFrame fr, JLayeredPane lpn, int scoreP, int levelP, int livesP) {
 		frame = fr;
 		lp = lpn;
@@ -126,7 +137,7 @@ public class Game {
 		level = levelP;
 		lives = livesP;
 	}
-
+	//dm
 	public void start() {
 		running = true;
 		fighter = new Rocket(0, 770);
@@ -150,7 +161,7 @@ public class Game {
 		enemyBombFactory();
 		specialAlienFactory();
 	}
-
+	//dm
 	private void drawEverything() {
 
 		frame.setSize(1280, 980);
@@ -184,7 +195,7 @@ public class Game {
 		defenceCont.drawDefences();
 		drawMenu();
 	}
-
+	//m
 	private void drawMenu() {
 		menu = new MenuBar(false);
 		ImageIcon setting = new ImageIcon("res/settings (4).png");
@@ -207,7 +218,7 @@ public class Game {
 					enemyBombThread.suspend();
 					gridThread.suspend();
 					defenceThread.suspend();
-					invincible.suspend();
+					invincibleThread.suspend();
 					frame.removeKeyListener(listener);
 					currentTime = System.currentTimeMillis();
 				} catch (Exception e) {
@@ -243,7 +254,7 @@ public class Game {
 		});
 
 	}
-
+	//dm
 	private void bombFactory() {
 		bombThread = new Thread() {
 			public void run() {
@@ -255,7 +266,7 @@ public class Game {
 		};
 		bombThread.start();
 	}
-
+	//dm
 	private void alienFactory() {
 		alienThread = new Thread() {
 			public void run() {
@@ -267,7 +278,7 @@ public class Game {
 		};
 		alienThread.start();
 	}
-
+	//dm
 	private void specialAlienFactory() {
 		specialAlienThread = new Thread() {
 			public void run() {
@@ -284,8 +295,8 @@ public class Game {
 		};
 		specialAlienThread.start();
 	}
-
-	public void enemyBombFactory() {
+	//dm
+	private void enemyBombFactory() {
 		enemyBombThread = new Thread() {
 			public void run() {
 				pause(1000 + (int) (Math.random() * Const.BOMB_FREQUENCY));
@@ -297,8 +308,8 @@ public class Game {
 		};
 		enemyBombThread.start();
 	}
-
-	public void gridFactory() {
+	//dm
+	private void gridFactory() {
 		gridThread = new Thread() {
 			public void run() {
 				while (running) {
@@ -308,8 +319,8 @@ public class Game {
 		};
 		gridThread.start();
 	}
-
-	public void defenceFactory() {
+	//dm
+	private void defenceFactory() {
 		defenceThread = new Thread() {
 			public void run() {
 				while (running) {
@@ -319,7 +330,7 @@ public class Game {
 		};
 		defenceThread.start();
 	}
-
+	//m
 	public void stop(boolean fail) {
 		running = false;
 
@@ -352,84 +363,12 @@ public class Game {
 			GameManager.continueGame(score, level, lives);
 		}
 	}
-
-	private static void pause(long l) {
+	//d
+	private void pause(long l) {
 		try {
 			Thread.sleep(l);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public JLabel getMsg() {
-		return msg;
-	}
-
-	public JLabel levelTxt() {
-		return levelTxt;
-	}
-
-	public AlienContainer getAlienCont() {
-		return alienCont;
-	}
-
-	public JFrame getFrame() {
-		return frame;
-	}
-
-	public Rocket getFighter() {
-		return fighter;
-	}
-
-	public BombContainer getBombCont() {
-		return bombCont;
-	}
-
-	public DefenceContainer getDefenceCont() {
-		return defenceCont;
-	}
-
-	public LivesContainer getLivesCont() {
-		return livesCont;
-	}
-
-	public PointsContainer getPointsCont() {
-		return pointsCont;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public int getLives() {
-		return lives;
-	}
-
-	public JLayeredPane getLp() {
-		return lp;
-	}
-
-	public boolean isRunning() {
-		return running;
-	}
-
-	public long getCurrentTime() {
-		return currentTime;
-	}
-
-	public void setCurrentTime(long currentTime) {
-		this.currentTime = currentTime;
-	}
-
-	public Thread getInvincible() {
-		return invincible;
-	}
-
-	public void setInvincible(Thread invincible) {
-		this.invincible = invincible;
 	}
 }

@@ -44,14 +44,12 @@ public class MenuBar extends JLabel {
 	private JLabel label;
 	private long currentTime;
 
+	// m
 	public JLabel getLabel() {
 		return label;
 	}
 
-	public void setLabel(JLabel label) {
-		this.label = label;
-	}
-
+	// m
 	public MenuBar(boolean flag) {
 		super();
 		label = this;
@@ -73,6 +71,7 @@ public class MenuBar extends JLabel {
 		}
 	}
 
+	// d
 	public void drawMusic() {
 		ImageIcon musicIcon;
 		if (GameManager.isFlagForMusic()) {
@@ -130,6 +129,7 @@ public class MenuBar extends JLabel {
 
 	}
 
+	// d
 	public void drawSound() {
 
 		ImageIcon soundIcon;
@@ -184,6 +184,7 @@ public class MenuBar extends JLabel {
 		});
 	}
 
+	// m
 	public void drawStart() {
 		JLabel start = new JLabel(start_off);
 		start.setSize(240, 40);
@@ -209,6 +210,7 @@ public class MenuBar extends JLabel {
 
 	}
 
+	// m
 	public void drawLeader() {
 		JLabel leader = new JLabel(leader_off);
 		leader.setSize(240, 40);
@@ -233,6 +235,7 @@ public class MenuBar extends JLabel {
 		});
 	}
 
+	// m
 	public void drawQuit() {
 		JLabel quit = new JLabel(quit_off);
 		quit.setSize(240, 40);
@@ -257,6 +260,7 @@ public class MenuBar extends JLabel {
 		});
 	}
 
+	// m
 	public void drawExitToMenu() {
 		JLabel exit = new JLabel(exit_menu_off);
 		exit.setSize(240, 40);
@@ -283,6 +287,7 @@ public class MenuBar extends JLabel {
 		});
 	}
 
+	// d
 	public void drawResume() {
 		JLabel resume = new JLabel(resume_off);
 		resume.setSize(240, 40);
@@ -308,6 +313,7 @@ public class MenuBar extends JLabel {
 		});
 	}
 
+	// d
 	@SuppressWarnings("deprecation")
 	private void resumeGame() {
 		try {
@@ -317,17 +323,18 @@ public class MenuBar extends JLabel {
 			game.getEnemyBombThread().resume();
 			game.getGridThread().resume();
 			game.getSpecialAlienThread().resume();
-			game.getInvincible().resume();
+			game.getInvincibleThread().resume();
 			currentTime = System.currentTimeMillis();
 		} catch (Exception e) {
 
 		}
 	}
 
+	// d
 	public long getCurrentTime() {
 		return currentTime;
 	}
-
+	//d
 	public void setCurrentTime(long currentTime) {
 		this.currentTime = currentTime;
 	}

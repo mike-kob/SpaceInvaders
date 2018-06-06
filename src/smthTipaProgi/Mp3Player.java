@@ -14,9 +14,9 @@ public class Mp3Player {
 	private FileInputStream fis;
 	private BufferedInputStream bis;
 	private Player player;
-
-	public Mp3Player(String str) {
-		file = new File(str);
+	//d
+	public Mp3Player(String fileName) {
+		file = new File(fileName);
 		fis = null;
 		try {
 			fis = new FileInputStream(file);
@@ -24,7 +24,7 @@ public class Mp3Player {
 		}
 		bis = new BufferedInputStream(fis);
 	}
-
+	//d
 	public void play() {
 		try {
 			player = new Player(bis);
@@ -32,7 +32,7 @@ public class Mp3Player {
 		} catch (JavaLayerException e) {
 		}
 	}
-
+	//d
 	public void close() {
 		player.close();
 	}

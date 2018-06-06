@@ -14,7 +14,7 @@ import java.util.Comparator;
 public class ListOfRecords {
 	private ArrayList<RecordField> list;
 	private final Comparator<RecordField> BY_POINTS = new ByPoints();
-
+	//d
 	public ListOfRecords(String str) throws IOException {
 		list = new ArrayList<RecordField>();
 		BufferedReader first = new BufferedReader(new FileReader("results.txt"));
@@ -28,7 +28,7 @@ public class ListOfRecords {
 		Collections.sort(list, BY_POINTS);
 		Collections.reverse(list);
 	}
-
+	//d
 	public void add(RecordField cur) throws IOException {
 		list.add(cur);
 		Collections.sort(list, BY_POINTS);
@@ -47,21 +47,21 @@ public class ListOfRecords {
 		}
 		out1.close();
 	}
-
+	//d
 	public int getSize() {
 		return list.size();
 	}
-
+	//d
 	public RecordField getObject(int i) {
 		return list.get(i);
 	}
-
+	//d
 	public int getIndex(RecordField rf) {
 		return list.indexOf(rf);
 	}
 
 }
-
+//d
 class ByPoints implements Comparator<RecordField> {
 
 	public int compare(RecordField first, RecordField second) {

@@ -13,25 +13,25 @@ public class Rocket extends JLabel {
 	private static final long serialVersionUID = 1L;
 	private final int STEP = 3;
 	private Game game = GameManager.getCurrentGame();
-
+	//m
 	public Rocket(int x, int y) {
 		super(new ImageIcon(Const.ROCKET_PATH));
 		setSize(100, 140);
 		setLocation(x, y);
 	}
-
+	//m
 	public void left() {
 		if (this.getX() + 20 > 0) {
 			move(this, -STEP);
 		}
 	}
-
+	//m
 	public void right() {
 		if (this.getX() + this.getWidth() < 1280) {
 			move(this, STEP);
 		}
 	}
-
+	//m
 	private void move(Rocket rocket, int step) {
 		int y = this.getY();
 		new Thread() {
@@ -44,7 +44,7 @@ public class Rocket extends JLabel {
 			}
 		}.start();
 	}
-
+	//m
 	public void explode(boolean fail) {
 		ImageIcon boom = new ImageIcon(Const.BOOM_PATH);
 		int x = this.getX();
@@ -65,7 +65,7 @@ public class Rocket extends JLabel {
 			game.getLp().repaint();
 		}
 	}
-	
+	//m
 	public boolean plusLife(JLabel aid) {
 		int x = this.getX();
 		int y = this.getY();
@@ -75,7 +75,7 @@ public class Rocket extends JLabel {
 		}
 		return false;
 	}
-	
+	//m
 	public boolean isHit(Dynamite dyn) {
 		int x = this.getX();
 		int y = this.getY();
@@ -85,7 +85,7 @@ public class Rocket extends JLabel {
 		}
 		return false;
 	}
-
+	//m
 	private void pause(int millis) {
 		try {
 			Thread.sleep(millis);

@@ -14,14 +14,14 @@ public class GameListener implements KeyListener, Runnable {
 	private boolean attackable = true;
 	private ImageIcon glow = new ImageIcon(Const.ROCKET_GLOW_PATH);
 	private Game game = GameManager.getCurrentGame();
-	
+	//m
 	public GameListener() {
 		new Thread(this).start();
 	}
-
+	//m
 	public void keyTyped(KeyEvent ke) {
 	}
-
+	//m
 	public void keyPressed(KeyEvent ke) {
 		switch (ke.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
@@ -35,7 +35,7 @@ public class GameListener implements KeyListener, Runnable {
 			break;
 		}
 	}
-
+	//m
 	public void keyReleased(KeyEvent ke) {
 		switch (ke.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
@@ -49,7 +49,7 @@ public class GameListener implements KeyListener, Runnable {
 			break;
 		}
 	}
-
+	//m
 	public void run() {
 		while (game.isRunning()) {
 			if (isLeftPressed&& game.isRunning()) {
@@ -85,7 +85,7 @@ public class GameListener implements KeyListener, Runnable {
 			pause(20);
 		}
 	}
-
+	//m
 	private void makeInvincible() {
 		game.setInvincible(new Thread() {
 			public void run() {
@@ -97,9 +97,9 @@ public class GameListener implements KeyListener, Runnable {
 				attackable = true;
 			}
 		});
-		game.getInvincible().start();
+		game.getInvincibleThread().start();
 	}
-	
+	//m
 	private void pause(long millis) {
 		try {
 			Thread.sleep(millis);

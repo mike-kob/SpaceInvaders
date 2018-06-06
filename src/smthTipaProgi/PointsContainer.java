@@ -12,7 +12,7 @@ public class PointsContainer {
 	private JLabel label;
 	private int count;
 	private Game game = GameManager.getCurrentGame();
-	
+	//d
 	public void draw(int score) {
 		count = score;
 		label = new JLabel();
@@ -23,7 +23,7 @@ public class PointsContainer {
 		label.setSize(500,60);
 		game.getLp().add(label, Const.LIVES_LAYER);
 	}
-	
+	//d
 	public void change(int rang) {
 		count+=rang;
 		label.setText("Points: "+String.valueOf(count));
@@ -31,15 +31,9 @@ public class PointsContainer {
 		label.repaint();
 		game.score = count;
 	}
-	
+	//d
 	public void delete() {
 		
 		game.getLp().remove(label);
 	}
-	
-	
-	
-
-	
-	
 }
