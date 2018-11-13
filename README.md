@@ -1,16 +1,6 @@
-# smthTipaProgi
-Проблемы будущих нас: 
-глыбы под разным углом
-глыбы с рандомным тресканьем 
-динамит с рандомной скоростью 
-ракеты взрываются 
-сделать константой полосу жизни
-очки
-жизнь
-ускорения
-вылетающий пришелец(гифка)
-назвать нормально фотки и методы и переменные
+# SpaceInvaders
 
+The point of the game is to score as many points as you can. The levels go on for ever with the steady growth of complexity till the certain point.
+The score is recorded, if you want. You can see the results in leaderboard from the main menu.
 
-----------------
-https://stackoverflow.com/questions/25635636/eclipse-exported-runnable-jar-not-showing-images
+The game is written in Java. We used Swing library to create GUI.
